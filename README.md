@@ -12,7 +12,7 @@ LendIt is a Webapp that provides local people platform offering landing and rent
 
     Not functioning things
 
-  - All the buttons is not functioning yet
+  - All the buttons are not functioning yet
   
 
 

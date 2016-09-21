@@ -4,9 +4,9 @@ var bodyParser= require('body-parser');
 
 
 var app = express();
+// create a collection named time-waste in your local mongodb server to run this line of code
+mongoose.connect('mongodb://localhost:27017/time-waste')
 
-//mongoose.connect('mongodb://localhost:27017/time-waste')
-mongoose.connect('mongodb://khanh:khanh@ds033056.mlab.com:33056/time-waste');
 app.use(bodyParser.json());
 //app.use(multipartMiddleware);
 app.use('/public',express.static(__dirname + "/public"));

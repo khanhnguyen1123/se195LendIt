@@ -1,0 +1,41 @@
+<nav class="navbar navbar-default navbar-inverse navbar-fixed-top" >
+		<div class="container-fluid">
+			</==== logo===>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavBar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a ui-sref="home" class="navbar-brand"> LendIt        </a>
+			</div>
+			</--- menu items--->
+			<div class="collapse navbar-collapse" id="mainNavBar">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Dashboard</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Lending Tool</a></li>
+
+					</== drop down menu ==>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">My Pfofile <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#"> Friends</a></li>
+							<li><a href="#"> History</a></li>
+							<li><a href="#"> Payment</a></li>
+						</ul>
+					</li>
+				</ul>
+
+				<!---right align logout button-->
+				<ul class="nav navbar-nav navbar-right">
+					<li ng-hide="navvm.isLoggedIn"><a ui-sref="login">Sign in</a></li>
+        			<li ng-show="navvm.isLoggedIn"><a ui-sref="profile">{{ navvm.currentUser.name }}</a></li>
+					<li><a href="#"> Logout</a></li>
+					
+				</ul>
+
+			</div>
+		</div>
+		
+	</nav>

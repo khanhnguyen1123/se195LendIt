@@ -9,10 +9,11 @@ var auth = jwt({
   userProperty: 'payload'
 });
 
-reuqire('./server/controllers/passport');
+require('./server/controllers/passport');
 
 var app = express();
 var authenticationController = require('./server/controllers/authentication');
+var profileAuthenticationController = require('./server/controllers/profile');
 
 //  [khanh] create a collection named time-waste in your local mongodb server to run this line of code
 mongoose.connect('mongodb://localhost:27017/time-waste')
@@ -34,7 +35,7 @@ app.post('/api/user/register', authenticationController.register);
 app.post('/api/user/login', authenticationController.login);
 
 // profile
-app.get('/api/profile', auth, authenticationController.profileRead);
+app.get('/api/profile', auth, profileAuthenticationController.profileRead);
 
 var port = process.env.PORT  || 5000;
 app.listen(port, function(){

@@ -13,6 +13,11 @@
     vm.currentUser = authentication.currentUser();
 
     //adding logout
+    vm.logout = function(){
+    	console.log("khanh logout is pressed ");
+    	authentication.logout();
+    	$location.path('home');
+    };
   }
 
 })();

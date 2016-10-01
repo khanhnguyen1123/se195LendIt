@@ -16,7 +16,8 @@ var authenticationController = require('./server/controllers/authentication');
 var profileAuthenticationController = require('./server/controllers/profile');
 
 //  [khanh] create a collection named time-waste in your local mongodb server to run this line of code
-mongoose.connect('mongodb://localhost:27017/time-waste')
+//mongoose.connect('mongodb://localhost:27017/time-waste')
+mongoose.connect('mongodb://lendit:lendit@ds047146.mlab.com:47146/lendit');
 
 app.use(bodyParser.json());
 //app.use(multipartMiddleware);

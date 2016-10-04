@@ -31,7 +31,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li ng-hide="navvm.isLoggedIn"><a ui-sref="login">Sign in</a></li>
         			<li ng-show="navvm.isLoggedIn"><a ui-sref="profile">{{ navvm.currentUser.name }}</a></li>
-					<li><a href="#" ng-click="navvm.logout()"> Logout</a></li>
+					<li><a  ng-click="navvm.logout()" href="#"> Logout</a></li>
 					
 				</ul>
 

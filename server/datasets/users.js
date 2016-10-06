@@ -6,14 +6,30 @@ var userSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    required: true
+   // required: true
   },
   name: {
     type: String,
-    required: true
+  //  required: true
   },
   hash: String,
-  salt: String
+  salt: String,
+  facebook: {
+        fbid:{
+            type: String,
+            trim: true
+        },
+        token:{
+            type: String
+        },
+        displayName:{
+            type: String
+        },
+        email:{
+            type: String
+        }
+        
+    }
 });
 
 userSchema.methods.setPassword = function(password){

@@ -34,9 +34,26 @@ app.get('/',function(req,res){
 // authentication
 app.post('/api/user/register', authenticationController.register);
 app.post('/api/user/login', authenticationController.login);
+//facebook authentication
+app.get('/auth/facebook', passport.authenticate('facebook', { scope : ['email'] }));
+/*
+app.get('/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            successRedirect: '/#/register',
+            failureRedirect: '/#/login'
+        }));
+*/
+app.get('/auth/facebook/callback',
+        passport.authenticate('facebook', { failureRedirect: '/#/login' }),
+        function(req, res) {
+            console.log("khanh testing new call back"+req.user.name+ " user boby "+req.user.generateJwt());
+            
+            res.redirect('/#/register');
 
+        });
 // profile
 app.get('/api/profile', auth, profileAuthenticationController.profileRead);
+
 
 var port = process.env.PORT  || 5000;
 app.listen(port, function(){

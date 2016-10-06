@@ -18,7 +18,7 @@
     	authentication.logout();
     	// try to fix bug: call vm.isloggedin again to clear bug of pressing logout
       vm.isLoggedIn = authentication.isLoggedIn();
-    	$location.path('home');
+    	$location.path('/');
     };
   }
 

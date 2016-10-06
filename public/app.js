@@ -4,7 +4,7 @@
 
   function config ($stateProvider, $urlRouterProvider, $locationProvider) {
     
-    $urlRouterProvider.otherwise('/');
+  //  $urlRouterProvider.otherwise('/');
     $stateProvider
       .state('home', {
         url: '/',

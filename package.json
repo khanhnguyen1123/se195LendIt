@@ -1,4 +1,20 @@
 {
+<<<<<<< HEAD
+  "name": "se195project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.6.0"
+=======
   "name": "user",
   "version": "1.0.0",
   "description": "This is a user Story app",
@@ -17,5 +33,6 @@
     "morgan": "^1.7.0",
     "nodemon": "^1.9.1",
     "socket.io": "^1.4.5"
+>>>>>>> d9bfbcba048b0c491c4f773330fbbc250bd2ccdd
   }
 }

@@ -6,6 +6,7 @@ module.exports.profileRead = function(req, res) {
   console.log("khanh test inside profile "+req.payload.email+"  khanh "+req.payload._id+ " khanh "+req.body);
 
   if (!req.payload._id) {
+      console.log("khanh Req.payload._id is not exist in side profileRead"+req.payload._id);
     res.status(401).json({
       "message" : "UnauthorizedError: private profile"
     });

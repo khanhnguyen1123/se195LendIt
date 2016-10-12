@@ -30,6 +30,11 @@
         controller: 'profileCtrl'
      
       })
+      .state('fbredirect',{
+        url: '/fbredirect',
+        templateUrl: 'public/fbpage/fb.view.html',
+        controller: 'fbcontroller'
+      })
       
 
     // use the HTML5 History API
@@ -42,7 +47,9 @@
 
   function run($rootScope, $location, authentication) {
     $rootScope.$on('$stateChangeStart', function(event, nextRoute, currentRoute) {
+      console.log("khanh before running to check for authentication in /profile  ");
       if ($location.path() === '/profile' && !authentication.isLoggedIn()) {
+        console.log("khanh after running to check for authentication in /profile  ");
         $location.path('/');
       }
     });

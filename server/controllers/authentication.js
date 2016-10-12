@@ -15,22 +15,33 @@ module.exports.register = function(req, res) {
   //   });
   //   return;
   // }
+  User.findOne({'email': req.body.email}, function (err, user) {
+                    if(user){
+                      console.log("User's email alraedy used. Please use different email to signup ");
+                      res.status(404).json(err+" User's email alraedy uesed. Please use different email to signup");
+                    }
+                    else {
+                      var user = new User();
 
-  var user = new User();
+                      user.name = req.body.name;
+                      user.email = req.body.email;
 
-  user.name = req.body.name;
-  user.email = req.body.email;
+                      user.setPassword(req.body.password);
 
-  user.setPassword(req.body.password);
+                      user.save(function(err) {
+                        var token;
+                        token = user.generateJwt();
+                        res.status(200);
+                        res.json({
+                          "token" : token
+                        });
+                      });
 
-  user.save(function(err) {
-    var token;
-    token = user.generateJwt();
-    res.status(200);
-    res.json({
-      "token" : token
-    });
-  });
+                    }//end else
+
+              });
+
+  
 
 };
 

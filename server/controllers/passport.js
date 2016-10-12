@@ -31,12 +31,14 @@ passport.use(new LocalStrategy({
 
 // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
+        console.log("khanh inside serializeUser "+user._id);
         done(null, user._id);
     });
 
     // used to deserialize the user
-    passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
+    passport.deserializeUser(function(user, done) {
+      console.log("khanh inside deserializeUser "+user._id);
+        User.findById(user._id, function(err, user) {
             done(err, user);
         });
     });
@@ -58,7 +60,9 @@ passport.use(new FacebookStrategy({
                     console.log(profile);
                     if (err) return done(err);
                     if (user) {
-                        console.log("Khanh find user in Lendit system,  no need to creat new user"+user);
+                        console.log(" Khanh find user in Lendit system,  no need to creat new user"+user );
+                        var tk = user.generateJwt();
+                        console.log(" Khanh find user in Lendit system,  generateJwt "+tk );
                         done(null, user);
                         
                     } else {

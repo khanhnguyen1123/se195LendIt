@@ -1,8 +1,8 @@
 (function () {
 
-  angular.module('meanApp', ['ui.router']);
+  angular.module('meanApp', ['ui.router','angular-filepicker']);
 
-  function config ($stateProvider, $urlRouterProvider, $locationProvider) {
+  function config ($stateProvider, $urlRouterProvider, $locationProvider,filepickerProvider) {
     
   //  $urlRouterProvider.otherwise('/');
     $stateProvider
@@ -43,6 +43,9 @@
       enabled: true,
       requireBase: false
     });
+
+    //Add the API key to use filestack service
+    filepickerProvider.setKey('ApAG1hn5GRCymw8vG9TUYz');
   }
 
   function run($rootScope, $location, authentication) {
@@ -57,7 +60,7 @@
   
   angular
     .module('meanApp')
-    .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', config])
+    .config(['$stateProvider', '$urlRouterProvider', '$locationProvider','filepickerProvider', config])
     .run(['$rootScope', '$location', 'authentication', run]);
 
 })();

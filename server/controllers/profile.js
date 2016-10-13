@@ -20,3 +20,25 @@ module.exports.profileRead = function(req, res) {
   }
 
 };
+
+module.exports.updatePhoto= function(req,res){
+  var userId = req.body._id;
+  console.log('khanh in side update photto  :'+req.body._id);
+  var image = req.body.profileImage;
+  User.findById(userId, function(err, userData){
+                var user = userData;
+                user.profileImage = image;
+                user.save(function(err){
+                    if (err){
+                        console.log("failed save")
+                        res.json({status: 500})
+                    } else {
+                        console.log("save successful");
+                        
+                        res.json({status: 200})
+                    }
+                })
+            });
+};
+
+

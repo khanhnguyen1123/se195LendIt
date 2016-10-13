@@ -73,6 +73,7 @@ app.post('/api/user/fbRedirectLogin',function(req,res){
 
 // profile
 app.get('/api/profile', auth, profileAuthenticationController.profileRead);
+app.post('/api/profile/editPhoto',profileAuthenticationController.updatePhoto);
 
 
 var port = process.env.PORT  || 5000;

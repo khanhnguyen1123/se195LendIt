@@ -16,10 +16,8 @@
     $scope.vm.onSubmit = function () {
       authentication
         .login($scope.vm.credentials)
-        .error(function(err){
-          console.log("khanh in side login controller error ");
+        .error(function(err){          
           alert(err);
-
         })
         .then(function(){
           $location.path('profile');

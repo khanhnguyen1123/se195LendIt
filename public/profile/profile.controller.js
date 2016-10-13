@@ -13,7 +13,7 @@
     meanData.getProfile()
       .success(function(data) {
         $scope.vm.user = data;
-        console.log(data);
+        console.log('khanh print out data in profile controller'+data.email);
       })
       .error(function (e) {
         console.log(e);

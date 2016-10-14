@@ -4,12 +4,12 @@
 
 LendIt is a web based application that provides users the ability to rent, borrow, and/or request items. This projects is using a MEAN stack for implementation.
 
-    Functional Features
+  Functional Features
   - Successful setup of the MEAN stack environment
   - Connection to MongoDb database using Mongoose module
   - Completed initial testing deployment to Heroku. Click the link to see the Webapp on Heroku  https://se195lendit.herokuapp.com/
 
-    Non-functional features
+  Non-functional features
   - All buttons do nothing
   
 

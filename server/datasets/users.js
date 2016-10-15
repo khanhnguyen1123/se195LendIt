@@ -16,6 +16,10 @@ var userSchema = new mongoose.Schema({
   profileImage:{
     type: Schema.Types.Mixed
   },
+  address: String,
+  billingAddress: String,
+  phone: String,
+  paypalAccount: String,
   hash: String,
   salt: String,
   facebook: {

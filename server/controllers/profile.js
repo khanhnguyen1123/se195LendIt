@@ -41,4 +41,40 @@ module.exports.updatePhoto= function(req,res){
             });
 };
 
+module.exports.editProfile= function(req,res){
+  var userId = req.body._id;
+  User.findById(userId,function(err,userData){
+                var user = userData;
+                if (req.body.name) user.name = req.body.name;
+                if (req.body.address) user.address = req.body.address;
+                if (req.body.phone) user.phone = req.body.phone;
+                if (req.body.billingAddress) user.billingAddress = req.body.billingAddress;
+                if (req.body.paypalAccount) user.paypalAccount = req.body.paypalAccount;
+              /* 
+                if (req.body.email) {
+                  User.findOne({'email': req.body.email}, function (err, user) {
+                    if(user){
+                      console.log("User's email alraedy used. Please use different email to signup ");
+                      res.status(404).json(err+" User's email alraedy uesed. Please use different email to signup");
+                    }
+                     
+                  }) 
+                  user.email = req.body.email;
+                }
+              */
+                user.save(function(err){
+                    if (err){
+                        console.log("failed save")
+                        res.json({status: 500})
+                    } else {
+                        console.log("save successful");
+                        
+                        res.json({status: 200})
+                    }
+                })
+
+
+            });
+}; // end editProfile module
+
 

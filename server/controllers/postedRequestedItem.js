@@ -16,3 +16,24 @@ module.exports.post = function(req, res){
       });
 }; // end post requested item
 
+
+// get all requested items
+module.exports.getAll = function(req, res){
+      //Query the DB and if no errors, send all the superheroes
+      var query = RequestedItem.find({});
+      query.exec(function(err, requestedItems){
+        if(err) res.send(err);
+        //If no errors, send them back to the client
+        res.json(requestedItems);
+      });
+}; // end get all requested items
+
+// get a requestd item by id
+module.exports.getOne = function(req, res){
+  console.log('khanh inside get one to test passing id: '+req.params.id);
+      RequestedItem.findById(req.params.id, function(err, requestedItem){
+        if(err) res.send(err);
+        //If no errors, send it back to the client
+        res.json(requestedItem);
+      });   
+};

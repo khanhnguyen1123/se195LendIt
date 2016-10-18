@@ -79,6 +79,8 @@ app.post('/api/profile/editProfile',profileAuthenticationController.editProfile)
 
 // post requested or lending items
 app.post('/api/requestedItem/post',postedRequestedItemController.post);
+app.get('/api/requestedItem/get',postedRequestedItemController.getAll);
+app.get('/api/requestedItem/get/:id',postedRequestedItemController.getOne);
 
 
 var port = process.env.PORT  || 5000;

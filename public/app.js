@@ -35,7 +35,16 @@
         templateUrl: 'public/fbpage/fb.view.html',
         controller: 'fbcontroller'
       })
-      
+      .state('request',{
+        url: '/request',
+        templateUrl: 'public/request/request.view.html',
+        controller: 'requestController'
+      })
+      .state('detail',{
+        url: '/detail/:random',
+        templateUrl: 'public/detail/detail.view.html',
+        controller: 'detailController'
+      })
 
     // use the HTML5 History API
     //$locationProvider.html5Mode(true);

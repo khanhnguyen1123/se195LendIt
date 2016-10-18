@@ -18,6 +18,7 @@ require('./server/controllers/passport');
 var app = express();
 var authenticationController = require('./server/controllers/authentication');
 var profileAuthenticationController = require('./server/controllers/profile');
+var postedRequestedItemController = require('./server/controllers/postedRequestedItem');
 
 //  [khanh] create a collection named time-waste in your local mongodb server to run this line of code
 mongoose.connect('mongodb://localhost:27017/time-waste')
@@ -75,6 +76,9 @@ app.post('/api/user/fbRedirectLogin',function(req,res){
 app.get('/api/profile', auth, profileAuthenticationController.profileRead);
 app.post('/api/profile/editPhoto',profileAuthenticationController.updatePhoto);
 app.post('/api/profile/editProfile',profileAuthenticationController.editProfile);
+
+// post requested or lending items
+app.post('/api/requestedItem/post',postedRequestedItemController.post);
 
 
 var port = process.env.PORT  || 5000;

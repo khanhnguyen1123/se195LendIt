@@ -20,6 +20,9 @@ var userSchema = new mongoose.Schema({
   billingAddress: String,
   phone: String,
   paypalAccount: String,
+    requestedItems:[{requestedItemId: String}],
+    rentedItems:[{rentedItemId: String}],
+    borrowedItems: [{borrowedItemId: String}],
   hash: String,
   salt: String,
   facebook: {

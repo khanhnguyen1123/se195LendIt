@@ -3,7 +3,7 @@
 ![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)
 
 LendIt is a web based application that provides users the ability to rent, borrow, and/or request items. This projects is using a MEAN stack for implementation.
-Live Link: https://se195lendit.herokuapp.com/
+Live Link: https://lendit195.herokuapp.com/
 
 Functional Features
   - Successful setup of the MEAN stack environment

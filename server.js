@@ -35,7 +35,7 @@ app.use(passport.initialize());
 
 
 app.get('/',function(req,res){
-    res.sendFile(__dirname+'/index.html');
+	res.sendFile(__dirname+'/index.html');
 });
 
 
@@ -58,16 +58,16 @@ app.get('/auth/facebook/callback',
          //   console.log("inside facebook call back to test auth id "+auth+ " end auth ");
          //   authenticationController.login(req,res.redirect("/#/user/login"));
           //  res.redirect('/#/register?access_token='+req.user.generateJwt());
-        //  res.send('khanh nguyen');
-        //  res.json({'khanh ng': 'tran','email':req.user.email});
-            fbVerifyCurrentUserToken = req.user.generateJwt();
-            res.redirect("/#/fbredirect");  
+     	//	res.send('khanh nguyen');
+     	//	res.json({'khanh ng': 'tran','email':req.user.email});
+     		fbVerifyCurrentUserToken = req.user.generateJwt();
+     		res.redirect("/#/fbredirect");	
 
         });
 
 app.post('/api/user/fbRedirectLogin',function(req,res){
-    console.log("khanh inside fbRedirectLogin "+fbVerifyCurrentUserToken);
-    res.json({
+	console.log("khanh inside fbRedirectLogin "+fbVerifyCurrentUserToken);
+	res.json({
         "token" : fbVerifyCurrentUserToken
       });
 });
@@ -85,5 +85,5 @@ app.get('/api/requestedItem/get/:id',postedRequestedItemController.getOne);
 
 var port = process.env.PORT  || 5000;
 app.listen(port, function(){
-    console.log("SE 195 Successfull connected to mongodb server (local host: )"+port);
+	console.log("SE 195 Successfull connected to mongodb server (local host: )"+port);
 });

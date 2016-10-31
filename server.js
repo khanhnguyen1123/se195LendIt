@@ -1,67 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-/************************************************************************
-* REQUIRE MODULES
-************************************************************************/
-var express = require ( 'express');
-var bodyParser = require ('body-parser');
-var morgan = require ('morgan');
-var config = require ('./config');
-var mongoose = require('mongoose');
-
-var app = express();
-
-
-
-/************************************************************************
-* DATABASE CONNECTION
-************************************************************************/
-
-mongoose.connect(config.database, function(err){
-	if (err){
-		console.log(err);
-	}else{
-		console.log('Connected to the database');
-	}
-
-
-});
-
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-app.use(morgan('dev'));
-
-
-app.use(express.static(__dirname + '/public'));
-
-
-var api = require('./app/routes/api')(app,express);
-app.use ('/api', api);
-
-
-
-
-app.get ('*',function(req, res)
-{
-
-	res.sendFile (__dirname + '/public/app/views/index.html');
-
-});
-
-
-app.listen(config.port,function (err){
-
-    if (err){
-    	console.log(err);
-    }
-    
-    else {
-    	console.log("Listening on port 3000");
-    }
-
-=======
-=======
->>>>>>> e5d175421efaea218150a4420ef79edcec25ce89
 var express = require('express');
 var mongoose = require('mongoose');
 var cookieParser = require('cookie-parser');
@@ -99,7 +35,7 @@ app.use(passport.initialize());
 
 
 app.get('/',function(req,res){
-	res.sendFile(__dirname+'/index.html');
+    res.sendFile(__dirname+'/index.html');
 });
 
 
@@ -122,16 +58,16 @@ app.get('/auth/facebook/callback',
          //   console.log("inside facebook call back to test auth id "+auth+ " end auth ");
          //   authenticationController.login(req,res.redirect("/#/user/login"));
           //  res.redirect('/#/register?access_token='+req.user.generateJwt());
-     	//	res.send('khanh nguyen');
-     	//	res.json({'khanh ng': 'tran','email':req.user.email});
-     		fbVerifyCurrentUserToken = req.user.generateJwt();
-     		res.redirect("/#/fbredirect");	
+        //  res.send('khanh nguyen');
+        //  res.json({'khanh ng': 'tran','email':req.user.email});
+            fbVerifyCurrentUserToken = req.user.generateJwt();
+            res.redirect("/#/fbredirect");  
 
         });
 
 app.post('/api/user/fbRedirectLogin',function(req,res){
-	console.log("khanh inside fbRedirectLogin "+fbVerifyCurrentUserToken);
-	res.json({
+    console.log("khanh inside fbRedirectLogin "+fbVerifyCurrentUserToken);
+    res.json({
         "token" : fbVerifyCurrentUserToken
       });
 });
@@ -149,9 +85,5 @@ app.get('/api/requestedItem/get/:id',postedRequestedItemController.getOne);
 
 var port = process.env.PORT  || 5000;
 app.listen(port, function(){
-	console.log("SE 195 Successfull connected to mongodb server (local host: )"+port);
-<<<<<<< HEAD
->>>>>>> 091f37c7262547eb677881e2446d8f90016ba831
-=======
->>>>>>> e5d175421efaea218150a4420ef79edcec25ce89
+    console.log("SE 195 Successfull connected to mongodb server (local host: )"+port);
 });

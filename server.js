@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /************************************************************************
 * REQUIRE MODULES
 ************************************************************************/
@@ -59,6 +60,8 @@ app.listen(config.port,function (err){
     }
 
 =======
+=======
+>>>>>>> e5d175421efaea218150a4420ef79edcec25ce89
 var express = require('express');
 var mongoose = require('mongoose');
 var cookieParser = require('cookie-parser');
@@ -147,5 +150,8 @@ app.get('/api/requestedItem/get/:id',postedRequestedItemController.getOne);
 var port = process.env.PORT  || 5000;
 app.listen(port, function(){
 	console.log("SE 195 Successfull connected to mongodb server (local host: )"+port);
+<<<<<<< HEAD
 >>>>>>> 091f37c7262547eb677881e2446d8f90016ba831
+=======
+>>>>>>> e5d175421efaea218150a4420ef79edcec25ce89
 });

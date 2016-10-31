@@ -1,123 +1,50 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
-<html>
-=======
 <html ng-app='meanApp'>
->>>>>>> 091f37c7262547eb677881e2446d8f90016ba831
-<head>
-	<title>lendIt</title>
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<<<<<<< HEAD
-</head>
-<body >
-	
-	<nav class="navbar navbar-default navbar-inverse navbar-fixed-top" >
-		<div class="container-fluid">
-			</==== logo===>
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavBar">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a href="#" class="navbar-brand"> LendIt        </a>
-			</div>
-			</--- menu items--->
-			<div class="collapse navbar-collapse" id="mainNavBar">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Dashboard</a></li>
-					<li><a href="#">About</a></li>
-					<li><a href="#">Lending Tool</a></li>
-
-					</== drop down menu ==>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">My Pfofile <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#"> Friends</a></li>
-							<li><a href="#"> History</a></li>
-							<li><a href="#"> Payment</a></li>
-						</ul>
-					</li>
-				</ul>
-
-				<!---right align logout button-->
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"> Logout</a></li>
-					
-				</ul>
-
-			</div>
-		</div>
-		
-	</nav>
-=======
-   	
-
-</head>
-<body >
-		
-	
->>>>>>> 091f37c7262547eb677881e2446d8f90016ba831
-
-	
+    <head>
+        <title>LendIt</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>	
+    </head>
+    <body>
 		<!-- page content  -->
 		<div id="page-content-wrapper" style="width: 100%; position: absolute;padding: 90px ">
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						
 						<h1>SE 195 Successfull connected to mongodb server </h1>
-<<<<<<< HEAD
-						
-=======
 						<div ui-view></div>
->>>>>>> 091f37c7262547eb677881e2446d8f90016ba831
 					</div>
 				</div>
 			</div>
 		</div>
+    </body>
 
-<<<<<<< HEAD
-	
-=======
-		
->>>>>>> 091f37c7262547eb677881e2446d8f90016ba831
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+    <script src="public/library/filepicker.js"></script>
+    <script src="public/library/angular_filepicker.js"></script>
+    <!-- controllers -->
+    <script src="public/app.js"></script>
+    <script src='public/common/services/authentication.service.js'></script>
+    <script src='public/common/services/data.service.js'></script>
+    <script src='public/auth/login/login.controller.js'></script>
+    <script src='public/auth/register/register.controller.js'></script>
+    <script src='public/common/directives/navigation/navigation.controller.js'></script>
+    <script src='public/common/directives/navigation/navigation.directive.js'></script>
+    <script src='public/home/home.controller.js'></script>
+    <script src='public/profile/profile.controller.js'></script>
+    <script src='public/fbpage/fb.controller.js'></script>
+    <script src="public/profile/updateProfileImage.controller.js"></script>
+    <script src="public/profile/editProfile.js"></script>
+    <script src="public/profile/postRequestedItem.js"></script>
+    <script src="public/request/request.controller.js"></script>
+    <script src="public/detail/detail.controller.js"></script>
+    <!-- Controlers    -->
 
-		
-	
-</body>
-
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
-<<<<<<< HEAD
-=======
-<script src="public/library/filepicker.js"></script>
-<script src="public/library/angular_filepicker.js"></script>
-<!-- controllers -->
-<script src="public/app.js"></script>
-<script src='public/common/services/authentication.service.js'></script>
-<script src='public/common/services/data.service.js'></script>
-<script src='public/auth/login/login.controller.js'></script>
-<script src='public/auth/register/register.controller.js'></script>
-<script src='public/common/directives/navigation/navigation.controller.js'></script>
-<script src='public/common/directives/navigation/navigation.directive.js'></script>
-<script src='public/home/home.controller.js'></script>
-<script src='public/profile/profile.controller.js'></script>
-<script src='public/fbpage/fb.controller.js'></script>
-<script src="public/profile/updateProfileImage.controller.js"></script>
-<script src="public/profile/editProfile.js"></script>
-<script src="public/profile/postRequestedItem.js"></script>
-<script src="public/request/request.controller.js"></script>
-<script src="public/detail/detail.controller.js"></script>
->>>>>>> 091f37c7262547eb677881e2446d8f90016ba831
-<!-- Controlers    -->
-
-<!--Libraries -->
+    <!--Libraries -->
 
 
 </html>

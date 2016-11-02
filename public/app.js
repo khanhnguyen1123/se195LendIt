@@ -45,6 +45,16 @@
         templateUrl: 'public/detail/detail.view.html',
         controller: 'detailController'
       })
+      .state('lending',{
+        url: '/lending',
+        templateUrl: 'public/lending/lending.view.html',
+        controller: 'lendingController'
+      })
+      .state('lendingItemdetail',{
+        url: '/lendingItemdetail/:random',
+        templateUrl: 'public/detailLendingItem/lendingItemDetail.view.html',
+        controller: 'lendingItemDetailController'
+      })
 
     // use the HTML5 History API
     //$locationProvider.html5Mode(true);

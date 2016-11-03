@@ -1,18 +1,27 @@
 var mongoose = require('mongoose');
-//var User = mongoose.model('User');
+var User = mongoose.model('User');
 //var LendingItem = mongoose.model('LendingItem');
 var LendingItem = require('../datasets/lendingItems.js');
 
 // post Lending item
 module.exports.post = function(req, res){
-      //Creates a new superhero
+      //Creates a new 
       var newLendingItem = new LendingItem(req.body);
+      var itemId;
       //Save it into the DB.
-      newLendingItem.save(function(err){
+      newLendingItem.save(function(err,item){
         if(err) res.send(err);
         //If no errors, send it back to the client
+        itemId = item._id;
         res.json(req.body);
 
+      });
+      // add this requested item to user lending items list
+      User
+      .findById(req.body.ownerId)
+      .exec(function(err, user) {
+        user.lendingItems.push({lendingItemId: ItemId});
+        user.save();
       });
 }; // end post Lending item
 

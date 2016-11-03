@@ -1,18 +1,28 @@
 var mongoose = require('mongoose');
-//var User = mongoose.model('User');
+var User = mongoose.model('User');
 //var RequestedItem = mongoose.model('RequestedItem');
 var RequestedItem = require('../datasets/requestedItems.js');
 
 // post requested item
 module.exports.post = function(req, res){
-      //Creates a new superhero
+      //Creates a new 
       var newRequestedItem = new RequestedItem(req.body);
+      var ItemId;      
       //Save it into the DB.
-      newRequestedItem.save(function(err){
+      newRequestedItem.save(function(err,item){
         if(err) res.send(err);
         //If no errors, send it back to the client
+        ItemId = item._id;
+        console.log("tetsing to get Item ID inside save function"+item._id);
         res.json(req.body);
 
+      });
+      // add this requested item to user requested items list
+      User
+      .findById(req.body.ownerId)
+      .exec(function(err, user) {
+        user.requestedItems.push({requestedItemId: ItemId});
+        user.save();
       });
 }; // end post requested item
 

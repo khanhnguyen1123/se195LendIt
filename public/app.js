@@ -30,6 +30,11 @@
         controller: 'profileCtrl'
      
       })
+      .state('publicProfile',{
+        url: '/publicProfile/:random',
+        templateUrl: 'public/publicProfile/publicProfile.view.html',
+        controller: 'publicProfileController'
+      })
       .state('fbredirect',{
         url: '/fbredirect',
         templateUrl: 'public/fbpage/fb.view.html',
@@ -77,6 +82,9 @@
 
 
     });
+
+    $state.go('publicProfile');
+    $state.go('login');
     console.log('kkkkkkkkkkkkkkkkk run 1');
     $state.go('request');
     console.log('kkkkkkkkkkkkkkkkk run 2');

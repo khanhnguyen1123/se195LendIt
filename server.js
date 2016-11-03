@@ -75,6 +75,7 @@ app.post('/api/user/fbRedirectLogin',function(req,res){
 
 // profile
 app.get('/api/profile', auth, profileAuthenticationController.profileRead);
+app.get('/api/profile/get/:id',profileAuthenticationController.getOne);
 app.post('/api/profile/editPhoto',profileAuthenticationController.updatePhoto);
 app.post('/api/profile/editProfile',profileAuthenticationController.editProfile);
 

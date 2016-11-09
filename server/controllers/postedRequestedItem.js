@@ -47,3 +47,12 @@ module.exports.getOne = function(req, res){
         res.json(requestedItem);
       });   
 };
+
+module.exports.getCategory = function(req,res){
+  var category = req.params.category;
+  RequestedItem.find({'category':category},function(err,data){
+    if(err) res.send(err);
+        //If no errors, send it back to the client
+        res.json(data);
+  });// end calling finding function in mogoose    
+} // end getBookAndAudible function

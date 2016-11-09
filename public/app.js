@@ -60,6 +60,16 @@
         templateUrl: 'public/detailLendingItem/lendingItemDetail.view.html',
         controller: 'lendingItemDetailController'
       })
+      .state('LendingCategory',{
+        url: '/lendingCategory/:fixedCategory',
+        templateUrl: 'public/lendingCategoryDetail/CategoryDetail.view.html',
+        controller: 'lendingCategoryController'
+      })
+      .state('requestingCategory',{
+        url: '/requestingCategory/:fixedCategory',
+        templateUrl: 'public/requestingCategoryDetail/CategoryDetail.view.html',
+        controller: 'requestingCategoryController'
+      })
 
     // use the HTML5 History API
     //$locationProvider.html5Mode(true);
@@ -83,6 +93,8 @@
 
     });
 
+    $state.go('detail');
+    $state.go('lendingItemdetail');
     $state.go('publicProfile');
     $state.go('login');
     console.log('kkkkkkkkkkkkkkkkk run 1');

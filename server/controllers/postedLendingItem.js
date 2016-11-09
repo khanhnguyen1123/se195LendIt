@@ -45,4 +45,14 @@ module.exports.getOne = function(req, res){
         //If no errors, send it back to the client
         res.json(lendingItem);
       });   
-};
+}; // end get one function
+
+
+module.exports.getCategory = function(req,res){
+  var category = req.params.category;
+  LendingItem.find({'category':category},function(err,data){
+    if(err) res.send(err);
+        //If no errors, send it back to the client
+        res.json(data);
+  });// end calling finding function in mogoose    
+} // end getBookAndAudible function

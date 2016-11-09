@@ -83,10 +83,12 @@ app.post('/api/profile/editProfile',profileAuthenticationController.editProfile)
 app.post('/api/requestedItem/post',postedRequestedItemController.post);
 app.get('/api/requestedItem/get',postedRequestedItemController.getAll);
 app.get('/api/requestedItem/get/:id',postedRequestedItemController.getOne);
+app.get('/api/requestedItemCategory/get/:category',postedRequestedItemController.getCategory);
 // post lending items
 app.post('/api/lendingItem/post',postedLendingItemController.post);
 app.get('/api/lendingItem/get',postedLendingItemController.getAll);
 app.get('/api/lendingItem/get/:id',postedLendingItemController.getOne);
+app.get('/api/lendingItemCategory/get/:category',postedLendingItemController.getCategory);
 
 var port = process.env.PORT  || 5000;
 app.listen(port, function(){

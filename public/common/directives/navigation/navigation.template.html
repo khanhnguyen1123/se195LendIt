@@ -1,37 +1,53 @@
 <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" >
-		<div class="container-fluid">
-			</==== logo===>
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavBar">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a ui-sref="home" class="navbar-brand"> LendIt        </a>
-			</div>
-			</--- menu items--->
-			<div class="collapse navbar-collapse" id="mainNavBar">
-				<ul class="nav navbar-nav">
-					<li><a href="#">Renting</a></li>
-					<li><a ui-sref="request"> Request</a></li>
-					
-				</ul>
-
-				<form class="navbar-form navbar-left">
-			        <div class="form-group">
-			          <input type="text" class="form-control" placeholder="Search lending items">
-			        </div>
-		        	<button type="submit" class="btn btn-default">Search</button>
-		      </form>
-				<!---right align logout button-->
-				<ul class="nav navbar-nav navbar-right">
-					<li ng-hide="navvm.isLoggedIn"><a ui-sref="login">Sign in</a></li>
-        			<li ng-show="navvm.isLoggedIn"><a ui-sref="profile">{{ navvm.currentUser.name }}</a></li>
-					<li><a  ng-click="navvm.logout()" href="#"> Logout</a></li>
-					
-				</ul>
-
-			</div>
+	<div class="container-fluid">
+		<!--Logo-->
+		<div class="navbar-header">
+			<!--Sliding Menu-->
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavBar">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a ui-sref="home" class="navbar-brand">LendIt</a>
 		</div>
-		
-	</nav>
+		<!-- menu items-->
+		<div class="collapse navbar-collapse" id="mainNavBar">
+			<ul class="nav navbar-nav">
+				<li><a href="#">Rent</a></li>
+				<li><a href="#">Borrow</a></li>
+				<li><a ui-sref="request"> Request</a></li>
+			</ul>
+
+			<form class="navbar-form navbar-left" >
+				<div class="form-group" >
+					<!--
+					<select class="form-control" id="category" style="border-top-right-radius:0px; -webkit-appearance: none;border-bottom-right-radius:0px; background-color:#E0E0E0;">
+						<option selected="selected">All</option>
+						<option>Books &amp; Audible</option>
+                    	<option >Movies, Music &amp; Games</option>
+                	    <option >Electronics &amp; Games</option>
+	                    <option >Home &amp; Garden</option>
+	                    <option >Beauty, Health &amp; Grocery</option>
+	                    <option >Toys, Kids &amp; Baby</option>
+	                    <option >Clothing, Shoes &amp; Jewelry</option>
+	                    <option >Handmade</option>
+	                    <option >Sports &amp; Outdoor</option>
+	                    <option >Automotive &amp; Industrial</option> 
+					</select>
+					-->
+					<input type="text" class="form-control" placeholder="Search for items" style="border-right-width:0px; margin-left:-4px; width:250px;">
+				</div>
+				<button type="button" class="btn btn-default" style="border-top-left-radius:0px; border-bottom-left-radius:0px; background-color:#EDB90C; margin-left:-6px;">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+				</button>
+			</form>
+
+			<!--right align logout button-->
+			<ul class="nav navbar-nav navbar-right">
+				<li ng-hide="navvm.isLoggedIn"><a ui-sref="login">Sign in</a></li>
+				<li ng-show="navvm.isLoggedIn"><a ui-sref="profile">{{ navvm.currentUser.name }}</a></li>
+				<li><a  ng-click="navvm.logout()" href="#"> Logout</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>

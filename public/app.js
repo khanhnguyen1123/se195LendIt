@@ -4,7 +4,7 @@
 
   function config ($stateProvider, $urlRouterProvider, $locationProvider,filepickerProvider) {
     
-    $urlRouterProvider.otherwise('/');
+    //$urlRouterProvider.otherwise('/');
     $stateProvider
       .state('home', {
         url: '/',
@@ -45,11 +45,21 @@
         templateUrl: 'public/detail/detail.view.html',
         controller: 'detailController'
       })
+      .state('lending',{
+        url: '/lending',
+        templateUrl: 'public/lending/lending.view.html',
+        controller: 'lendingController'
+      })
+      .state('lendingItemdetail',{
+        url: '/lendingItemdetail/:random',
+        templateUrl: 'public/detailLendingItem/lendingItemDetail.view.html',
+        controller: 'lendingItemDetailController'
+      })
 
     // use the HTML5 History API
     //$locationProvider.html5Mode(true);
     $locationProvider.html5Mode({
-      enabled: false,
+      enabled: true,
       requireBase: false
     });
 

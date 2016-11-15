@@ -72,6 +72,10 @@
   <button type="button" class="btn btn-primary btn-small" data-toggle="collapse" data-target="#postingRequestedItem" aria-expanded="false" aria-controls="postingRequestedItem">
   Post Request Item
   </button>
+
+  <button type="button" class="btn btn-primary btn-small" data-toggle="collapse" data-target="#postingLendingItem" aria-expanded="false" aria-controls="postingLendingItem">
+  Post Lend Item
+    </button>
 <!--collapse for post requested item -->
           <div class="collapse" id="postingRequestedItem" ng-controller='postRequestedItemController'>
             <div class="well">
@@ -157,9 +161,96 @@
               </div>
               </div>
             </div>
-          </div>
+          </div>   <!-- end collapse for post requested item-->
 
 
+
+<!--collapse for post lending item -->
+          <div class="collapse" id="postingLendingItem" ng-controller='postLendingItemController'>
+            <div class="well">
+
+                <div class="panel panel-default">
+              <div class="panel-heading">
+                <h2 class="panel-title text-center">
+                  <span class="glyphicon glyphicon-user"></span>Post Lending Item 
+                </h2>
+              </div>
+              <div class="panel-body">
+                <!-- The form to post request itemd -->
+                <form name ="addForm" novalidate>
+                  <div class="form-group">
+                    <label for="username">Name</label>
+                    <input type="text" class="form-control" placeholder="name of the item" ng-model="postedItem.name" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label> Category </label>
+                    <fieldset class="form-group">
+                      <select ng-model="postedItem.category" class="form-control" ng-options="categories for categories in ['book','sport','audio','parking']" >
+                        <option value>Choose category</option>
+                      </select>
+                    </fieldset>
+                  </div>
+
+            
+
+                  <div class="form-group">
+                    <label for="username">price</label>
+                    <input type="text" class="form-control" placeholder="price" ng-model="postedItem.price" >
+                  </div>
+
+                  <div class="form-group">
+                    <label for="username">Quantity</label>
+                    <input type="text" class="form-control" placeholder="enter number" ng-model="postedItem.quantity">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="username">Description</label>
+                    <input type="text" class="form-control" placeholder="Description of the item" ng-model="postedItem.description">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="username">state</label>
+                    <input type="text" class="form-control" placeholder="Description of the item" ng-model="postedItem.state" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="picture">Main picture</label>
+                    <div class="text-center">
+                      <button type="button" class="btn btn-default" ng-click="upload()">
+                        Upload <span class="caret"></span>
+                      </button>
+                      <div style="margin-top:10px;">
+                        <!-- Show the thumbnail only when the picture is uploaded -->
+                        <a href="{{postedItem.picture.url}}" class="thumbnail" ng-if="postedItem.picture">
+                        <!-- the picture is rendered with width: 500 and sharpened -->
+                        <img ng-src="{{postedItem.picture.url | fpConvert: {filter:'sharpen', w:500} }}">
+                        </a>
+                      </div>          
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="picture">More pictures? (Max 3, optional!)</label>
+                    <div class="text-center">
+                    <button type="button" class="btn btn-default" ng-click="uploadMultiple()">
+                    Upload <span class="caret"></span>
+                    </button>
+                    <!-- Show the thumbanil of more pictures -->
+                      <div style="margin-top:10px;" ng-repeat="picture in postedItem.morePictures">   <div class="col-md-{{12 / postedItem.morePictures.length}}">
+                        <a href="{{picture.url}}" class="thumbnail">
+                          <img ng-src="{{picture.url | fpConvert: {filter:'sharpen', w:500} }}">
+                        </a>
+                      </div>  
+                    </div>
+                    </div>
+                  </div>
+                  <hr />        
+                  <button type="submit" class="btn btn-danger btn-block"  ng-click="createRequestedItem()" ng-disabled="postedItem.$invalid || !postedItem.picture">Submit</button>       
+                </form>
+              </div>
+              </div>
+            </div>
+          </div>   <!-- end collapse for post requested item-->
 
 </div>
 

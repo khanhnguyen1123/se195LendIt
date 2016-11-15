@@ -19,6 +19,7 @@ var app = express();
 var authenticationController = require('./server/controllers/authentication');
 var profileAuthenticationController = require('./server/controllers/profile');
 var postedRequestedItemController = require('./server/controllers/postedRequestedItem');
+var postedLendingItemController =   require('./server/controllers/postedLendingItem');
 
 //  [khanh] create a collection named time-waste in your local mongodb server to run this line of code
 //mongoose.connect('mongodb://localhost:27017/time-waste')
@@ -77,11 +78,14 @@ app.get('/api/profile', auth, profileAuthenticationController.profileRead);
 app.post('/api/profile/editPhoto',profileAuthenticationController.updatePhoto);
 app.post('/api/profile/editProfile',profileAuthenticationController.editProfile);
 
-// post requested or lending items
+// post requested items
 app.post('/api/requestedItem/post',postedRequestedItemController.post);
 app.get('/api/requestedItem/get',postedRequestedItemController.getAll);
 app.get('/api/requestedItem/get/:id',postedRequestedItemController.getOne);
-
+// post lending items
+app.post('/api/lendingItem/post',postedLendingItemController.post);
+app.get('/api/lendingItem/get',postedLendingItemController.getAll);
+app.get('/api/lendingItem/get/:id',postedLendingItemController.getOne);
 
 var port = process.env.PORT  || 5000;
 app.listen(port, function(){

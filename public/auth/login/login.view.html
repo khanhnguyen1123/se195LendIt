@@ -1,39 +1,37 @@
 <navigation></navigation>
 
-<div class="container" style="width: 100%; position: absolute;padding: 90px ">
+<div style="margin-top:60px; padding:15px; position:absolute; width:100%;">
 
-  <div class= 'row'>
-    <div class="jumbotron text-center">
-        
-
-        <h2>Login or Register with:</h2>
-
-        <a href="/auth/facebook" class="btn btn-primary" target="_self"><span class="fa fa-facebook"></span> Facebook</a>
-
+  <div style="width:400px; margin:auto; text-align:right;">
+    <h1 style="text-align:center; margin-bottom:20px;">Welcome back!<br/>Please Sign In</h1>
+    <form ng-submit="vm.onSubmit()">
+      <div class="form-group" style="text-align:left;">
+        <label for="email">Email address</label>
+        <input type="email" class="form-control" id="email" ng-model="vm.credentials.email">
+      </div>
+      <div class="form-group" style="text-align:left;">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" ng-model="vm.credentials.password">
+      </div>
+      <button type="submit" class="btn btn-primary" style="margin-right:10px;">Sign In</button>
+    </form>
+    <div style="margin-top:30px;">
+      <div style="text-align:center; float:left; margin-left:40px;">
+        <p class="lead">
+          New to LendIt
+          <br/>
+          <a ui-sref="register">Register here</a>
+        </p>
+      </div>
+      <div style="text-align:center; float:right; margin-right:30px;">
+        <p class="lead">Login in with
+          <br/>
+          <a style="margin-top:5px;" href="/auth/facebook" class="btn btn-primary" target="_self">
+            <span class="fa fa-facebook"></span>
+            Facebook
+          </a>
+        </p>
+      </div>
     </div>
   </div>
-
-
-  <div class="row">
-
-    <div class="jumbotron col-md-6">
-
-      <h1 class="form-signin-heading">Sign in</h1>
-      <p class="lead">Not a member? Please <a ui-sref="register">register</a> instead.</p>
-  
-      <form ng-submit="vm.onSubmit()">
-        <div class="form-group">
-          <label for="email">Email address</label>
-          <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="vm.credentials.email">
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" placeholder="Password" ng-model="vm.credentials.password">
-        </div>
-        <button type="submit" class="btn btn-default">Sign in!</button>
-      </form>
-
-    </div>
-  </div>
-
 </div>

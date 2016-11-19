@@ -18,23 +18,27 @@
     </div>
     <div style="float:left; width:calc(100% - 475px); height:477px; margin-left:20px; ">
         <!--Item Details-->
-        <div class="panel panel-default" style="height:307px; padding:5px 10px 5px 10px; overflow-y:scroll; ">
+        <div class="panel panel-default" style="height:477px; padding:5px 10px 5px 10px; overflow-y:scroll; ">
         	<h1 style="font-size:3.5em; margin:0px">{{requestedItem.name}}</h1>
         	<div style="margin-left:5px;">
-        		<p style="margin:0px;">By <a>Some User</a></p>
+        		<p style="margin:0px;">By <a>{{requestedItem.ownerId}}</a></p>
+                <!--
         		<p style="display:inline-block; margin:0px;">Rating</p>
         		<div style="margin:0px 30px 0px 30px; display:inline-block;"/>
         		<p style="display:inline-block; margin:0px;"># Reviews</p>
+                -->
         	</div>
-        	<h4 style="margin-top:10px; font-size:1.5em;">Price: $49.99 per day</h4>
+        	<!--
+            <h4 style="margin-top:10px; font-size:1.5em;">Price: $49.99 per day</h4>
         	<h4 style="font-size:1.5em;">Currently: <span style="color:green;">Available</span></h4>
+            -->
         	<h4 style="margin-bottom:0px; font-size:1.5em; margin-top:20px;">Description</h4>
         	<p style="padding:3px; word-wrap:break-word;">{{requestedItem.description}}
             </p>
         	<!--<p style="">{{requestedItem.quantity}}</p>-->
         </div>
         <!--Requesting Form-->
-        <div class="panel panel-default" style="height:150px; padding:5px 10px 5px 10px;">
+        <div class="panel panel-default" style="height:150px; visibility:hidden; padding:5px 10px 5px 10px;">
             <h3>Get It Now</h3>
             <div class="row" style="text-align: center; justify-content:space-around;">
                 <div style="padding:5px; width:50%; display:inline-block;">

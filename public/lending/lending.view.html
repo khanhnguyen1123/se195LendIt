@@ -29,7 +29,7 @@
   </div>
   <div class="row" style="margin:20px 10px 0px 10px;" >
     <div class="col-md-4" style="width:246px" ng-repeat="item in lendingItems">
-      <div class="thumbnail" ui-sref="detail({random: item._id})">
+      <div class="thumbnail" ui-sref="lendingItemsdetail({random: item._id})">
         <img ng-src="{{item.picture.url}}" alt="Image Not Found" style="width:100%; height:140px;"/>
         <p style="font-size:1.5em; margin:0px 5px 0px 5px;">
           <b>{{item.name}}</b>

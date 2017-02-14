@@ -11,6 +11,8 @@
 			<hr />
 			<p class="text-left"><label>description: </label> {{lendingItem.description}}</p>
 			<p class="text-left"><label>Quantity: </label> {{lendingItem.quantity}}</p>
+			<button ng-click="makePaypalPayment()">Pay for The Item</button> 
+			<a href=""></a>
 			<!-- Only if there are other pictures -->
 			<div ng-if="lendingItem.morePictures">
 				<h3> More Pictures <h3>

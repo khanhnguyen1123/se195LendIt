@@ -36,4 +36,15 @@ module.exports.getOne = function(req, res){
         //If no errors, send it back to the client
         res.json(lendingItem);
       });   
-};
+};//end getting item by id
+
+//get all lending item from a user
+module.exports.getUserItems = function(req, res){
+  console.log('Get Lending Item from userID: ' + req.body._id);
+  var query = LendingItem.find({ownerId: req.body._id});
+  query.exec(function(err, lendingItems){
+        if(err) res.send(err);
+        //If no errors, send them back to the client
+        res.json(lendingItems);
+      });
+};//end getting user item

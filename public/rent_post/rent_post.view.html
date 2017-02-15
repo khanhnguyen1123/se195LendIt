@@ -1,0 +1,45 @@
+<navigation> </navigation>
+
+<div style="margin-top:50px; width:100%; padding:15px; position:absolute;" ng-controller='rentPostController'>
+	<h1>{{message}}</h1>
+	<div id="image" class="panel panel-default" style="float:left; display: none; width:425px; margin-left:20px;padding:4px; ">
+		<!--{{rentedItem.picture.url}}-->
+		<img src="{{rentPost.picture.url}}" alt="Item Image Not Found" style="width:415px; height:400px; text-align:center;">
+		<!--Extra Images-->
+		<div id="more_images" style="width:100%; height:62px; display: none; overflow:auto; white-space:nowrap; padding-left:5px; padding-right:5px; margin-bottom:5px; text-align:center;">
+			<img ng-repeat="pic in rentPost.morePictures" ng-src="{{pic.url}}" style="display:inline; height:50px; width:50px; border: 1px solid grey; margin:5px;">
+		</div>
+	</div>
+
+	<form name="rentPostForm" id="form" style="float:left; width:calc(100% - 40px); margin-left:20px;">
+		<div class="form-group">
+			<label>Name</label>
+			<input type="text" class="form-control" placeholder="Item Name" ng-model="rentPost.name" required>
+		</div>
+		<div class="form-group">
+			<label>Category/Categories</label>
+			<select ng-model="rentPost.category" class="form-control" required>
+				<option ng-repeat="category in categories">{{category}}</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label>Price</label>
+			<input type="text" class="form-control" placeholder="Enter price" ng-model="rentPost.price" required>
+		</div>
+		<div class="form-group">
+			<label>Quantity</label>
+			<input type="text" class="form-control" placeholder="Enter a number" ng-model="rentPost.quantity" required>
+		</div>
+		<div class="form-group">
+			<label >Item Description</label>
+			<textarea id="textarea" ng-model="rentPost.description" class="form-control" style="height: 150px;"></textarea>
+		</div>
+		<button type="button" class="btn btn-default" ng-click="upload()">
+			Upload Picture
+		</button>
+		<button type="button" class="btn btn-default" ng-click="uploadMultiple()">
+			Upload Multiple Pictures
+		</button>
+		<button style="margin-top: 15px;"type="submit" class="btn btn-danger btn-block"  ng-click="createRentPost()" ng-disabled="rentPostForm.$invalid">Submit</button>
+	</form>
+</div>

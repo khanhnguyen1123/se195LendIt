@@ -23,7 +23,8 @@ var postedLendingItemController =   require('./server/controllers/postedLendingI
 
 //  [khanh] create a collection named time-waste in your local mongodb server to run this line of code
 //mongoose.connect('mongodb://localhost:27017/time-waste')
-mongoose.connect('mongodb://lendit:lendit@ds047146.mlab.com:47146/lendit');
+//mongoose.connect('mongodb://lendit:lendit@ds047146.mlab.com:47146/lendit');
+mongoose.connect('mongodb://lendit:lendit@ds153239.mlab.com:53239/lendit');
 
 app.use(bodyParser.json());
 //app.use(multipartMiddleware);

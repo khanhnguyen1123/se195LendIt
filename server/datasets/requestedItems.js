@@ -10,8 +10,8 @@ module.exports = mongoose.model('RequestedItem',{
 	quantity: String,
 	state: String,
 	description: String,
-	picture: {type: Schema.Types.Mixed},
-    morePictures: Schema.Types.Mixed,
+	pictures: {type: Schema.Types.Mixed},
+    //morePictures: Schema.Types.Mixed,
 	startDate: Date,
 	endDate: Date,
 	

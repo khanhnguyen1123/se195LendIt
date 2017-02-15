@@ -1,0 +1,35 @@
+<navigation> </navigation>
+<!-- view all request items -->
+<div style="margin-top:50px; width:100%; padding:15px; position:absolute;" ng-controller='requestPostController'>
+	<h1>Request Post Page</h1>
+	<h1>{{message}}</h1>
+	<p>{{requestPost.pictures}}</p>
+	<p>{{requestPost.pictures[0].url}}</p>
+	<form name="requestPostForm">
+		<div class="form-group">
+			<label>Name</label>
+			<input type="text" class="form-control" placeholder="Item Name" ng-model="requestPost.name" required>
+		</div>
+		<div class="form-group">
+			<label>Category/Categories</label>
+			<select ng-model="requestPost.category" class="form-control selectpicker" placeholder="Nothing Selected" multiple >
+				<option ng-repeat="category in categories">{{category}}</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label >Item Description</label>
+			<input type="text" class="form-control" placeholder="Item Description" ng-model="requestPost.description" >
+		</div>
+		<button type="button" class="btn btn-default" ng-click="upload()">
+			Upload Picture
+		</button>
+		<button type="button" class="btn btn-default" ng-click="uploadMultiple()" >
+			Upload Multiple Pictures
+		</button>
+		<button type="submit" class="btn btn-danger btn-block"  ng-click="createRequestPost()" ng-disabled="requestPostForm.$invalid">Submit</button>
+	</form>
+	
+	<img ng-src="{{requestPost.pictures[0].url}}" />
+	
+	<!--Preview-->
+</div>

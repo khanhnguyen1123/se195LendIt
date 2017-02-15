@@ -40,6 +40,11 @@
         templateUrl: 'public/request/request.view.html',
         controller: 'requestController'
       })
+      .state('request_post', {
+        url: '/request/post',
+        templateUrl: 'public/request_post/request_post.view.html',
+        controller: 'requestPostController'
+      })
       .state('detail',{
         url: '/detail/:random',
         templateUrl: 'public/detail/detail.view.html',
@@ -50,11 +55,17 @@
         templateUrl: 'public/lending/lending.view.html',
         controller: 'lendingController'
       })
+      .state('rent_post', {
+        url: '/rent/post',
+        templateUrl: 'public/rent_post/rent_post.view.html',
+        controller: 'rentPostController'
+      })
       .state('lendingItemdetail',{
         url: '/lendingItemdetail/:random',
         templateUrl: 'public/detailLendingItem/lendingItemDetail.view.html',
         controller: 'lendingItemDetailController'
       })
+
 
     // use the HTML5 History API
     //$locationProvider.html5Mode(true);

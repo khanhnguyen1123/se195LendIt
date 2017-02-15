@@ -8,28 +8,32 @@
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <li><a href="#">Books &amp; Audible</a></li>
-        <li><a href="#">Movies, Music &amp; Games</a></li>
-        <li><a href="#">Electronics &amp; Games</a></li>
-        <li><a href="#">Home &amp; Garden</a></li>
-        <li><a href="#">Beauty, Health &amp; Grocery</a></li>
-        <li><a href="#">Toys, Kids &amp; Baby</a></li>
-        <li><a href="#">Clothing, Shoes &amp; Jewelry</a></li>
-        <li><a href="#">Handmade</a></li>
-        <li><a href="#">Sports &amp; Outdoor</a></li>
-        <li><a href="#">Automotive &amp; Industrial</a></li>
+        <li><a href="">Books &amp; Audible</a></li>
+        <li><a href="">Movies, Music &amp; Games</a></li>
+        <li><a href="">Electronics &amp; Games</a></li>
+        <li><a href="">Home &amp; Garden</a></li>
+        <li><a href="">Beauty, Health &amp; Grocery</a></li>
+        <li><a href="">Toys, Kids &amp; Baby</a></li>
+        <li><a href="">Clothing, Shoes &amp; Jewelry</a></li>
+        <li><a href="">Handmade</a></li>
+        <li><a href="">Sports &amp; Outdoor</a></li>
+        <li><a href="">Automotive &amp; Industrial</a></li>
+        <li><a href="">Private Parking</a></li>
+        <li><a href="">Others</a></li>
       </ul>
     </div>
     <div style="display:inline-block; float:right; margin-right:15px;">
-      <button type="button" class="btn btn-info" aria-label="text-right Align">
-        Post New Item
-      </button>
+      <a style="text-decoration: none; color:white;" ui-sref="rent_post">
+        <button type="button" class="btn btn-info" aria-label="text-right Align">
+          Post New Item
+        </button>
+      </a>
     </div>
     <div style="clear:both;"/>
   </div>
   <div class="row" style="margin:20px 10px 0px 10px;" >
-    <div class="col-md-4" style="width:246px" ng-repeat="item in lendingItems">
-      <div class="thumbnail" ui-sref="lendingItemsdetail({random: item._id})">
+    <div class="col-md-4" style="width:246px; display:inline-block;" ng-repeat="item in lendingItems">
+      <div class="thumbnail" ui-sref="lendingItemdetail({random: item._id})">
         <img ng-src="{{item.picture.url}}" alt="Image Not Found" style="width:100%; height:140px;"/>
         <p style="font-size:1.5em; margin:0px 5px 0px 5px;">
           <b>{{item.name}}</b>

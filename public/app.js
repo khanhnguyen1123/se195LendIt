@@ -4,7 +4,7 @@
 
   function config ($stateProvider, $urlRouterProvider, $locationProvider,filepickerProvider) {
     
-  //  $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/');
     $stateProvider
       .state('home', {
         url: '/',
@@ -74,7 +74,7 @@
     // use the HTML5 History API
     //$locationProvider.html5Mode(true);
     $locationProvider.html5Mode({
-      enabled: true,
+      enabled: false,
       requireBase: false
     });
 
@@ -93,6 +93,7 @@
 
     });
 
+
     $state.go('detail');
     $state.go('lendingItemdetail');
     $state.go('publicProfile');
@@ -105,6 +106,7 @@
     $state.go('profile');
     console.log('kkkkkkkkkkkkkkkkk run 4');
     $state.go('home');
+
 
   }
   

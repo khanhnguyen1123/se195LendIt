@@ -67,7 +67,7 @@
     filepickerProvider.setKey('ApAG1hn5GRCymw8vG9TUYz');
   }
 
-  function run($rootScope, $location, authentication) {
+  function run($rootScope, $location, authentication,$state) {
     $rootScope.$on('$stateChangeStart', function(event, nextRoute, currentRoute) {
       console.log("khanh before running to check for authentication in /profile  ");
       if ($location.path() === '/profile' && !authentication.isLoggedIn()) {
@@ -75,11 +75,14 @@
         $location.path('/');
       }
     });
+
+    
+   
   }
   
   angular
     .module('meanApp')
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider','filepickerProvider', config])
-    .run(['$rootScope', '$location', 'authentication', run]);
+    .run(['$rootScope', '$location', 'authentication','$state', run]);
 
 })();

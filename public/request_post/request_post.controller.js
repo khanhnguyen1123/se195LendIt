@@ -16,10 +16,12 @@
       $scope.pr = this;
       $scope.pr.user = {};
 
+      document.getElementById("images").style.display = "none";
+
       meanData.getProfile()
          .success(function(data) {
             $scope.pr.user = data;
-            console.log('khanh print out data in updateProfileImageController'+data.email+ "  id"+data._id);
+            //console.log('khanh print out data in updateProfileImageController'+data.email+ "  id"+data._id);
          })
          .error(function (e) {
             console.log(e);
@@ -36,8 +38,7 @@
                //Clean the form to allow the user to create new post   
                $scope.requestPost = {};
                //$state.go('request');
-               document.getElementById("image").style.display = "none";
-               document.getElementById("more_images").style.display = "none";
+               document.getElementById("images").style.display = "none";
                document.getElementById("form").style.width = "calc(100% - 40px)";
             })
             .error(function(error) {
@@ -45,25 +46,7 @@
             });
       };
 
-      //Single file upload, you can take a look at the options
-      $scope.upload = function(){
-         $scope.message = "Upload Pressed";
-         filepickerService.pick({
-            mimetype: 'image/*',
-            language: 'en',
-            services: ['COMPUTER','DROPBOX','GOOGLE_DRIVE','IMAGE_SEARCH', 'FACEBOOK', 'INSTAGRAM'],
-            openTo: 'IMAGE_SEARCH'
-         }, function(data){
-            console.log(JSON.stringify(data));
-            $scope.requestPost.picture = data;
-            $scope.$apply();
-            document.getElementById("image").style.display = "block";
-            document.getElementById("form").style.width = "calc(100% - 475px)";
-            document.getElementById("textarea").style.height = "130px";
-         });
-      };
-
-      $scope.uploadMultiple = function() {
+      $scope.upload = function() {
          $scope.message = "Upload Multiple Pressed";
 
          filepickerService.pickMultiple({
@@ -74,9 +57,10 @@
             openTo: 'IMAGE_SEARCH'
          }, function(data){
             console.log(JSON.stringify(data));
-            $scope.requestPost.morePictures = data;
+            $scope.requestPost.pictures = data;
             $scope.$apply();
-            document.getElementById("more_images").style.display = "block";
+            document.getElementById("images").style.display = "block";
+            document.getElementById("form").style.width = "calc(100% - 475px)";
             document.getElementById("textarea").style.height = "200px";
          });
       };

@@ -12,7 +12,7 @@
       meanData.getProfile()
         .success(function(data) {
           $scope.vmk.user = data;
-          console.log('khanh print out data in updateProfileImageController'+data.email+ "  id"+data._id);
+          //console.log('khanh print out data in updateProfileImageController '+data.email+ "  id"+data._id);
         })
         .error(function (e) {
           console.log(e);

@@ -16,6 +16,8 @@
       $scope.pr = this;
       $scope.pr.user = {};
 
+      document.getElementById("images").style.display = "none";
+
       meanData.getProfile()
          .success(function(data) {
             $scope.pr.user = data;
@@ -28,14 +30,14 @@
       $scope.createRentPost = function() {
          $scope.message = "Create Rent Successful";
          $scope.rentPost.ownerId = $scope.pr.user._id;
+         $scope.rentPost.state = "Available";
          $http.post('/api/lendingItem/post', $scope.rentPost)
             .success(function(data){
                console.log(JSON.stringify(data));   
                //Clean the form to allow the user to create new post   
                $scope.rentPost = {};
                //$state.go("lending")
-               document.getElementById("image").style.display = "none";
-               document.getElementById("more_images").style.display = "none";
+               document.getElementById("images").style.display = "none";
                document.getElementById("form").style.width = "calc(100% - 40px)";                 
             })
             .error(function(error) {
@@ -43,25 +45,7 @@
             });
       };
 
-      //Single file upload, you can take a look at the options
-      $scope.upload = function(){
-         $scope.message = "Upload Pressed";
-         filepickerService.pick({
-            mimetype: 'image/*',
-            language: 'en',
-            services: ['COMPUTER','DROPBOX','GOOGLE_DRIVE','IMAGE_SEARCH', 'FACEBOOK', 'INSTAGRAM'],
-            openTo: 'IMAGE_SEARCH'
-         }, function(data){
-            console.log(JSON.stringify(data));
-            $scope.rentPost.picture = data;
-            $scope.$apply();
-            document.getElementById("image").style.display = "block";
-            document.getElementById("form").style.width = "calc(100% - 475px)";
-            document.getElementById("textarea").style.height = "130px";
-         });
-      };
-
-      $scope.uploadMultiple = function() {
+      $scope.upload = function() {
          $scope.message = "Upload Multiple Pressed";
 
          filepickerService.pickMultiple({
@@ -72,9 +56,11 @@
             openTo: 'IMAGE_SEARCH'
          }, function(data){
             console.log(JSON.stringify(data));
-            $scope.rentPost.morePictures = data;
+            $scope.rentPost.pictures = data;
             $scope.$apply();
-            document.getElementById("more_images").style.display = "block";
+
+            document.getElementById("images").style.display = "block";
+            document.getElementById("form").style.width = "calc(100% - 475px)";
             document.getElementById("textarea").style.height = "200px";
          });
       };

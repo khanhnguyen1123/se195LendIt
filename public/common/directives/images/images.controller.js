@@ -3,10 +3,16 @@
   angular
     .module('meanApp')
     .controller('imagesCtrl', imagesCtrl);
-  imagesCtrl.$inject = ['$location','authentication'];
+  imagesCtrl.$inject = ['$scope'];
 
-  function imagesCtrl($location, authentication) {
-    
+  function imagesCtrl($scope) {
+	if (!$scope.pictures) {
+		$scope.pictures = {};
+	}
+	
+	$scope.updatePicture = function(pic) {
+		$scope.mainPic = pic.url;
+	}	
   }
 
 })();

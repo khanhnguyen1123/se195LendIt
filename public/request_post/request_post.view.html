@@ -2,15 +2,7 @@
 
 <div style="margin-top:50px; width:100%; padding:15px; position:absolute;" ng-controller='requestPostController'>
 	<h1>{{message}}</h1>
-	<div id="image" class="panel panel-default" style="float:left; display: none; width:425px; margin-left:20px;padding:4px; ">
-		<!--{{requestedItem.picture.url}}-->
-		<img src="{{requestPost.picture.url}}" alt="Item Image Not Found" style="width:415px; height:400px; text-align:center;">
-		<!--Extra Images-->
-		<div id="more_images" style="width:100%; height:62px; display: none; overflow:auto; white-space:nowrap; padding-left:5px; padding-right:5px; margin-bottom:5px; text-align:center;">
-			<img ng-repeat="pic in requestPost.morePictures" ng-src="{{pic.url}}" style="display:inline; height:50px; width:50px; border: 1px solid grey; margin:5px;">
-		</div>
-	</div>
-
+	<images id="images" pictures="{{requestPost.pictures}}"></images>
 	<form name="requestPostForm" id="form" style="float:left; width:calc(100% - 40px); margin-left:20px;">
 		<div class="form-group">
 			<label>Name</label>
@@ -28,9 +20,6 @@
 		</div>
 		<button type="button" class="btn btn-default" ng-click="upload()">
 			Upload Picture
-		</button>
-		<button type="button" class="btn btn-default" ng-click="uploadMultiple()">
-			Upload Multiple Pictures
 		</button>
 		<button style="margin-top: 15px;"type="submit" class="btn btn-danger btn-block"  ng-click="createRequestPost()" ng-disabled="requestPostForm.$invalid">Submit</button>
 	</form>

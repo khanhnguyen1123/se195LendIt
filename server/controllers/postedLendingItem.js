@@ -40,7 +40,7 @@ module.exports.getOne = function(req, res){
 
 //get all lending item from a user
 module.exports.getUserItems = function(req, res){
-  console.log('Get Lending Item from userID: ' + req.body._id);
+  console.log('User: '+ req.body._id + ' of type:' + Object.prototype.toString.call(req.body._id));
   var query = LendingItem.find({ownerId: req.body._id});
   query.exec(function(err, lendingItems){
         if(err) res.send(err);

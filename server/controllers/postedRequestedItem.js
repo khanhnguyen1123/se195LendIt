@@ -42,8 +42,7 @@ module.exports.getOne = function(req, res){
 // get all requested items by user id
 module.exports.getUserItems = function(req, res){
       //Query the DB and if no errors, send all the superheroes
-      var id = req.params.id;
-      console.log('Get Requested Item from userID: ' + req.body.duc);
+      console.log('User: '+ req.body._id + ' of type:' + Object.prototype.toString.call(req.body._id));
       var query = RequestedItem.find({ownerId: req.body._id});
       query.exec(function(err, requestedItems){
         if(err) res.send(err);

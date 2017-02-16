@@ -2,15 +2,17 @@
 <!-- View the details of an requestedItem -->
 <div class="col-md-8 col-md-offset-2">
 	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h2 class="panel-title text-center"><span class="glyphicon glyphicon-user"></span> Item details Posted by <a ui-sref="publicProfile({random: requestedItem.ownerId})">{{requestedItem.ownerName}} </a> </h2>
-		</div>
+		
 		<div class="panel-body text-center">
 			<img ng-src="{{requestedItem.picture.url | fpConvert: {filter:'sharpen', w:500} }}" />
 			<h1>{{requestedItem.name}}</h1>
 			<hr />
 			<p class="text-left"><label>description: </label> {{requestedItem.description}}</p>
 			<p class="text-left"><label>Quantity: </label> {{requestedItem.quantity}}</p>
+
+<div class="panel-heading">
+			<h2 class="panel-title text-center"><span class="glyphicon glyphicon-user"></span> Item details Posted by <a ui-sref="publicProfile({random: requestedItem.ownerId})">{{requestedItem.ownerName}} </a> </h2>
+		</div>			
 			<!-- Only if there are other pictures -->
 			<div ng-if="requestedItem.morePictures">
 				<h3> More Pictures <h3>

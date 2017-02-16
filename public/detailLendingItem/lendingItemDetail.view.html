@@ -2,9 +2,7 @@
 <!-- View the details of an lendingItem -->
 <div class="col-md-8 col-md-offset-2">
 	<div class="panel panel-default">
-		<div class="panel-heading alert alert-danger">
-			<h2 class="panel-title text-center"><span class="glyphicon glyphicon-user"></span> Item details from <a class="alert-link" ui-sref="publicProfile({random: lendingItem.ownerId})">{{lendingItem.ownerName}} </a> </h2>
-		</div>
+		
 		<div class="panel-body text-center">
 			<img ng-src="{{lendingItem.picture.url | fpConvert: {filter:'sharpen', w:500} }}" />
 			<h1>{{lendingItem.name}}</h1>
@@ -12,6 +10,10 @@
 			<p class="text-left"><label>description: </label> {{lendingItem.description}}</p>
 			<p class="text-left"><label>Quantity: </label> {{lendingItem.quantity}}</p>
 			<button ng-click="makePaypalPayment()">Pay for The Item</button> 
+<div class="panel-heading alert alert-danger">
+			<h2 class="panel-title text-center"><span class="glyphicon glyphicon-user"></span> Item details from <a class="alert-link" ui-sref="publicProfile({random: lendingItem.ownerId})">{{lendingItem.ownerName}} </a> </h2>
+</div>
+
 			<a href=""></a>
 			<!-- Only if there are other pictures -->
 			<div ng-if="lendingItem.morePictures">

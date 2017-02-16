@@ -20,7 +20,7 @@ module.exports.post = function(req, res){
       User
       .findById(req.body.ownerId)
       .exec(function(err, user) {
-        user.lendingItems.push({lendingItemId: ItemId});
+        user.lendingItems.push({lendingItemId: itemId});
         user.save();
       });
 }; // end post Lending item

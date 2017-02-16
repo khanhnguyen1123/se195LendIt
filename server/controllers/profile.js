@@ -77,4 +77,12 @@ module.exports.editProfile= function(req,res){
             });
 }; // end editProfile module
 
+module.exports.getOne = function(req,res){
+  User
+      .findById(req.params.id)
+      .exec(function(err, user) {
+        res.status(200).json(user);
+        
+      });
 
+}; // end getOne function

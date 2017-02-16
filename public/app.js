@@ -30,6 +30,11 @@
         controller: 'profileCtrl'
      
       })
+      .state('publicProfile',{
+        url: '/publicProfile/:random',
+        templateUrl: 'public/publicProfile/publicProfile.view.html',
+        controller: 'publicProfileController'
+      })
       .state('fbredirect',{
         url: '/fbredirect',
         templateUrl: 'public/fbpage/fb.view.html',
@@ -60,6 +65,16 @@
         templateUrl: 'public/myItem/myItem.view.html',
         controller: 'myItemController'
       })
+      .state('LendingCategory',{
+        url: '/lendingCategory/:fixedCategory',
+        templateUrl: 'public/lendingCategoryDetail/CategoryDetail.view.html',
+        controller: 'lendingCategoryController'
+      })
+      .state('requestingCategory',{
+        url: '/requestingCategory/:fixedCategory',
+        templateUrl: 'public/requestingCategoryDetail/CategoryDetail.view.html',
+        controller: 'requestingCategoryController'
+      })
 
     // use the HTML5 History API
     //$locationProvider.html5Mode(true);
@@ -72,19 +87,37 @@
     filepickerProvider.setKey('ApAG1hn5GRCymw8vG9TUYz');
   }
 
-  function run($rootScope, $location, authentication) {
+  function run($rootScope, $location, authentication,$state) {
     $rootScope.$on('$stateChangeStart', function(event, nextRoute, currentRoute) {
       console.log("khanh before running to check for authentication in /profile  ");
       if ($location.path() === '/profile' && !authentication.isLoggedIn()) {
         console.log("khanh after running to check for authentication in /profile  ");
         $location.path('/');
       }
+
+
     });
+
+
+    $state.go('detail');
+    $state.go('lendingItemdetail');
+    $state.go('publicProfile');
+    $state.go('login');
+    console.log('kkkkkkkkkkkkkkkkk run 1');
+    $state.go('request');
+    console.log('kkkkkkkkkkkkkkkkk run 2');
+    $state.go('lending');
+    console.log('kkkkkkkkkkkkkkkkk run 3');
+    $state.go('profile');
+    console.log('kkkkkkkkkkkkkkkkk run 4');
+    $state.go('home');
+
+
   }
   
   angular
     .module('meanApp')
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider','filepickerProvider', config])
-    .run(['$rootScope', '$location', 'authentication', run]);
+    .run(['$rootScope', '$location', 'authentication','$state', run]);
 
 })();

@@ -52,7 +52,7 @@
          filepickerService.pickMultiple({
             mimetype: 'image/*',
             language: 'en',
-            maxFiles: 5,
+            maxFiles: 10,
             services: ['COMPUTER','DROPBOX','GOOGLE_DRIVE','IMAGE_SEARCH', 'FACEBOOK', 'INSTAGRAM'],
             openTo: 'IMAGE_SEARCH'
          }, function(data){

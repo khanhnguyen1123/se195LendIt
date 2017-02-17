@@ -4,9 +4,7 @@
 
   function config ($stateProvider, $urlRouterProvider, $locationProvider,filepickerProvider) {
     
-    $urlRouterProvider.otherwise(function() {
-      $state.go('home')
-    });
+    $urlRouterProvider.otherwise('/');
     $stateProvider
       .state('home', {
         url: '/',

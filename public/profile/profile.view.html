@@ -1,8 +1,10 @@
 <navigation></navigation>
 
-<div style="margin-top:50px; padding:15px; width:100%; position:absolute;">
-   <div class="row">
-      <div ng-controller='updateProfileImageController' style="float:left; margin: 50px 50px 20px 50px">
+
+<div class="container" style="width: 100%; position: absolute;padding: 90px ">
+  <div class="row">
+
+    <div ng-controller='updateProfileImageController' style="float:left; margin: 50px 50px 20px 50px">
          <img ng-src="{{vmk.user.profileImage.url}}" style="width:300px; height:300px; border-radius:50%;"/>
          <div style="text-align:center; margin-top:20px;">
             <a ng-click="editProfileImage()" class="btn btn-danger" role="button">Update Image</a>
@@ -16,6 +18,85 @@
             </button>
          </div>
       </div>
+
+    
+     <div class="col-md-6">
+
+      <h1 class="form-signin-heading">Your profile</h1>
+      <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-small" data-toggle="modal" data-target="#myModal">
+  Edit Profile
+</button>
+      
+      <form  class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Full name</label>
+          <p class="form-control-static">{{ vm.user.name }}</p>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Email</label>
+          <p class="form-control-static">{{ vm.user.email }}</p>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Address</label>
+          <p class="form-control-static">{{ vm.user.address }}</p>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Phone</label>
+          <p class="form-control-static">{{ vm.user.phone }}</p>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Billing Address</label>
+          <p class="form-control-static">{{ vm.user.billingAddress }}</p>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Paypal Account</label>
+          <p class="form-control-static">{{ vm.user.paypalAccount }}</p>
+        </div>
+      </form>
+
+
+      <h3> My Lending items </h3>
+      <div class= 'row'>
+          <table >       
+              <tr >
+                  <td>
+                    <button type="button" class="btn btn-primary btn-small">item name and price</button>
+                    <label class="col-sm-3 control-label">  </label>
+                  </td>           
+                  <td>
+                     <button type="button" class="btn btn-primary btn-small"> status </button>     
+                     <label class="col-sm-3 control-label"> </label>
+                  </td>
+                  <td>
+                     <button type="button" class="btn btn-primary btn-small"> edit </button>   
+                     <label class="col-sm-3 control-label"> </label>  
+                  </td>
+                  <td>
+                     <button type="button" class="btn btn-primary btn-small"> item email </button>  
+                     <label class="col-sm-3 control-label"> </label>   
+                  </td>
+                  <td>
+                     <button type="button" class="btn btn-primary btn-small"> delete </button>     
+                     <label class="col-sm-3 control-label"> </label>
+                  </td>
+              </tr>
+        </table>
+      </div>
+
+      <h3> My requested items</h3>
+      <div>2</div>
+      <h3> My renting items</h3>
+      <div>3</div>
+
+    </div>
+
+  </div>
+
+  <button type="button" class="btn btn-primary btn-small" data-toggle="collapse" data-target="#postingRequestedItem" aria-expanded="false" aria-controls="postingRequestedItem">
+  Post Request Item
+  </button>
+
 
 
       <div class="col-md-5" style="margin-right:40px;">
@@ -51,7 +132,7 @@
             </div>
          </form>
       </div>
-   </div>
+   <!-- </div> -->
 
    <!--collapse for post requested item -->
    <div class="collapse" id="postingRequestedItem" ng-controller='postRequestedItemController'>
@@ -71,12 +152,12 @@
                   </div>
 
                   <div class="form-group">
-                     <label> Category </label>
-                     <fieldset class="form-group">
-                        <select ng-model="postedItem.category" class="form-control" ng-options="categories for categories in ['book','sport','audio','parking']" >
-                           <option value>Choose category</option>
-                        </select>
-                     </fieldset>
+                    <label> Category </label>
+                    <fieldset class="form-group">
+                      <select ng-model="postedItem.category" class="form-control" ng-options="categories for categories in ['book & audible','electronics & computers','home garden & tools','movies, music & games','private parking','sports and outdoor','other']" >
+                        <option value>Choose category</option>
+                      </select>
+                    </fieldset>
                   </div>
 
                   <div class="form-group">
@@ -160,12 +241,13 @@
                   </div>
 
                   <div class="form-group">
-                     <label> Category </label>
-                     <fieldset class="form-group">
-                        <select ng-model="postedItem.category" class="form-control" ng-options="categories for categories in ['book','sport','audio','parking']" >
-                           <option value>Choose category</option>
-                        </select>
-                     </fieldset>
+
+                    <label> Category </label>
+                    <fieldset class="form-group">
+                      <select ng-model="postedItem.category" class="form-control" ng-options="categories for categories in ['book & audible','electronics & computers','home garden & tools','movies, music & games','private parking','sports and outdoor','other']" >
+                        <option value>Choose category</option>
+                      </select>
+                    </fieldset>
                   </div>
 
 
@@ -294,7 +376,7 @@
 
 
 <!-- Modal for posting requested item   K H A N H not in use yet, will delete this later -->
-<div class="modal fade" id="postingRequestedItem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller='postRequestedItemController'>
+<!-- <div class="modal fade" id="postingRequestedItem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller='postRequestedItemController'>
    <div class="modal-dialog" role="document">
 
       <div class="panel panel-default">
@@ -303,9 +385,12 @@
                <span class="glyphicon glyphicon-user"></span>Post Requested Item 
             </h2>
          </div>
-         <div class="panel-body">
+      </div>
+    </div>
+  </div>
+         <div class="panel-body"> -->
             <!-- The form to post request itemd -->
-            <form name ="addForm" novalidate>
+            <!-- <form name ="addForm" novalidate>
                <div class="form-group">
                   <label for="username">Name</label>
                   <input type="text" class="form-control" placeholder="name of the item" ng-model="postedItem.name" required>
@@ -327,58 +412,5 @@
                   <input type="text" class="form-control" placeholder="price" ng-model="postedItem.price" >
                </div>
 
-               <div class="form-group">
-                  <label for="username">Quantity</label>
-                  <input type="text" class="form-control" placeholder="enter number" ng-model="postedItem.quantity">
-               </div>
-
-               <div class="form-group">
-                  <label for="username">Description</label>
-                  <input type="text" class="form-control" placeholder="Description of the item" ng-model="postedItem.description">
-               </div>
-
-               <div class="form-group">
-                  <label for="username">state</label>
-                  <input type="text" class="form-control" placeholder="Description of the item" ng-model="postedItem.state" required>
-               </div>
-
-               <div class="form-group">
-                  <label for="picture">Main picture</label>
-                  <div class="text-center">
-                     <button type="button" class="btn btn-default" ng-click="upload()">
-                        Upload <span class="caret"></span>
-                     </button>
-                     <div style="margin-top:10px;">
-                        <!-- Show the thumbnail only when the picture is uploaded -->
-                        <a href="{{postedItem.picture.url}}" class="thumbnail" ng-if="postedItem.picture">
-                           <!-- the picture is rendered with width: 500 and sharpened -->
-                           <img ng-src="{{postedItem.picture.url | fpConvert: {filter:'sharpen', w:500} }}">
-                        </a>
-                     </div>          
-                  </div>
-               </div>
-               <div class="form-group">
-                  <label for="picture">More pictures? (Max 3, optional!)</label>
-                  <div class="text-center">
-                     <button type="button" class="btn btn-default" ng-click="uploadMultiple()">
-                        Upload <span class="caret"></span>
-                     </button>
-                     <!-- Show the thumbanil of more pictures -->
-                     <div style="margin-top:10px;" ng-repeat="picture in postedItem.morePictures">   
-                        <div class="col-md-{{12 / postedItem.morePictures.length}}">
-                           <a href="{{picture.url}}" class="thumbnail">
-                              <img ng-src="{{picture.url | fpConvert: {filter:'sharpen', w:500} }}">
-                           </a>
-                        </div>  
-                     </div>
-                  </div>
-               </div>
-               <hr />        
-               <button type="submit" class="btn btn-danger btn-block"  ng-click="createRequestedItem()" ng-disabled="postedItem.$invalid || !postedItem.picture">Submit</button>       
-            </form>
-         </div>
-      </div>
-   </div>
-</div>
-
+          </div> -->
 

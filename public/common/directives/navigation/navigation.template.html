@@ -20,7 +20,7 @@
 				<!-- <li ng-show="navvm.isLoggedIn" ><a ui-sref="">My Items</a></li> -->
 			</ul>
 
-			<form class="navbar-form navbar-left" >
+			<form class="navbar-form navbar-left" ng-controller="searchForRentingItemController" >
 				<div class="form-group" >
 					<!--
 					<select class="form-control" id="category" style="border-top-right-radius:0px; -webkit-appearance: none;border-bottom-right-radius:0px; background-color:#E0E0E0;">
@@ -37,11 +37,12 @@
 	                    <option >Automotive &amp; Industrial</option> 
 					</select>
 					-->
-					<input type="text" class="form-control" placeholder="Search for items" style="border-right-width:0px; margin-left:-4px; width:250px;">
+					<input type="text" class="form-control" placeholder="Search for items" ng-model="searchedItem.name" style="border-right-width:0px; margin-left:-4px; width:250px;">
 				</div>
 				<button type="button" class="btn btn-default" style="border-top-left-radius:0px; border-bottom-left-radius:0px; background-color:#EDB90C; margin-left:-6px;">
-					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					<span class="glyphicon glyphicon-search" aria-hidden="true" ng-click="search()"></span>
 				</button>
+				<div style="background-color: white" ><h1 ng-show="show">Your search result:</h1> <p ng-repeat="result in results">{{result.name}} : {{result.price}}</p></div>
 			</form>
 
 			<!--right align logout button-->
@@ -54,3 +55,4 @@
 		</div>
 	</div>
 </nav>
+

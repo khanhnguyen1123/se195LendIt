@@ -94,7 +94,7 @@ app.get('/api/lendingItem/get',postedLendingItemController.getAll);
 app.get('/api/lendingItem/get/:id',postedLendingItemController.getOne);
 app.post('/api/lendingItem/getUserItems',postedLendingItemController.getUserItems);
 app.get('/api/lendingItemCategory/get/:category',postedLendingItemController.getCategory);
-
+app.post('/api/lendingItem/search',postedLendingItemController.searchRentingItem);
 // paypal payment 
 app.post('/create',paypalPayment.create);
 app.get('/execute',paypalPayment.execute);

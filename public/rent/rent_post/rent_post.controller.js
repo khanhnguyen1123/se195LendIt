@@ -28,7 +28,6 @@
          }); 
 
       $scope.createRentPost = function() {
-         $scope.message = "Create Rent Successful";
          $scope.rentPost.ownerId = $scope.pr.user._id;
          $scope.rentPost.state = "Available";
          $http.post('/api/lendingItem/post', $scope.rentPost)
@@ -46,8 +45,6 @@
       };
 
       $scope.upload = function() {
-         $scope.message = "Upload Multiple Pressed";
-
          filepickerService.pickMultiple({
             mimetype: 'image/*',
             language: 'en',

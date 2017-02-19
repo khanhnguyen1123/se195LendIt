@@ -11,7 +11,6 @@
       console.log('State: ' + c_state);
 
       $scope.categories = ['Books & Audible', 'Movies, Music & Games', 'Electronics & Games', 'Home & Garden','Beauty, Health & Grocery', 'Toys, Kids & Baby', 'Clothing, Shoes, & Jewelry', 'Handmade', 'Sports & Outdoors', 'Autmotive & Industrial', 'Private Parking', 'Others'];
-
       $scope.requestPost = {};
       $scope.pr = this;
       $scope.pr.user = {};
@@ -28,9 +27,8 @@
          }); 
 
       $scope.createRequestPost = function() {
-         $scope.message = "Create Request Successful";
-         
          $scope.requestPost.ownerId = $scope.pr.user._id;
+         $scope.requestPost.ownerName = $scope.pr.user.name;
          
          $http.post('/api/requestedItem/post', $scope.requestPost)
             .success(function(data){
@@ -47,8 +45,6 @@
       };
 
       $scope.upload = function() {
-         $scope.message = "Upload Multiple Pressed";
-
          filepickerService.pickMultiple({
             mimetype: 'image/*',
             language: 'en',

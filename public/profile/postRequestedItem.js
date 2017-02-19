@@ -24,6 +24,7 @@
       $scope.createRequestedItem = function(){
         console.log($scope.pr.user.email);
         $scope.postedItem.ownerId = $scope.pr.user._id;
+        $scope.postedItem.ownerName= $scope.pr.user.name;
         $http.post('/api/requestedItem/post', $scope.postedItem)
           .success(function(data){
             console.log(JSON.stringify(data));   

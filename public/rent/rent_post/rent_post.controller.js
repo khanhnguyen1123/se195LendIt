@@ -36,7 +36,7 @@
                console.log(JSON.stringify(data));   
                //Clean the form to allow the user to create new post   
                $scope.rentPost = {};
-               //$state.go("lending")
+               $state.go("rent")
                document.getElementById("images").style.display = "none";
                document.getElementById("form").style.width = "calc(100% - 40px)";                 
             })

@@ -1,10 +1,10 @@
 (function() { 
   angular
     .module('meanApp')
-    .controller('detailController', detailController);
- 	detailController.$inject = ['$location','$http','$scope','$stateParams'];
-    function detailController ($location,$http,$scope,$stateParams) {
-      console.log('khanh is inside detailController');
+    .controller('requestItemController', requestItemController);
+   requestItemController.$inject = ['$location','$http','$scope','$stateParams'];
+    function requestItemController ($location,$http,$scope,$stateParams) {
+      console.log('khanh is inside requestItemController');
       $scope.requestedItem = {};
       //Retrieve a particular items to show in the detail page
       var id = $stateParams.random;

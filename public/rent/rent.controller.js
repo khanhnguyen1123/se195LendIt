@@ -1,22 +1,20 @@
 (function() { 
   angular
     .module('meanApp')
-    .controller('lendingController', lendingController);
- 	lendingController.$inject = ['$location','$http','$scope'];
+    .controller('rentController', rentController);
+   rentController.$inject = ['$location','$http','$scope'];
 
-    function lendingController ($location,$http,$scope) {
-      //console.log('khanh is inside lendingController');
-
+    function rentController ($location,$http,$scope) {
       $scope.categories = ['All', 'Books & Audible', 'Movies, Music & Games', 'Electronics & Games', 'Home & Garden','Beauty, Health & Grocery', 'Toys, Kids & Baby', 'Clothing, Shoes, & Jewelry', 'Handmade', 'Sports & Outdoors', 'Autmotive & Industrial', 'Private Parking', 'Others'];
       $scope.selectedCategory = $scope.categories[0];
-      $scope.requestedItems = [];
-      $scope.lendingItems = [];
+      $scope.displayedItems = [];
+      $scope.rentItems = [];
 
       //Retrieve all the requested items to show the request page
       $http.get('/api/lendingItem/get')
         .success(function(data){
           //console.log(JSON.stringify(data));
-          $scope.lendingItems = data;
+          $scope.rentItems = data;
           $scope.displayedItems = data;
         })
         .error(function(error) {
@@ -28,13 +26,13 @@
         $scope.selectedCategory = category;
 
         if (category == "All") {
-          $scope.displayedItems = $scope.lendingItems;
+          $scope.displayedItems = $scope.rentItems;
           return;
         }
 
         $scope.displayedItems = [];
-        for (let i = 0; i < $scope.lendingItems.length; i++) { 
-          let item = $scope.lendingItems[i];
+        for (let i = 0; i < $scope.rentItems.length; i++) { 
+          let item = $scope.rentItems[i];
           if (item.category == category)
             $scope.displayedItems.push(item);
         }

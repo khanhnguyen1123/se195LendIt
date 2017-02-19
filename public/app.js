@@ -41,28 +41,28 @@
       })
       .state('request_post', {
         url: '/request/post',
-        templateUrl: 'public/request_post/request_post.view.html',
+        templateUrl: 'public/request/request_post/request_post.view.html',
         controller: 'requestPostController'
       })
-      .state('detail',{
-        url: '/detail/:random',
-        templateUrl: 'public/detail/detail.view.html',
-        controller: 'detailController'
+      .state('request_item',{
+        url: '/request/:random',
+        templateUrl: 'public/request/request_item/request_item.view.html',
+        controller: 'requestItemController'
       })
-      .state('lending',{
-        url: '/lending',
-        templateUrl: 'public/lending/lending.view.html',
-        controller: 'lendingController'
+      .state('rent',{
+        url: '/rent',
+        templateUrl: 'public/rent/rent.view.html',
+        controller: 'rentController'
       })
       .state('rent_post', {
         url: '/rent/post',
-        templateUrl: 'public/rent_post/rent_post.view.html',
+        templateUrl: 'public/rent/rent_post/rent_post.view.html',
         controller: 'rentPostController'
       })
-      .state('lendingItemdetail',{
-        url: '/lendingItemdetail/:random',
-        templateUrl: 'public/detailLendingItem/lendingItemDetail.view.html',
-        controller: 'lendingItemDetailController'
+      .state('rent_item', {
+        url: '/rent/:random',
+        templateUrl: 'public/rent/rent_item/rent_item.view.html',
+        controller: 'rentItemController'
       })
 
 

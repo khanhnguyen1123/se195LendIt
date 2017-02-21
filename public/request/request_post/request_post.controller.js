@@ -33,9 +33,8 @@
          $http.post('/api/requestedItem/post', $scope.requestPost)
             .success(function(data){
                console.log(JSON.stringify(data));   
-               //Clean the form to allow the user to create new post   
                $scope.requestPost = {};
-               //$state.go('request');
+               $state.go('request');
                document.getElementById("images").style.display = "none";
                document.getElementById("form").style.width = "calc(100% - 40px)";
             })

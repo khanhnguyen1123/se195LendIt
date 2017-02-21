@@ -1,7 +1,9 @@
 <navigation> </navigation>
-<!-- view all request items -->
-<div style="margin-top:50px; padding:15px; width:100%; position:absolute;">
+<!--Rent View Container-->
+<div class="main">
+  <!--Filter Buttons Container-->
   <div class="row" >
+    <!--Categories Container-->
     <div style="display:inline-block; float:left; margin-left:20px; " class="btn-group">
       <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Left Align">
         {{selectedCategory}}
@@ -11,6 +13,7 @@
         <li ng-repeat="category in categories" ng-click="filter(category)"><a style="cursor: pointer;">{{category}}</a></li>
       </ul>
     </div>
+    <!--New Post Container-->
     <div style="display:inline-block; float:right; margin-right:15px;">
       <a style="text-decoration: none; color:white;" ui-sref="rent_post">
         <button type="button" class="btn btn-info" aria-label="text-right Align">
@@ -20,16 +23,15 @@
     </div>
     <div style="clear:both;"/>
   </div>
+  <!--Items Container-->
   <div class="row" style="margin:20px 10px 0px 10px;" >
+    <!--Item-->
     <div class="col-md-4" style="width:246px; display:inline-block;" ng-repeat="item in displayedItems">
+      <!--Item Preview Content-->
       <div class="thumbnail" ui-sref="rent_item({random: item._id})">
         <img ng-src="{{item.pictures[0].url}}" alt="Image Not Found" style="width:100%; height:140px;"/>
-        <p style="font-size:1.5em; margin:0px 5px 0px 5px;">
-          <b>{{item.name}}</b>
-        </p>
-        <p style="fontsize:1em; margin:0px 5px 10px 5px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
-          {{item.description}}
-        </p>
+        <p class="item-preview-title">{{item.name}}</p>
+        <p class="item-preview-description">{{item.description}}</p>
       </div>
     </div>
   </div>

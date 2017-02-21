@@ -21,7 +21,6 @@
       meanData.getProfile()
          .success(function(data) {
             $scope.pr.user = data;
-            console.log('khanh print out data in updateProfileImageController'+data.email+ "  id"+data._id);
          })
          .error(function (e) {
             console.log(e);
@@ -29,6 +28,7 @@
 
       $scope.createRentPost = function() {
          $scope.rentPost.ownerId = $scope.pr.user._id;
+         $scope.rentPost.ownerName = $scope.pr.user.name;
          $scope.rentPost.state = "Available";
          $http.post('/api/lendingItem/post', $scope.rentPost)
             .success(function(data){
@@ -55,7 +55,6 @@
             console.log(JSON.stringify(data));
             $scope.rentPost.pictures = data;
             $scope.$apply();
-
             document.getElementById("images").style.display = "block";
             document.getElementById("form").style.width = "calc(100% - 475px)";
             document.getElementById("textarea").style.height = "200px";

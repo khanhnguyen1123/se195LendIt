@@ -1,27 +1,29 @@
 <navigation> </navigation>
-<!-- View the details of an rentItem -->
-<div style="margin-top:60px; padding:15px; position:absolute; width:100%;">
-   <images id="images" pictures="{{rentItem.pictures}}"></images>
-    <div style="float:left; width:calc(100% - 475px); height:477px; margin-left:20px; ">
-        <!--Item Details-->
-        <div class="panel panel-default" style="height:477px; padding:5px 10px 5px 10px; overflow-y:scroll; ">
-         <h1 style="font-size:3.5em; margin:0px">{{rentItem.name}}</h1>
-         <div style="margin-left:5px;">
-            <p style="margin:0px;">By <a>{{rentItem.ownerName}}</a></p>
-                <!--
-            <p style="display:inline-block; margin:0px;">Rating</p>
-            <div style="margin:0px 30px 0px 30px; display:inline-block;"/>
-            <p style="display:inline-block; margin:0px;"># Reviews</p>
-                -->
-         </div>
-         
-            <h4 style="margin-top:10px; font-size:1.2em;">Price: {{rentItem.price}} per day</h4>
-         <h4 style="font-size:1.2em;">Currently: <span style="color:green;">{{rentItem.state}}</span></h4>
-         <h4 style="margin-bottom:0px; font-size:1.5em; margin-top:20px;">Description</h4>
-         <p style="padding:3px; word-wrap:break-word;">{{rentItem.description}}
-            </p>
-         <!--<p style="">{{rentItem.quantity}}</p>-->
-         <button ng-click="makePaypalPayment()">Pay for The Item</button> 
-        </div>
+<!--Rent Item Container-->
+<div class="main">
+    <!--Images Directive for Item Pictures-->
+    <images id="images" pictures="{{rentItem.pictures}}"></images>
+    <!--Item Details Container-->
+    <div class="panel panel-default item-display">
+        <h1 style="font-size:3.5em; margin:0px">{{rentItem.name}}</h1>
+     <div style="margin-left:5px;">
+        <p style="margin:0px;">
+            By <a ui-sref="publicProfile({random: rentItem.ownerId})">{{rentItem.ownerName}}</a>
+        </p>
+        <!--
+        <p style="display:inline-block; margin:0px;">Rating</p>
+        <div style="margin:0px 30px 0px 30px; display:inline-block;"/>
+        <p style="display:inline-block; margin:0px;"># Reviews</p>
+        -->
+     </div>
+        <h4 style="margin-top:10px; font-size:1.2em;">Price: {{rentItem.price}} per day</h4>
+     <h4 style="font-size:1.2em;">
+        Currently: <span style="color:green;">{{rentItem.state}}</span>
+    </h4>
+     <h4 style="margin-bottom:0px; font-size:1.5em; margin-top:20px;">Description</h4>
+     <p style="padding:3px; word-wrap:break-word;">{{rentItem.description}}
+        </p>
+     <!--<p style="">{{rentItem.quantity}}</p>-->
+     <button ng-click="makePaypalPayment()">Pay for The Item</button> 
     </div>
 </div>

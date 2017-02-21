@@ -3,63 +3,57 @@
 	<head>
 		<title>LendIt</title>
 		<meta charset="utf-8">
-		<style>
-         	html {height: 100%;}
-         	body {height: 100%; margin: 0; padding: 0;}
-		</style>
-
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-
+		<!--Bootstrap Files-->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	</head>
-	<body style="min-width:600px;">
-		<div style="height:100%;"ui-view></div>
+
+	<body>
+		<div style="height:100%;" ui-view></div>
 	</body>
 
-
+	<!--Angular Scripts-->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+	<!--FilePicker Scripts-->
 	<script src="public/library/filepicker.js"></script>
 	<script src="public/library/angular_filepicker.js"></script>
-
-	<!-- controllers -->
+	<!--Controllers-->
 	<script src="public/app.js"></script>
+	<!--Services-->
 	<script src='public/common/services/authentication.service.js'></script>
 	<script src='public/common/services/data.service.js'></script>
-	<script src='public/auth/login/login.controller.js'></script>
-	<script src='public/auth/register/register.controller.js'></script>
+	<!--Directives-->
 	<script src='public/common/directives/navigation/navigation.controller.js'></script>
 	<script src='public/common/directives/navigation/navigation.directive.js'></script>
 	<script src='public/common/directives/images/images.controller.js'></script>
 	<script src='public/common/directives/images/images.directive.js'></script>
-
-	<script src='public/home/home.controller.js'></script>
-	<script src='public/profile/profile.controller.js'></script>
+	<!--Authentication-->
+	<script src='public/auth/login/login.controller.js'></script>
+	<script src='public/auth/register/register.controller.js'></script>
 	<script src='public/fbpage/fb.controller.js'></script>
+	<script src='public/home/home.controller.js'></script>
+	<!--Profile-->
+	<script src='public/profile/profile.controller.js'></script>
 	<script src="public/profile/updateProfileImage.controller.js"></script>
 	<script src="public/profile/editProfile.js"></script>
 	<script src="public/profile/postRequestedItem.js"></script>
 	<script src="public/profile/postRequestedItem.js"></script>
 	<script src="public/publicProfile/publicProfile.controller.js"></script>
-
-	<script src="public/request/request.controller.js"></script>
-	<script src="public/request/request_post/request_post.controller.js"></script>
-	<script src="public/request/request_item/request_item.controller.js"></script>
-
+	<!--Rent-->
 	<script src="public/rent/rent.controller.js"></script>
 	<script src="public/rent/rent_item/rent_item.controller.js"></script>
 	<script src="public/rent/rent_post/rent_post.controller.js"></script>
-
+	<!--Request-->
+	<script src="public/request/request.controller.js"></script>
+	<script src="public/request/request_post/request_post.controller.js"></script>
+	<script src="public/request/request_item/request_item.controller.js"></script>
+	<!--My Item-->
 	<script src="public/myItem/myItem.controller.js"></script>
 
-
-	<!-- Controllers    -->
-
-	<!--Libraries -->
-	<!--Libraries -->
-	<!-- Google Maps API -->
+	<!-- Google Maps API & Scripts-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPwdZTuGLzv76_l9MdMnuCo7reDrBfBQg"></script> 
 	<script >
 		function initMap(){
@@ -72,14 +66,57 @@
 		//initMap();
 	</script>
 
+	<!--LendIt CSS-->
 	<style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
+		/*HTML Tag Styles*/
+		html { height: 100%;}
+		body {
+			min-width:600px;
+		   height: 100%; 
+		   margin: 0; 
+		   padding: 0;
+		}
+		/*Common Class Styles*/
+		.main {
+		   margin-top:60px; 
+		   padding:15px; 
+		   position:absolute; 
+		   width:100%;
+		}
+		/*Specific Class Styles*/
+		.item-display {
+		   float:left; 
+		   width:calc(100% - 475px); 
+		   height:477px; 
+		   margin-left:20px; 
+		   height:477px; 
+		   padding:5px 10px 5px 10px; 
+		   overflow-y:scroll;
+		}
+		.item-preview-title {
+			font-size:1.5em; 
+			margin:0px 5px 0px 5px; 
+			text-overflow: ellipsis; 
+			overflow: hidden; 
+			white-space: nowrap;
+			font-weight: bold;
+		}
+		.item-preview-description {
+			font-size:1em; 
+			margin:0px 5px 10px 5px; 
+			text-overflow:ellipsis; 
+			overflow:hidden; 
+			white-space:nowrap;"
+		}
+		/* 
+		Dont know whos CSS
+		Always set the map height explicitly to define the size of the div
+      element that contains the map. 
+      */
       #map {
       	height: 645px;
    		width: 645px;
       }
-      /* Optional: Makes the sample page fill the window. */   
+      /* Optional: Makes the sample page fill the window. */ 
 	</style>
-
 </html>

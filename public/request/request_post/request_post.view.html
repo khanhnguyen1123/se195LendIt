@@ -1,18 +1,23 @@
 <navigation> </navigation>
-
-<div style="margin-top:50px; width:100%; padding:15px; position:absolute;" ng-controller='requestPostController'>
+<!--Request Post Container-->
+<div class="main" ng-controller='requestPostController'>
+	<!--Post Images, Hidden Till Pictures Uploaded-->
 	<images id="images" pictures="{{requestPost.pictures}}"></images>
+	<!--Request Post Form-->
 	<form name="requestPostForm" id="form" style="float:left; width:calc(100% - 40px); margin-left:20px;">
+		<!--Name-->
 		<div class="form-group">
 			<label>Name</label>
 			<input type="text" class="form-control" placeholder="Item Name" ng-model="requestPost.name" required>
 		</div>
+		<!--Category-->
 		<div class="form-group">
 			<label>Category/Categories</label>
 			<select name="category" ng-model="requestPost.category" class="form-control" required>
 				<option ng-repeat="category in categories">{{category}}</option>
 			</select>
 		</div>
+		<!--Description-->
 		<div class="form-group">
 			<label >Item Description</label>
 			<textarea id="textarea" ng-model="requestPost.description" class="form-control" style="height: 150px;"></textarea>

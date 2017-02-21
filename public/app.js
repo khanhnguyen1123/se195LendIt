@@ -30,7 +30,7 @@
      
       })
       .state('publicProfile',{
-        url: '/publicProfile/:random',
+        url: '/profile/:random',
         templateUrl: 'public/publicProfile/publicProfile.view.html',
         controller: 'publicProfileController'
       })

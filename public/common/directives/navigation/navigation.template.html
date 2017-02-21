@@ -10,40 +10,25 @@
 			</button>
 			<a ui-sref="home" class="navbar-brand">LendIt</a>
 		</div>
-		<!-- menu items-->
+		<!--Nav Bar-->
 		<div class="collapse navbar-collapse" id="mainNavBar">
+			<!--Left Nav Items-->
 			<ul class="nav navbar-nav">
 				<li><a ui-sref="rent">Rent</a></li>
 				<li><a>Borrow</a></li>
 				<li><a ui-sref="request"> Request</a></li>
 				<li ng-show="navvm.isLoggedIn" ><a ui-sref="myItem">My Items</a></li>
 			</ul>
-
+			<!--Search Bar-->
 			<form class="navbar-form navbar-left" >
 				<div class="form-group" >
-					<!--
-					<select class="form-control" id="category" style="border-top-right-radius:0px; -webkit-appearance: none;border-bottom-right-radius:0px; background-color:#E0E0E0;">
-						<option selected="selected">All</option>
-						<option>Books &amp; Audible</option>
-                    	<option >Movies, Music &amp; Games</option>
-                	    <option >Electronics &amp; Games</option>
-	                    <option >Home &amp; Garden</option>
-	                    <option >Beauty, Health &amp; Grocery</option>
-	                    <option >Toys, Kids &amp; Baby</option>
-	                    <option >Clothing, Shoes &amp; Jewelry</option>
-	                    <option >Handmade</option>
-	                    <option >Sports &amp; Outdoor</option>
-	                    <option >Automotive &amp; Industrial</option> 
-					</select>
-					-->
 					<input type="text" class="form-control" placeholder="Search for items" style="border-right-width:0px; margin-left:-4px; width:250px;">
 				</div>
 				<button type="button" class="btn btn-default" style="border-top-left-radius:0px; border-bottom-left-radius:0px; background-color:#EDB90C; margin-left:-6px;">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 				</button>
 			</form>
-
-			<!--right align logout button-->
+			<!--Right Nav Items-->
 			<ul class="nav navbar-nav navbar-right">
 				<li ng-hide="navvm.isLoggedIn"><a ui-sref="login">Sign in</a></li>
 				<li ng-show="navvm.isLoggedIn"><a ui-sref="profile">{{ navvm.currentUser.name }}</a></li>

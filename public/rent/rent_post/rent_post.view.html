@@ -1,27 +1,34 @@
 <navigation> </navigation>
-
-<div style="margin-top:50px; width:100%; padding:15px; position:absolute;" ng-controller='rentPostController'>
+<!--Rent Post Container-->
+<div class="main" ng-controller='rentPostController'>
+	<!--Post Images, Hidden Till Pictures Uploaded-->
 	<images id="images" pictures="{{rentPost.pictures}}"></images>
-
+	<!--Rent Post Form-->
 	<form name="rentPostForm" id="form" style="float:left; width:calc(100% - 40px); margin-left:20px;">
+		<!--Name-->
 		<div class="form-group">
 			<label>Name</label>
 			<input type="text" class="form-control" placeholder="Item Name" ng-model="rentPost.name" required>
 		</div>
+		<!--Category-->
 		<div class="form-group">
 			<label>Category/Categories</label>
 			<select ng-model="rentPost.category" class="form-control" required>
 				<option ng-repeat="category in categories">{{category}}</option>
 			</select>
 		</div>
+		<!--Price-->
+		<!--Possibly Add By Day or Hour, etc, TBD-->
 		<div class="form-group">
 			<label>Price</label>
 			<input type="text" class="form-control" placeholder="Enter price" ng-model="rentPost.price" required>
 		</div>
+		<!--Quantity, Change to Integer Selector-->
 		<div class="form-group">
 			<label>Quantity</label>
 			<input type="text" class="form-control" placeholder="Enter a number" ng-model="rentPost.quantity" required>
 		</div>
+		<!--Description-->
 		<div class="form-group">
 			<label >Item Description</label>
 			<textarea id="textarea" ng-model="rentPost.description" class="form-control" style="height: 150px;"></textarea>

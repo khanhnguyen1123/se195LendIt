@@ -2,9 +2,9 @@
   angular
     .module('meanApp')
     .controller('rentItemController', rentItemController);
-  rentItemController.$inject = ['$location','$http','$scope','$stateParams'];
+  rentItemController.$inject = ['$location','$http','$scope','$stateParams', '$window'];
 
-  function rentItemController ($location,$http,$scope,$stateParams) {
+  function rentItemController ($location, $http, $scope, $stateParams, $window) {
     $scope.rentItem = {};
     
     var id = $stateParams.random;
@@ -18,13 +18,14 @@
       });
 
     $scope.makePaypalPayment = function(){
-      $http.post('/create', $scope.lendingItem)
+      console.log("Paypal Payment Processing")
+      $http.post('/create', $scope.rentItem)
         .success(function(data){
-          console.log('khanh successfully inside make paypal payment scope '+JSON.stringify(data));   
+          console.log('Paypal Payment Success: '+JSON.stringify(data));   
           $window.location.href=data.link;
         })
         .error(function(data) {
-          console.log('Error fail calling makePaypalPayment: ' + data);
+          console.log('Paypal Payment Error: ' + data);
         });
     }; // end makePaypalPayment function
       

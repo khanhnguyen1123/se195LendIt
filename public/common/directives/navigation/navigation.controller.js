@@ -12,7 +12,7 @@
 
     //adding logout user
     vm.logout = function(){
-    	console.log("khanh logout is pressed ");
+    	//console.log("khanh logout is pressed ");
     	authentication.logout();
     	// try to fix bug: call vm.isloggedin again to clear bug of pressing logout
       vm.isLoggedIn = authentication.isLoggedIn();

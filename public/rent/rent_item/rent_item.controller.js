@@ -6,8 +6,8 @@
 
   function rentItemController ($location, $http, $scope, $stateParams, $window) {
     $scope.rentItem = {};
-    
     var id = $stateParams.random;
+    //Gets Item from Mongo Server
     $http.get('/api/lendingItem/get/'+id)
       .success(function(data){
         console.log(JSON.stringify(data));
@@ -16,7 +16,7 @@
       .error(function(error) {
         console.log('Error: ' + error);
       });
-
+    //Redirects to Paypal Payment
     $scope.makePaypalPayment = function(){
       console.log("Paypal Payment Processing")
       $http.post('/create', $scope.rentItem)
@@ -27,7 +27,7 @@
         .error(function(data) {
           console.log('Paypal Payment Error: ' + data);
         });
-    }; // end makePaypalPayment function
+    };
       
   }
 

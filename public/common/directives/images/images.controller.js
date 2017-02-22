@@ -8,6 +8,7 @@
    function imagesCtrl($scope) {
       if (!$scope.pictures) {
       	$scope.pictures = {};
+         $scope.mainPic = "";
       }
       $scope.updatePicture = function(pic) {
       	$scope.mainPic = pic.url;

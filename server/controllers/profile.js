@@ -86,3 +86,7 @@ module.exports.getOne = function(req,res){
       });
 
 }; // end getOne function
+
+module.exports.updateUser = function(req, res) {
+
+};

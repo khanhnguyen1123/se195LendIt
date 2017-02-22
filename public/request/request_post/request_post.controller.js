@@ -4,27 +4,28 @@
       .module('meanApp')
       .controller('requestPostController', requestPostController);
 
-   requestPostController.$inject = ['$location','$http','$scope','$state','filepickerService','meanData'];
+   requestPostController.$inject = ['$location','$http','$scope','$state','filepickerService','meanData','authentication'];
 
-   function requestPostController ($location, $http, $scope, $state, filepickerService, meanData) {
+   function requestPostController ($location, $http, $scope, $state, filepickerService, meanData, authentication) {
       const c_state = 'Request Post Controller';
-      console.log('State: ' + c_state);
-
+      //console.log('State: ' + c_state);
       $scope.categories = ['Books & Audible', 'Movies, Music & Games', 'Electronics & Games', 'Home & Garden','Beauty, Health & Grocery', 'Toys, Kids & Baby', 'Clothing, Shoes, & Jewelry', 'Handmade', 'Sports & Outdoors', 'Autmotive & Industrial', 'Private Parking', 'Others'];
       $scope.requestPost = {};
       $scope.pr = this;
       $scope.pr.user = {};
-
       document.getElementById("images").style.display = "none";
-
-      meanData.getProfile()
+      
+      if(!authentication.isLoggedIn())
+         $state.go("login");
+      else {
+         meanData.getProfile()
          .success(function(data) {
             $scope.pr.user = data;
-            //console.log('khanh print out data in updateProfileImageController'+data.email+ "  id"+data._id);
          })
          .error(function (e) {
             console.log(e);
          }); 
+      }
 
       $scope.createRequestPost = function() {
          $scope.requestPost.ownerId = $scope.pr.user._id;

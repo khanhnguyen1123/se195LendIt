@@ -2,13 +2,14 @@
   angular
     .module('meanApp')
     .controller('rentController', rentController);
-   rentController.$inject = ['$location','$http','$scope'];
+   rentController.$inject = ['$location','$http','$scope','authentication'];
 
-    function rentController ($location,$http,$scope) {
+    function rentController ($location,$http,$scope, authentication) {
       $scope.categories = ['All', 'Books & Audible', 'Movies, Music & Games', 'Electronics & Games', 'Home & Garden','Beauty, Health & Grocery', 'Toys, Kids & Baby', 'Clothing, Shoes, & Jewelry', 'Handmade', 'Sports & Outdoors', 'Autmotive & Industrial', 'Private Parking', 'Others'];
       $scope.selectedCategory = $scope.categories[0];
       $scope.displayedItems = [];
       $scope.rentItems = [];
+      $scope.loggedIn = authentication.isLoggedIn();
 
       //Retrieve all the requested items to show the request page
       $http.get('/api/lendingItem/get')

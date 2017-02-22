@@ -4,27 +4,28 @@
       .module('meanApp')
       .controller('rentPostController', rentPostController);
 
-   rentPostController.$inject = ['$location','$http','$scope', '$state','filepickerService','meanData'];
+   rentPostController.$inject = ['$location','$http','$scope', '$state','filepickerService','meanData', 'authentication'];
 
-   function rentPostController ($location, $http, $scope, $state,filepickerService, meanData) {
+   function rentPostController ($location, $http, $scope, $state,filepickerService, meanData, authentication) {
       const c_state = 'Rent Post Controller';
-      console.log('State: ' + c_state);
-
+      //console.log('State: ' + c_state);
       $scope.categories = ['Books & Audible', 'Movies, Music & Games', 'Electronics & Games', 'Home & Garden','Beauty, Health & Grocery', 'Toys, Kids & Baby', 'Clothing, Shoes, & Jewelry', 'Handmade', 'Sports & Outdoors', 'Autmotive & Industrial', 'Private Parking', 'Others'];
-
       $scope.rentPost = {};
       $scope.pr = this;
       $scope.pr.user = {};
-
       document.getElementById("images").style.display = "none";
-
-      meanData.getProfile()
+      
+      if(!authentication.isLoggedIn())
+         $state.go("login");
+      else {
+         meanData.getProfile()
          .success(function(data) {
             $scope.pr.user = data;
          })
          .error(function (e) {
             console.log(e);
          }); 
+      }
 
       $scope.createRentPost = function() {
          $scope.rentPost.ownerId = $scope.pr.user._id;

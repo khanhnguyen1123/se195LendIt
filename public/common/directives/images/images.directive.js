@@ -11,7 +11,6 @@
       controller: 'imagesCtrl',
       scope: true, // creates its own local scope
       link: function(scope, element, attributes) {
-
         attributes.$observe('pictures', function(data) {
           if (!data) {
             scope.pictures = {};

@@ -5,17 +5,39 @@
     <images id="images" pictures="{{requestedItem.pictures}}"></images>
     <!--Item Details Container-->
     <div class="panel panel-default item-display">
+        <p ng-show="owner" style="cursor:pointer; float: right; color: #999; margin: 4px;" data-toggle="modal" data-target="#editRequest">Edit</p>
         <h1 style="font-size:3.5em; margin:0px">{{requestedItem.name}}</h1>
-     <div style="margin-left:5px;">
-        <p style="margin:0px;">
-            By <a ui-sref="publicProfile({random: requestedItem.ownerId})">{{requestedItem.ownerName}}</a>
-        </p>
-     </div>
+        <div style="margin-left:5px;">
+            <p style="margin:0px;">
+                By 
+                <a ui-sref="publicProfile({random: requestedItem.ownerId})">{{requestedItem.ownerName}}</a>
+            </p>
+        </div>
         <!--
         <h4 style="margin-top:10px; font-size:1.2em;">Price: {{requestedItem.price}} per day</h4>
         -->
+        <h4 style="margin-bottom:0px; font-size:1.2em; margin-top:10px;">
+            Category
+            <span style="padding:3px; font-size:1em; word-wrap:break-word; font-weight: normal;">{{requestedItem.category}}</span>
+        </h4>
         <h4 style="margin-bottom:0px; font-size:1.5em; margin-top:10px;">Description</h4>
         <p style="padding:3px; word-wrap:break-word;">{{requestedItem.description}}
         </p>
     </div>
 </div>
+<!--Edit Request Modal-->
+<div class="modal fade" id="editRequest" tabindex="-1" role="dialog" >
+      <div class="modal-dialog" role="document">
+         <form class="modal-content" ng-submit="updateRequest()">
+            <div class="modal-header">
+               <h4 class="modal-title">Edit Request</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
+               <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+         </form>
+      </div>
+   </div>

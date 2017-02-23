@@ -3,25 +3,18 @@
   angular
     .module('meanApp')
     .controller('publicProfileController', publicProfileController);
-
   publicProfileController.$inject = ['$scope','$http','$stateParams'];
+
   function publicProfileController($scope,$http,$stateParams) {
-    $scope.vm = this;
-
-    $scope.vm.user = {};
-
+    $scope.user = {};
+    $scope.averageRating = 1.1;
     var id = $stateParams.random;
-    
     $http.get('/api/profile/get/'+id)
       .success(function(data){       
-            $scope.vm.user = data;
-          })
-          .error(function(error) {
-            console.log('Error: ' + error);
-          });
-     
-     
-
-  }  // end profileCtrl
-
+        $scope.user = data;
+      })
+      .error(function(error) {
+        console.log('Error: ' + error);
+      });
+  }
 })();

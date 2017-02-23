@@ -1,77 +1,35 @@
 <navigation></navigation>
-
-<div class="container" style="width: 100%; position: absolute;padding: 90px ">
-  <div class="row">
-
-    <div class="row" >
-
-      <div class="col-md-4 col-xs-6  col-sm-offset-0">      
-        <div class="thumbnail">
-          <img ng-src="{{vm.user.profileImage.url | fpConvert: {filter:'sharpen', w:300, h:150} }}" />
-          <div class="caption text-center">
-            
-            
-
-           
-
-            
-          </div>
-        </div>
-      </div>  
-
-    </div>
-
-    
-    <div class="col-md-6">
-
-      <h1 class="form-signin-heading">{{vm.user.name}} profile</h1>
-      <!-- Button trigger modal -->
-
-      
-      <form  class="form-horizontal">
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Full name</label>
-          <p class="form-control-static">{{ vm.user.name }}</p>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Email</label>
-          <p class="form-control-static">{{ vm.user.email }}</p>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Address</label>
-          <p class="form-control-static">{{ vm.user.address }}</p>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Phone</label>
-          <p class="form-control-static">{{ vm.user.phone }}</p>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Billing Address</label>
-          <p class="form-control-static">{{ vm.user.billingAddress }}</p>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Paypal Account</label>
-          <p class="form-control-static">{{ vm.user.paypalAccount }}</p>
-        </div>
-      </form>
-
-
-      <h3> Comments and rating </h3>
-      <div class= 'row'>
-        
+<div class="main">
+   <!--Image and Profile Display Container-->
+   <div class="row">
+      <div style="float:left; margin: 50px 25px 20px 50px">
+         <img ng-src="{{user.profileImage.url}}" style="width:300px; height:300px; border-radius:50%;"/>
       </div>
-
-    </div>
-
-
-
-    
-
-  </div>
-
-  
-
+      <div class="col-md-5" style="float:left; margin:0px 40px 0px 25px;">
+         <h1 class="form-signin-heading">
+            {{user.name}}'s Profile
+         </h1>
+         <div class="row" style="padding-left: 15px; display: none;">
+           <p style="display:inline-block; margin:0px 8px 0px 0px;">Rating</p>
+           <p style="display:inline-block; margin:0px 0px 0px 8px;"># Reviews</p>
+         </div>
+         <div class="form-horizontal" style="margin-top: 15px; ">
+            <div class="form-group">
+               <label class="col-sm-3 control-label">Name</label>
+               <p class="form-control-static">{{user.name}}</p>
+            </div>
+            <div class="form-group">
+               <label class="col-sm-3 control-label">Email</label>
+               <p class="form-control-static">{{user.email}}</p>
+            </div>
+            <div class="form-group">
+               <label class="col-sm-3 control-label">Phone Number</label>
+               <p class="form-control-static">{{user.phone}}</p>
+            </div>
+         </div>
+         <div class="row">
+            <h3>Reviews</h3>
+         </div>
+      </div>
+   </div>
 </div>
-
-
-

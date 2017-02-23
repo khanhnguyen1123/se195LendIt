@@ -18,15 +18,21 @@
 			</select>
 		</div>
 		<!--Price-->
-		<!--Possibly Add By Day or Hour, etc, TBD-->
 		<div class="form-group">
-			<label>Price</label>
-			<input type="text" class="form-control" placeholder="Enter price" ng-model="rentPost.price" required>
+			<label style="width:auto;">Price</label>
+			<input type="number" class="form-control number-input" min="1" step="1" ng-model="rentPost.price" required />
+			<!--Add ng-model, TBD-->
+			<select ng-model="rentPost.priceOption" class="form-control" style="width:auto; display: inline-block;" required>
+				<option ng-repeat="options in priceOptions">{{options}}</option>
+			</select>
+			<div style="display: inline-block; margin-left: 100px;">
+				<label style="width:auto;">Quantity</label>
+				<input type="number" class="form-control number-input" min="1" step="1" ng-model="rentPost.quantity" required />
+			</div>
 		</div>
-		<!--Quantity, Change to Integer Selector-->
+		<!--Quantity-->
 		<div class="form-group">
-			<label>Quantity</label>
-			<input type="text" class="form-control" placeholder="Enter a number" ng-model="rentPost.quantity" required>
+			
 		</div>
 		<!--Description-->
 		<div class="form-group">

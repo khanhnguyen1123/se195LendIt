@@ -87,6 +87,41 @@ module.exports.getOne = function(req,res){
 
 }; // end getOne function
 
-module.exports.updateUser = function(req, res) {
 
+module.exports.updateUser = function(req, res) {
+  var userId = req.body._id;
+  User.findById( userId, function(err, userData) {
+    var user = userData;
+    if (req.body.name) user.name = req.body.name;
+    if (req.body.email) user.email = req.body.email;
+    if (req.body.phone) user.phone = req.body.phone;
+    user.save(function(err){
+      if (err) {
+        console.log("User Update Failed")
+        res.json({status: 500})
+      } else {
+        console.log("User Update Successful");   
+        res.json({status: 200})
+      }
+    });
+  })
 };
+
+module.exports.updateUserPhoto= function(req,res){
+  var userId = req.body._id;
+  var image = req.body.profileImage;
+  User.findById(userId, function(err, userData){
+    var user = userData;
+    user.profileImage = image;
+    user.save( function(err){
+      if (err){
+        console.log("failed save")
+        res.json({status: 500})
+      } else {
+        console.log("save successful");
+        res.json({status: 200})
+      }
+    })
+  });
+};
+

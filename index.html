@@ -35,6 +35,9 @@
 	<script src='public/auth/register/register.controller.js'></script>
 	<script src='public/fbpage/fb.controller.js'></script>
 	<script src='public/home/home.controller.js'></script>
+	<!--Profile-->
+	<script src='public/profile/profile.controller.js'></script>
+	<script src='public/publicProfile/publicProfile.controller.js'></script>
 	<!--Rent-->
 	<script src="public/rent/rent.controller.js"></script>
 	<script src="public/rent/rent_item/rent_item.controller.js"></script>
@@ -45,14 +48,7 @@
 	<script src="public/request/request_item/request_item.controller.js"></script>
 	<!--My Item-->
 	<script src="public/myItem/myItem.controller.js"></script>
-	<!--Profile-->
-	<script src='public/profile/profile.controller.js'></script>
-	<script src="public/profile/updateProfileImage.controller.js"></script>
-	<script src="public/profile/editProfile.js"></script>
-	<script src="public/profile/postRequestedItem.js"></script>
-	<script src="public/publicProfile/publicProfile.controller.js"></script>
-	<!--To Be Deleted Later On-->
-	<script src="public/profile/postedLendingItem.controller.js"></script>
+	
 
 	<!-- Google Maps API & Scripts-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPwdZTuGLzv76_l9MdMnuCo7reDrBfBQg"></script> 
@@ -77,6 +73,7 @@
 		   margin: 0; 
 		   padding: 0;
 		}
+		label {margin-right: 5px;}
 		/*Common Class Styles*/
 		.main {
 		   margin-top:60px; 
@@ -108,6 +105,10 @@
 			text-overflow:ellipsis; 
 			overflow:hidden; 
 			white-space:nowrap;"
+		}
+		.number-input {
+			display: inline-block;
+			width: 75px;
 		}
 		/* 
 		Dont know whos CSS

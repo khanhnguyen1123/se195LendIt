@@ -8,7 +8,8 @@ module.exports = mongoose.model('LendingItem',{
 
 	name: String,
 	category: String,
-	price: String,
+	price: Number,
+	priceOption: String,
 	quantity: String,
 	state: String,
 	description: String,

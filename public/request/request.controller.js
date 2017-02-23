@@ -26,12 +26,10 @@
         $scope.filter = function(category) {
           //console.log("Filtered Category: " + category);
           $scope.selectedCategory = category;
-
           if (category == "All") {
             $scope.displayedItems = $scope.requestedItems;
             return;
           }
-
           $scope.displayedItems = [];
           for (let i = 0; i < $scope.requestedItems.length; i++) { 
             let item = $scope.requestedItems[i];

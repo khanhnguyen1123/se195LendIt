@@ -5,6 +5,7 @@
    requestItemController.$inject = ['$location','$http','$scope','$stateParams', 'authentication', 'meanData'];
 
    function requestItemController ($location,$http,$scope,$stateParams, authentication, meanData) {
+      $scope.categories = ['All', 'Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
       $scope.requestedItem = {};
       $scope.user = {};
       $scope.owner = false;

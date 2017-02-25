@@ -39,21 +39,6 @@
         templateUrl: 'public/fbpage/fb.view.html',
         controller: 'fbcontroller'
       })
-      .state('request',{
-        url: '/request',
-        templateUrl: 'public/request/request.view.html',
-        controller: 'requestController'
-      })
-      .state('request_post', {
-        url: '/request/post',
-        templateUrl: 'public/request/request_post/request_post.view.html',
-        controller: 'requestPostController'
-      })
-      .state('request_item',{
-        url: '/request/:random',
-        templateUrl: 'public/request/request_item/request_item.view.html',
-        controller: 'requestItemController'
-      })
       .state('rent',{
         url: '/rent',
         templateUrl: 'public/rent/rent.view.html',
@@ -68,6 +53,36 @@
         url: '/rent/:random',
         templateUrl: 'public/rent/rent_item/rent_item.view.html',
         controller: 'rentItemController'
+      })
+      .state('borrow',{
+        url: '/borrow',
+        templateUrl: 'public/borrow/borrow.view.html',
+        controller: 'borrowController'
+      })
+      .state('borrow_post', {
+        url: '/borrow/post',
+        templateUrl: 'public/borrow/borrow_post/borrow_post.view.html',
+        controller: 'borrowPostController'
+      })
+      .state('borrow_item', {
+        url: '/borrow/:random',
+        templateUrl: 'public/borrow/borrow_item/borrow_item.view.html',
+        controller: 'borrowItemController'
+      })
+      .state('request',{
+        url: '/request',
+        templateUrl: 'public/request/request.view.html',
+        controller: 'requestController'
+      })
+      .state('request_post', {
+        url: '/request/post',
+        templateUrl: 'public/request/request_post/request_post.view.html',
+        controller: 'requestPostController'
+      })
+      .state('request_item',{
+        url: '/request/:random',
+        templateUrl: 'public/request/request_item/request_item.view.html',
+        controller: 'requestItemController'
       })
       .state('myItem', {
         url: '/myItem',

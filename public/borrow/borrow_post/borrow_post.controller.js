@@ -2,18 +2,16 @@
 
    angular
       .module('meanApp')
-      .controller('rentPostController', rentPostController);
+      .controller('borrowPostController', borrowPostController);
 
-   rentPostController.$inject = ['$location','$http','$scope', '$state','filepickerService','meanData', 'authentication'];
+   borrowPostController.$inject = ['$location','$http','$scope', '$state','filepickerService','meanData', 'authentication'];
 
-   function rentPostController ($location, $http, $scope, $state,filepickerService, meanData, authentication) {
-      const c_state = 'Rent Post Controller';
+   function borrowPostController ($location, $http, $scope, $state,filepickerService, meanData, authentication) {
+      const c_state = 'Borrow Post Controller';
       //console.log('State: ' + c_state);
       $scope.categories = ['All', 'Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
-      $scope.priceOptions = ['per hour', 'per day', 'per week'];
-      $scope.rentPost = {};
-      $scope.rentPost.category = $scope.categories[0];
-      $scope.rentPost.priceOption = $scope.priceOptions[0];
+      $scope.borrowPost = {};
+      $scope.borrowPost.category = $scope.categories[0];
       $scope.pr = this;
       $scope.pr.user = {};
       document.getElementById("images").style.display = "none";
@@ -30,16 +28,16 @@
          }); 
       }
 
-      $scope.createRentPost = function() {
-         $scope.rentPost.ownerId = $scope.pr.user._id;
-         $scope.rentPost.ownerName = $scope.pr.user.name;
-         $scope.rentPost.state = "Available";
-         $http.post('/api/lendingItem/post', $scope.rentPost)
+      $scope.createBorrowPost = function() {
+         $scope.borrowPost.ownerId = $scope.pr.user._id;
+         $scope.borrowPost.ownerName = $scope.pr.user.name;
+         $scope.borrowPost.state = "Available";
+         $http.post('/api/lendingItem/post', $scope.borrowPost)
             .success(function(data){
                console.log(JSON.stringify(data));   
                //Clean the form to allow the user to create new post   
-               $scope.rentPost = {};
-               $state.go("rent")
+               $scope.borrowPost = {};
+               $state.go("borrow")
                document.getElementById("images").style.display = "none";
                document.getElementById("form").style.width = "calc(100% - 40px)";                 
             })
@@ -57,7 +55,7 @@
             openTo: 'IMAGE_SEARCH'
          }, function(data){
             console.log(JSON.stringify(data));
-            $scope.rentPost.pictures = data;
+            $scope.borrowPost.pictures = data;
             $scope.$apply();
             document.getElementById("images").style.display = "block";
             document.getElementById("form").style.width = "calc(100% - 475px)";

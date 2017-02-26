@@ -9,7 +9,7 @@
    function rentPostController ($location, $http, $scope, $state,filepickerService, meanData, authentication) {
       const c_state = 'Rent Post Controller';
       //console.log('State: ' + c_state);
-      $scope.categories = ['All', 'Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
+      $scope.categories = ['Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
       $scope.priceOptions = ['per hour', 'per day', 'per week'];
       $scope.rentPost = {};
       $scope.rentPost.category = $scope.categories[0];

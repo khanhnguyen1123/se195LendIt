@@ -1,11 +1,16 @@
 <navigation> </navigation>
 <!--Request Item Container-->
 <div class="main">
+    <div class="alert alert-dismissible" role="alert" id="editAlert" style="display: none;">
+      <button class="close" ng-click="closeAlert()">&times;</span></button>
+      {{editMessage}}
+    </div>
     <!--Images Directive for Item Pictures-->
     <images id="images" pictures="{{requestedItem.pictures}}"></images>
     <!--Item Details Container-->
     <div class="panel panel-default item-display">
-        <p ng-show="owner" style="cursor:pointer; float: right; color: #999; margin: 4px;" data-toggle="modal" data-target="#editRequest">Edit</p>
+      <p ng-show="owner" style="cursor:pointer; float: right; color: #999; margin: 4px;" ng-click="toggleEdit()">{{editButton}}</p>
+      <div id="item">
         <h1 style="font-size:3.5em; margin:0px">{{requestedItem.name}}</h1>
         <div style="margin-left:5px;">
             <p style="margin:0px;">
@@ -23,21 +28,33 @@
         <h4 style="margin-bottom:0px; font-size:1.5em; margin-top:10px;">Description</h4>
         <p style="padding:3px; word-wrap:break-word;">{{requestedItem.description}}
         </p>
+      </div>
+      <!--Edit Request Form-->
+      <form id="editRequest" style="display:none; margin-top: 15px;">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" text="{{requestedItem.name}}" placeholder="Enter Item Name" ng-model="requestedItem.name">
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select name="category" ng-model="requestedItem.category" class="form-control" required>
+            <option ng-repeat="category in categories">{{category}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label >Item Description</label>
+          <textarea id="textarea" ng-model="requestedItem.description" class="form-control" style="height: 150px;"></textarea>
+        </div>
+        <button type="button" class="btn btn-default" ng-click="updateImage()">
+          Update Picture
+        </button>
+        <div class="form-group" style="margin-top: 15px; display: flex; justify-content: space-around;">
+          <button style="display: inline-block; width: 40%;" class="btn btn-danger btn-block" ng-click="deleteRequest()">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            Delete
+          </button>
+          <button style="display: inline-block; width: 40%;" class="btn btn-danger btn-block"  ng-click="updateRequest()" ng-disabled="requestedItem.$invalid">Submit</button>
+        </div>
+      </form>
     </div>
 </div>
-<!--Edit Request Modal-->
-<div class="modal fade" id="editRequest" tabindex="-1" role="dialog" >
-      <div class="modal-dialog" role="document">
-         <form class="modal-content" ng-submit="updateRequest()">
-            <div class="modal-header">
-               <h4 class="modal-title">Edit Request</h4>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-               <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
-               <button type="submit" class="btn btn-primary">Save Changes</button>
-            </div>
-         </form>
-      </div>
-   </div>

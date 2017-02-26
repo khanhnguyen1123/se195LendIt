@@ -90,6 +90,8 @@ app.post('/api/profile/editProfile',profileAuthenticationController.editProfile)
 app.post('/api/requestedItem/post',postedRequestedItemController.post);
 app.get('/api/requestedItem/get',postedRequestedItemController.getAll);
 app.get('/api/requestedItem/get/:id',postedRequestedItemController.getOne);
+app.post('/api/requestedItem/update',postedRequestedItemController.updateItem);
+//app.post('api/requestedItem/delete/:id', postedRequestItemController.deleteItem);
 app.post('/api/requestedItem/getUserItems',postedRequestedItemController.getUserItems);
 app.get('/api/requestedItemCategory/get/:category',postedRequestedItemController.getCategory);
 // post lending items
@@ -103,6 +105,7 @@ app.get('/api/lendingItemCategory/get/:category',postedLendingItemController.get
 app.post('/create',paypalPayment.create);
 app.get('/execute',paypalPayment.execute);
 app.get('/cancel',paypalPayment.cancel);
+
 /*
 var paypal = require('paypal-rest-sdk');
 var config = {

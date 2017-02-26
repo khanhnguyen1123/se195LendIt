@@ -1,29 +1,83 @@
 <navigation> </navigation>
 <!--Rent Item Container-->
 <div class="main">
-    <!--Images Directive for Item Pictures-->
-    <images id="images" pictures="{{rentItem.pictures}}"></images>
-    <!--Item Details Container-->
-    <div class="panel panel-default item-display">
-        <h1 style="font-size:3.5em; margin:0px">{{rentItem.name}}</h1>
-     <div style="margin-left:5px;">
-        <p style="margin:0px;">
+   <div class="alert alert-dismissible" role="alert" id="editAlert" style="display: none;">
+      <button class="close" ng-click="closeAlert()">&times;</span></button>
+      {{editMessage}}
+   </div>
+   <!--Images Directive for Item Pictures-->
+   <images id="images" pictures="{{rentItem.pictures}}"></images>
+   <!--Item Details Container-->
+   <div class="panel panel-default item-display">
+      <p ng-show="owner" style="cursor:pointer; float: right; color: #999; margin: 4px;" ng-click="toggleEdit()">Edit</p>
+      <div id="item">
+         <h1 style="font-size:3.5em; margin:0px">{{rentItem.name}}</h1>
+         <div style="margin-left:5px;">
+            <p style="margin:0px;">
             By <a ui-sref="publicProfile({random: rentItem.ownerId})">{{rentItem.ownerName}}</a>
-        </p>
-        <!--
-        <p style="display:inline-block; margin:0px;">Rating</p>
-        <div style="margin:0px 30px 0px 30px; display:inline-block;"/>
-        <p style="display:inline-block; margin:0px;"># Reviews</p>
-        -->
-     </div>
-        <h4 style="margin-top:10px; font-size:1.2em;">Price: ${{rentItem.price}} per day</h4>
-     <h4 style="font-size:1.2em;">
-        Currently: <span style="color:green;">{{rentItem.state}}</span>
-    </h4>
-     <h4 style="margin-bottom:0px; font-size:1.5em; margin-top:20px;">Description</h4>
-     <p style="padding:3px; word-wrap:break-word;">{{rentItem.description}}
-        </p>
-     <!--<p style="">{{rentItem.quantity}}</p>-->
-     <button ng-click="makePaypalPayment()">Pay for The Item</button> 
-    </div>
+            </p>
+            <!--
+            <p style="display:inline-block; margin:0px;">Rating</p>
+            <div style="margin:0px 30px 0px 30px; display:inline-block;"/>
+            <p style="display:inline-block; margin:0px;"># Reviews</p>
+            -->
+         </div>
+         <h4 style="margin-top:10px; font-size:1.2em;">Price: ${{rentItem.price}} per day</h4>
+         <h4 style="font-size:1.2em;">
+         Currently: <span style="color:green;">{{rentItem.state}}</span>
+         </h4>
+         <h4 style="margin-bottom:10px; font-size:1.2em; margin-top:10px;">
+         Category
+         <span style="padding:3px; font-size:1em; word-wrap:break-word; font-weight: normal;">{{rentItem.category}}</span>
+         </h4>
+         <h4 style="margin-bottom:0px; font-size:1.5em; margin-top:20px;">Description</h4>
+         <p style="padding:3px; word-wrap:break-word;">{{rentItem.description}}
+         </p>
+         <!--<p style="">{{rentItem.quantity}}</p>-->
+         <button class="btn btn-info" ng-click="makePaypalPayment()">Pay for The Item</button> 
+      </div>
+      <div id="editItem" style="display:none; margin-top: 15px;">
+         <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" placeholder="Item Name" ng-model="rentItem.name" required>
+         </div>
+         <!--Category-->
+         <div class="form-group">
+            <label>Category</label>
+            <select ng-model="rentItem.category" class="form-control" required>
+               <option ng-repeat="category in categories">{{category}}</option>
+            </select>
+         </div>
+         <!--Price-->
+         <div class="form-group">
+            <label style="width:auto;">Price(USD)</label>
+            <input type="number" class="form-control number-input" min="1" step="1" ng-model="rentItem.price" required />
+            <!--Add ng-model, TBD-->
+            <select ng-model="rentPost.priceOption" class="form-control" style="width:auto; display: inline-block;" required>
+               <option ng-repeat="options in priceOptions">{{options}}</option>
+            </select>
+            <div style="display: inline-block; margin-left: 100px;">
+               <label style="width:auto;">Quantity</label>
+               <input type="number" class="form-control number-input" min="1" step="1" ng-model="rentItem.quantity" required />
+            </div>
+         </div>
+         <!--Description-->
+         <div class="form-group">
+            <label >Item Description</label>
+            <textarea id="textarea" ng-model="rentItem.description" class="form-control" style="height: 150px;"></textarea>
+         </div>
+         <button type="button" class="btn btn-default" ng-click="upload()">
+            Upload Picture
+         </button>
+         <div class="form-group" style="margin-top: 15px; display: flex; justify-content: space-around;">
+            <button style="display: inline-block; width: 40%;" class="btn btn-danger btn-block" ng-click="deleteRequest()">
+               <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+               Delete
+            </button>
+            <button style="display: inline-block; width: 40%;" class="btn btn-danger btn-block"  ng-click="updateRequest()" ng-disabled="requestedItem.$invalid">Submit</button>
+         </div>
+      </div>
+   </div>
 </div>
+
+

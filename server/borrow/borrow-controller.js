@@ -1,12 +1,12 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
-var BorrowItem = require('./borrow.model.js');
+var borrowModel = require('./borrow-model.js');
 
 //Comment for Albert, Limit and Skip
 
 //Create Item
 module.exports.createItem = function(req, res) {
-   let newItem = new BorrowItem(req.body);
+   let newItem = new borrowModel(req.body);
    let itemID;
    //Saves Item to DB
    newItem.save(function(err, data) {
@@ -26,8 +26,9 @@ module.exports.createItem = function(req, res) {
 
 //Update Item
 module.exports.updateItem = function(req, res) {
-   BorrowItem.findById(req.body._id, function(err, data) {
+   borrowModel.findById(req.body._id, function(err, data) {
       let item = req.body;
+      //TBD, Fix Update
       item.save(function(err) {
          if (err) {
             console.log("Borrow Item Failed Update");

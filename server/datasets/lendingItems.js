@@ -10,7 +10,7 @@ module.exports = mongoose.model('LendingItem',{
 	category: String,
 	price: Number,
 	priceOption: String,
-	quantity: String,
+	quantity: Number,
 	state: String,
 	description: String,
 	pictures: {type: Schema.Types.Mixed},

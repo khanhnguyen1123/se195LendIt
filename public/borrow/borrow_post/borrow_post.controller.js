@@ -9,7 +9,7 @@
    function borrowPostController ($location, $http, $scope, $state,filepickerService, meanData, authentication) {
       const c_state = 'Borrow Post Controller';
       //console.log('State: ' + c_state);
-      $scope.categories = ['All', 'Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
+      $scope.categories = ['Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
       $scope.borrowPost = {};
       $scope.borrowPost.category = $scope.categories[0];
       $scope.pr = this;

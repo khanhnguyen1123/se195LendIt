@@ -30,10 +30,6 @@
 				<input type="number" class="form-control number-input" min="1" step="1" ng-model="rentPost.quantity" required />
 			</div>
 		</div>
-		<!--Quantity-->
-		<div class="form-group">
-			
-		</div>
 		<!--Description-->
 		<div class="form-group">
 			<label >Item Description</label>
@@ -42,6 +38,6 @@
 		<button type="button" class="btn btn-default" ng-click="upload()">
 			Upload Picture
 		</button>
-		<button style="margin-top: 15px;"type="submit" class="btn btn-danger btn-block"  ng-click="createRentPost()" ng-disabled="rentPostForm.$invalid">Submit</button>
+		<button style="margin-top: 15px;" class="btn btn-danger btn-block"  ng-click="createRentPost()" ng-disabled="rentPostForm.$invalid">Submit</button>
 	</form>
 </div>

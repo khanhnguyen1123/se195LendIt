@@ -40,11 +40,15 @@
    <!--Edit Profile Display Container-->
    <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" >
       <div class="modal-dialog" role="document">
-         <form class="modal-content" ng-submit="updateUser()">
+         <form class="modal-content">
             <div class="modal-header">
                <h4 class="modal-title">Edit Profile</h4>
             </div>
             <div class="modal-body">
+               <div class="alert alert-dismissible" role="alert" id="editAlert" style="display: none;">
+                  <button class="close" ng-click="closeAlert()">&times;</span></button>
+                  {{editMessage}}
+               </div>
                <div class="form-group">
                   <label>User Name</label>
                   <input type="text" class="form-control" text="{{user.name}}" placeholder="Enter Name" ng-model="user.name" >
@@ -68,7 +72,7 @@
             </div>
             <div class="modal-footer">
                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click='reload()'>Close</button>
-               <button type="submit" class="btn btn-primary">Save changes</button>
+               <button type="submit" class="btn btn-primary" ng-click="updateUser()">Save changes</button>
             </div>
          </form>
       </div>

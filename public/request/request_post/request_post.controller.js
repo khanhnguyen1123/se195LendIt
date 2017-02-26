@@ -9,7 +9,7 @@
    function requestPostController ($location, $http, $scope, $state, filepickerService, meanData, authentication) {
       const c_state = 'Request Post Controller';
       //console.log('State: ' + c_state);
-      $scope.categories = ['All', 'Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
+      $scope.categories = ['Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
       $scope.requestPost = {};
       $scope.requestPost.category = $scope.categories[0];
       $scope.pr = this;

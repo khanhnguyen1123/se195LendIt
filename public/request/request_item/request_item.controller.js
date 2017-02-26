@@ -34,7 +34,8 @@
       }
 
       $scope.updateRequest = function () {
-         console.log("Saved Request");
+         if (!$scope.owner)
+            return;
          $http.post('/api/requestedItem/update', $scope.requestedItem)
             .success(function(data){
                console.log(JSON.stringify(data));

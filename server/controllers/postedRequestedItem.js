@@ -79,7 +79,7 @@ module.exports.updateItem = function(req, res) {
     data.save( function (err) {
       if (err)
         res.send(err);
-      res.send("Item Update Successful");
+      res.send("Request Update Successful");
     })
   });
 }

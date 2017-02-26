@@ -4,7 +4,7 @@
       .controller('borrowController', borrowController);
    borrowController.$inject = ['$location','$http','$scope','authentication'];
 
-   function borrowController ($location,$http,$scope, authentication) {
+   function borrowController ($location, $http, $scope, authentication) {
       $scope.categories = ['All', 'Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
       $scope.selectedCategory = $scope.categories[0];
       $scope.displayedItems = [];
@@ -12,7 +12,15 @@
       $scope.loggedIn = authentication.isLoggedIn();
 
       //Get Borrow Items, TBD
-      
+      $http.get('/api/borrow/get')
+         .success( function(data) {
+            $scope.borrowItems = data;
+            $scope.displayedItems = data;
+         })
+         .error ( function() {
+            console.log('Error: ' + error);
+         });
+
       $scope.filter = function(category) {
          //console.log("Filtered Category: " + category);
          $scope.selectedCategory = category;

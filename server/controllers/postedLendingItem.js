@@ -67,3 +67,21 @@ module.exports.getCategory = function(req,res){
         res.json(data);
   });// end calling finding function in mogoose    
 }; // end getBookAndAudible function
+
+module.exports.updateItem = function(req, res) {
+  LendingItem.findById(req.body._id, function(err, data) {
+    if (req.body.name) data.name = req.body.name;
+    if (req.body.category) data.category = req.body.category;
+    if (req.body.description) data.description = req.body.description;
+    if (req.body.pictures) data.pictures = req.body.pictures;
+    if (req.body.price) data.price = req.body.price;
+    if (req.body.priceOption) data.priceOption = req.body.priceOption;
+    if (req.body.quantity) data.quantity = req.body.quantity;
+    if (req.body.state) data.state = req.body.state;
+    data.save(function (err) {
+      if (err)
+        res.send(err);
+      res.send("Item Update Successful");
+    })
+  });
+}

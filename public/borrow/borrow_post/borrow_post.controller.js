@@ -28,16 +28,16 @@
          }); 
       }
 
-      $scope.createBorrowPost = function() {
+      $scope.createItem = function() {
          $scope.borrowPost.ownerId = $scope.pr.user._id;
          $scope.borrowPost.ownerName = $scope.pr.user.name;
          $scope.borrowPost.state = "Available";
-         $http.post('/api/lendingItem/post', $scope.borrowPost)
+         $http.post('/api/borrow/create', $scope.borrowPost)
             .success(function(data){
                console.log(JSON.stringify(data));   
                //Clean the form to allow the user to create new post   
                $scope.borrowPost = {};
-               $state.go("borrow")
+               $state.go("borrow");
                document.getElementById("images").style.display = "none";
                document.getElementById("form").style.width = "calc(100% - 40px)";                 
             })

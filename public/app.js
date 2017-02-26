@@ -89,7 +89,6 @@
         templateUrl: 'public/myItem/myItem.view.html',
         controller: 'myItemController'
       })
-
     // use the HTML5 History API
     //$locationProvider.html5Mode(true);
     $locationProvider.html5Mode({
@@ -98,7 +97,7 @@
     });
 
     //Add the API key to use filestack service
-    filepickerProvider.setKey('ApAG1hn5GRCymw8vG9TUYz');
+    filepickerProvider.setKey('AXJo9uL0ZSCiJ0miaAtcxz');
   }
 
   function run($rootScope, $location, authentication,$state) {

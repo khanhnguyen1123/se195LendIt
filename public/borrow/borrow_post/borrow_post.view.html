@@ -1,6 +1,6 @@
 <navigation> </navigation>
 <!--Borrow Post Container-->
-<div class="main" ng-controller='BorrowPostController'>
+<div class="main" ng-controller='borrowPostController'>
 	<!--Post Images, Hidden Till Pictures Uploaded-->
 	<images id="images" pictures="{{borrowPost.pictures}}"></images>
 	<!--Borrow Post Form-->
@@ -25,6 +25,6 @@
 		<button type="button" class="btn btn-default" ng-click="upload()">
 			Upload Picture
 		</button>
-		<button style="margin-top: 15px;" class="btn btn-danger btn-block"  ng-click="createBorrowPost()" ng-disabled="borrowPostForm.$invalid">Submit</button>
+		<button style="margin-top: 15px;" class="btn btn-danger btn-block"  ng-click="createItem()" ng-disabled="borrowPostForm.$invalid">Submit</button>
 	</form>
 </div>

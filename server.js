@@ -22,6 +22,7 @@ var profileAuthenticationController = require('./server/controllers/profile');
 var postedRequestedItemController = require('./server/controllers/postedRequestedItem');
 var postedLendingItemController =   require('./server/controllers/postedLendingItem');
 var paypalPayment = require('./server/controllers/paypalPayment');
+var borrowController = require('./server/borrow/borrow-controller');
 
 
 //  [khanh] create a collection named time-waste in your local mongodb server to run this line of code
@@ -98,9 +99,15 @@ app.get('/api/requestedItemCategory/get/:category',postedRequestedItemController
 app.post('/api/lendingItem/post',postedLendingItemController.post);
 app.get('/api/lendingItem/get',postedLendingItemController.getAll);
 app.get('/api/lendingItem/get/:id',postedLendingItemController.getOne);
+app.post('/api/lendingItem/update',postedLendingItemController.updateItem);
 app.post('/api/lendingItem/getUserItems',postedLendingItemController.getUserItems);
 app.get('/api/lendingItemCategory/get/:category',postedLendingItemController.getCategory);
 
+//Borrow
+app.post('/api/borrow/create', borrowController.createItem);
+app.post('/api/borrow/update', borrowController.updateItem);
+app.get('/api/borrow/get', borrowController.readItems);
+app.get('/api/borrow/get/:id', borrowController.readItemById);
 // paypal payment 
 app.post('/create',paypalPayment.create);
 app.get('/execute',paypalPayment.execute);

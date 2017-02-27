@@ -83,3 +83,12 @@ module.exports.updateItem = function(req, res) {
     })
   });
 }
+
+module.exports.deleteItem = function (req, res) {
+  RequestedItem.remove({_id: req.params.id}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.send("Request Delted Successfully");
+  })
+}
+

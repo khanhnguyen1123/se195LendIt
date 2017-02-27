@@ -25,21 +25,19 @@ module.exports.createItem = function(req, res) {
 }
 //Update Item
 module.exports.updateItem = function(req, res) {
-   borrowModel.findById(req.body._id, function(err, data) {
-      if (req.body.name) data.name = req.body.name;
-      if (req.body.category) data.category = req.body.category;
-      if (req.body.description) data.description = req.body.description;
-      if (req.body.pictures) data.pictures = req.body.pictures;
-      data.save(function(err) {
-         if (err)
-            res.send(err);
-         res.send("Item Update Successful");
-      });
-   });
+   borrowModel.update({_id: req.body._id}, req.body, function(err) {
+      if (err)
+         res.send(err);
+      res.send("Item Update Successfully");
+   })
 }
 //Delete Item
 module.exports.deleteItem = function(req, res) {
-
+   borrowModel.remove({_id: req.params.id}, function(err, data) {
+      if (err)
+         res.send(err);
+      res.send("Item Delted Successfully");
+   })
 }
 
 

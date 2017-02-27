@@ -2,9 +2,9 @@
   angular
     .module('meanApp')
     .controller('rentItemController', rentItemController);
-  rentItemController.$inject = ['$location','$http','$scope','$stateParams', 'authentication', 'meanData', 'filepickerService'];
+  rentItemController.$inject = ['$location','$http','$scope','$stateParams', 'authentication', 'meanData', 'filepickerService', '$state'];
 
-  function rentItemController ($location, $http, $scope, $stateParams, authentication, meanData, filepickerService) {
+  function rentItemController ($location, $http, $scope, $stateParams, authentication, meanData, filepickerService, $state) {
     $scope.categories = ['Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
     $scope.priceOptions = ['per hour', 'per day', 'per week'];
     $scope.states = ['Available', 'Unavailble'];
@@ -85,6 +85,19 @@
         });
       $('.alert').show();
       $scope.toggleEdit();
+    }
+    $scope.deleteItem = function () {
+      if (!$scope.owner)
+        return;
+      $http.delete('/api/lendingItem/delete/'+id)
+        .success(function (data) {
+          console.log(data);
+          console.log("Item Deleted Succesfully");
+          $state.go('rent');
+        })
+        .error (function (err) {
+          console.log(err);
+        })
     }
     $scope.toggleEdit = function () {
       let form = document.getElementById("editItem");

@@ -2,9 +2,9 @@
    angular
       .module('meanApp')
       .controller('requestItemController', requestItemController);
-   requestItemController.$inject = ['$location','$http','$scope','$stateParams', 'authentication', 'meanData', 'filepickerService'];
+   requestItemController.$inject = ['$location','$http','$scope','$stateParams', 'authentication', 'meanData', 'filepickerService', '$state'];
 
-   function requestItemController ($location,$http,$scope,$stateParams, authentication, meanData, filepickerService) {
+   function requestItemController ($location, $http, $scope, $stateParams, authentication, meanData, filepickerService, $state) {
       $scope.categories = ['Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
       $scope.requestedItem = {};
       $scope.user = {};
@@ -51,7 +51,17 @@
          $scope.toggleEdit();
       }
       $scope.deleteRequest = function () {
-         console.log("Delete Request");
+         if (!$scope.owner)
+            return;
+         $http.delete('/api/requestedItem/delete/'+id)
+            .success(function (data) {
+               console.log(data);
+               console.log("Request Deleted Succesfully");
+               $state.go('request');
+            })
+            .error (function (err) {
+               console.log(err);
+            })
       }
       $scope.updateImage = function() {
          filepickerService.pickMultiple({

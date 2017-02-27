@@ -2,9 +2,9 @@
   angular
     .module('meanApp')
     .controller('borrowItemController', borrowItemController);
-  borrowItemController.$inject = ['$location','$http','$scope','$stateParams', 'authentication', 'meanData', 'filepickerService'];
+  borrowItemController.$inject = ['$location','$http','$scope','$stateParams', 'authentication', 'meanData', 'filepickerService', '$state'];
 
-  function borrowItemController ($location, $http, $scope, $stateParams, authentication, meanData, filepickerService) {
+  function borrowItemController ($location, $http, $scope, $stateParams, authentication, meanData, filepickerService, $state) {
     $scope.categories = ['Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
     $scope.states = ['Available', 'Unavailble'];
     $scope.borrowItem = {};
@@ -59,7 +59,7 @@
       if (!$scope.owner)
         return;
       document.getElementById('editAlert').classList.add("alert-success");
-      $http.post('/api/borrow/update', $scope.borrowItem)
+      $http.put('/api/borrow/update', $scope.borrowItem)
         .success(function(data){
           console.log(JSON.stringify(data));
           $scope.editMessage = "Item Updated Successful!";
@@ -72,6 +72,19 @@
         });
       $('.alert').show();
       $scope.toggleEdit();
+    }
+    $scope.deleteItem = function () {
+      if (!$scope.owner)
+        return;
+      $http.delete('/api/borrow/delete/'+id)
+        .success(function (data) {
+          console.log(data);
+          console.log("Item Deleted Succesfully");
+          $state.go('borrow');
+        })
+        .error (function (err) {
+          console.log(err);
+        })
     }
     $scope.toggleEdit = function () {
       console.log("toggle");

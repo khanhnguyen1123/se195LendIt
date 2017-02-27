@@ -92,11 +92,12 @@ app.post('/api/requestedItem/post',postedRequestedItemController.post);
 app.get('/api/requestedItem/get',postedRequestedItemController.getAll);
 app.get('/api/requestedItem/get/:id',postedRequestedItemController.getOne);
 app.post('/api/requestedItem/update',postedRequestedItemController.updateItem);
-//app.post('api/requestedItem/delete/:id', postedRequestItemController.deleteItem);
+app.delete('/api/requestedItem/delete/:id',postedRequestedItemController.deleteItem);
 app.post('/api/requestedItem/getUserItems',postedRequestedItemController.getUserItems);
 app.get('/api/requestedItemCategory/get/:category',postedRequestedItemController.getCategory);
 // post lending items
 app.post('/api/lendingItem/post',postedLendingItemController.post);
+app.delete('/api/lendingItem/delete/:id',postedLendingItemController.deleteItem);
 app.get('/api/lendingItem/get',postedLendingItemController.getAll);
 app.get('/api/lendingItem/get/:id',postedLendingItemController.getOne);
 app.post('/api/lendingItem/update',postedLendingItemController.updateItem);
@@ -105,7 +106,8 @@ app.get('/api/lendingItemCategory/get/:category',postedLendingItemController.get
 
 //Borrow
 app.post('/api/borrow/create', borrowController.createItem);
-app.post('/api/borrow/update', borrowController.updateItem);
+app.put('/api/borrow/update', borrowController.updateItem);
+app.delete('/api/borrow/delete/:id', borrowController.deleteItem);
 app.get('/api/borrow/get', borrowController.readItems);
 app.get('/api/borrow/get/:id', borrowController.readItemById);
 // paypal payment 

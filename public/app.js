@@ -97,7 +97,7 @@
     });
 
     //Add the API key to use filestack service
-    filepickerProvider.setKey('AXJo9uL0ZSCiJ0miaAtcxz');
+    filepickerProvider.setKey('AxHaV7fY0SjWcy3oO6Ilmz');
   }
 
   function run($rootScope, $location, authentication,$state) {

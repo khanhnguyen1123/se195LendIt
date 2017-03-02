@@ -6,6 +6,7 @@ var LendingItem = require('../datasets/lendingItems.js');
 // post Lending item
 module.exports.post = function(req, res){
       //Creates a new 
+      req.body.name = req.body.name.toLowerCase();
       var newLendingItem = new LendingItem(req.body);
       var itemId;
       //Save it into the DB.
@@ -93,3 +94,18 @@ module.exports.deleteItem = function (req, res) {
     res.send("Item Delted Successfully");
   })
 }
+
+// search for renting items|| @parameter: renting item's name
+module.exports.searchRentingItem = function(req,res){
+  var searchedItemName = req.body.name.toLowerCase();
+  console.log("search item name: "+searchedItemName);
+  LendingItem.find({'name':searchedItemName},function(err,data){
+    if(err) res.send(err);
+        //If no errors, send it back to the client
+    if(data){
+        res.json(data);
+        console.log("inside search function :"+ data);
+      }
+  });
+};// end search function
+

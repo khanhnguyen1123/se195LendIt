@@ -103,7 +103,7 @@ app.get('/api/lendingItem/get/:id',postedLendingItemController.getOne);
 app.post('/api/lendingItem/update',postedLendingItemController.updateItem);
 app.post('/api/lendingItem/getUserItems',postedLendingItemController.getUserItems);
 app.get('/api/lendingItemCategory/get/:category',postedLendingItemController.getCategory);
-
+app.post('/api/lendingItem/search',postedLendingItemController.searchRentingItem);
 //Borrow
 app.post('/api/borrow/create', borrowController.createItem);
 app.put('/api/borrow/update', borrowController.updateItem);

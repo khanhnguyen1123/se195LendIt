@@ -2,38 +2,56 @@
    angular
       .module('meanApp')
       .controller('borrowController', borrowController);
-   borrowController.$inject = ['$location','$http','$scope','authentication'];
+   borrowController.$inject = ['$location','$http','$scope','authentication', '$stateParams'];
 
-   function borrowController ($location, $http, $scope, authentication) {
+   function borrowController ($location, $http, $scope, authentication, $stateParams) {
       $scope.categories = ['All', 'Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
+      //$scope.sortOptions = ['Most Recent', 'Alphabetically', 'Price: Low to High', 'Price: High to Low', 'Rating'];
+      $scope.sortOptions = ['Date Added', 'Alphabetically', 'Rating'];
+      let baseLink = '/api/borrow/';
+
+      $scope.selectedSort = $scope.sortOptions[0];
       $scope.selectedCategory = $scope.categories[0];
       $scope.displayedItems = [];
-      $scope.borrowItems = [];
       $scope.loggedIn = authentication.isLoggedIn();
 
-      //Get Borrow Items, TBD
-      $http.get('/api/borrow/get')
-         .success( function(data) {
-            $scope.borrowItems = data;
-            $scope.displayedItems = data;
-         })
-         .error ( function() {
-            console.log('Error: ' + error);
-         });
+      var page = 1;
+      if ($stateParams.page)
+         page = $stateParams.page;
+      getItems(baseLink+"get/"+page)
 
+      //Get Borrow Items
+      function getItems (link) {
+         console.log(link);
+         $http.get(link)
+            .success( function(data) {
+               $scope.displayedItems = data;
+               console.log(data);
+            })
+            .error ( function(error) {
+               console.log('Error: ' + error);
+            });
+      };
+      //Filters By Category
       $scope.filter = function(category) {
-         //console.log("Filtered Category: " + category);
+         //Update Selected Category
          $scope.selectedCategory = category;
-         if (category == "All") {
-            $scope.displayedItems = $scope.borrowItems;
+         let sort = "";
+         if ($scope.selectedSort == $scope.sortOptions[1])
+            sort = "abc/";
+         else if ($scope.selectedSort == $scope.sortOptions[2])
+            sort ="rating/";
+
+         if (category == $scope.categories[0]) {
+            getItems( baseLink + "get/" + sort + page);
             return;
          }
-         $scope.displayedItems = [];
-         for (let i = 0; i < $scope.borrowItems.length; i++) { 
-            let item = $scope.borrowItems[i];
-            if (item.category == category)
-               $scope.displayedItems.push(item);
-         }
-      } 
+         getItems( baseLink + "category/" + sort + category + "/" + page);
+      }
+      //Sorts Items
+      $scope.sort = function(option) {
+         $scope.selectedSort = option;
+         $scope.filter($scope.selectedCategory);
+      }
    }
 })();

@@ -15,7 +15,7 @@
     let id = $stateParams.random;
     
 
-    $http.get('/api/borrow/get/'+id)
+    $http.get('/api/borrow/id/'+id)
       .success(function(data){
         console.log(JSON.stringify(data));
         $scope.borrowItem = data;
@@ -58,7 +58,6 @@
     $scope.updateItem = function () {
       if (!$scope.owner)
         return;
-      document.getElementById('editAlert').classList.add("alert-success");
       $http.put('/api/borrow/update', $scope.borrowItem)
         .success(function(data){
           console.log(JSON.stringify(data));

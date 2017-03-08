@@ -7,6 +7,7 @@ var borrowModel = require('./borrow-model.js');
 //Create Item
 module.exports.createItem = function(req, res) {
    let newItem = new borrowModel(req.body);
+   newItem.name2 = name.toLowerCase();
    let itemID;
    //Saves Item to DB
    newItem.save(function(err, data) {
@@ -25,6 +26,8 @@ module.exports.createItem = function(req, res) {
 }
 //Update Item
 module.exports.updateItem = function(req, res) {
+   req.body.lastUpdated = new Date();
+   req.body.name2 = req.body.name.toLowerCase();
    borrowModel.update({_id: req.body._id}, req.body, function(err) {
       if (err)
          res.send(err);
@@ -40,46 +43,87 @@ module.exports.deleteItem = function(req, res) {
    })
 }
 
-
-
-//Read Item
-module.exports.readItems = function(req, res) {
-   var query = borrowModel.find({});
+//Get Item
+module.exports.getItems = function(req, res) {
+   let query = borrowModel.find({}).sort({'dateAdded': -1}).limit(25).skip((req.params.page-1)*25);
    query.exec(function(err, data){
       if(err)
          res.send(err);
       res.json(data);
    });
 }
-//Read Item By ID
-module.exports.readItemById = function(req, res) {
+//Get Item By ID
+module.exports.getItemById = function(req, res) {
    borrowModel.findById(req.params.id, function(err, data) {
       if (err)
          res.send(err);
       res.send(data);
    })
 }
-//Read Item By Owner ID
-module.exports.readItemByOwner = function(req, res) {
+//Get Item By Owner ID
+module.exports.getItemsByOwner = function(req, res) {
+   borrowModel.find({'ownerId':req.params.id},function(err,data){
+      if(err) 
+         res.send(err);    
+      res.json(data);
+  });
+}
+//Get Item Alphabetically
+module.exports.getItemsByName = function(req, res) {
+   let query = borrowModel.find({}).sort({'name2': 1}).limit(25).skip((req.params.page-1)*25);
+   query.exec(function(err, data){
+      if(err)
+         res.send(err);
+      res.json(data);
+   });
+}
+//Get Item By Price Low to High Not Needed In Borrow
+module.exports.getItemsByPriceLtH = function(req, res) {
 
 }
-//Read Item By Category
-module.exports.readItemByCategory = function(req, res) {
+//Get Item By Price High to Low Not Needed In Borrow
+module.exports.getItemsByPriceHtL = function(req, res) {
 
 }
-//Read Item By Date Ascending Order
-module.exports.readItemByDateAsc = function(req, res) {
-
+//Get Item By Rating
+module.exports.getItemsByRating = function(req, res) {
+   let query = borrowModel.find({}).sort({'rating': -1}).limit(25).skip((req.params.page-1)*25);
+   query.exec( function(err, data) {
+      if(err)
+         res.send(err);
+      res.json(data);
+   });
 }
-//Read Item By Date Descending Order
-module.exports.readItemByDateDesc = function(req, res) {
-
+//Get Item By Category
+module.exports.getItemsByCategory = function(req, res) {
+   let query = borrowModel.find({'category': req.params.category}).sort({'dateAdded': -1}).limit(25).skip((req.params.page-1)*25);
+   query.exec( function(err,data) {
+      if(err) 
+         res.send(err);    
+      res.json(data);
+  });
 }
-//Read Item By Rating Ascending Order
-module.exports.readItemByRatingAsc = function(req, res) {
-
+//Get Item By Category and Name
+module.exports.getItemsByCategoryName = function(req, res) {
+   let query = borrowModel.find({'category':req.params.category}).sort({'name2':1}).limit(25).skip((req.params.page-1)*25);
+   query.exec( function(err,data) {
+      if(err) 
+         res.send(err);    
+      res.json(data);
+  });
 }
-//Read Item By Rating Descending Order
-module.exports.readItemByRatingDesc = function(req, res) {
-
+//Get Item By Category and Price Low to High
+module.exports.getItemsByCategoryPriceLtH = function(req, res) {
+}
+//Get Item By Category and Price High to Low
+module.exports.getItemsByCategoryPriceHtL = function(req, res) { 
+}
+//Get Item By Category and Name
+module.exports.getItemsByCategoryRating = function(req, res) { 
+   let query = borrowModel.find({'category':req.params.category}).sort({'rating':-1}).limit(25).skip((req.params.page-1)*25);
+   query.exec( function(err,data) {
+      if(err) 
+         res.send(err);    
+      res.json(data);
+  });
 }

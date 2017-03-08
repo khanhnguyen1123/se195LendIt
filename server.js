@@ -105,12 +105,19 @@ app.post('/api/lendingItem/update',postedLendingItemController.updateItem);
 app.post('/api/lendingItem/getUserItems',postedLendingItemController.getUserItems);
 app.get('/api/lendingItemCategory/get/:category',postedLendingItemController.getCategory);
 app.post('/api/lendingItem/search',postedLendingItemController.searchRentingItem);
-//Borrow
+//Borrow 
 app.post('/api/borrow/create', borrowController.createItem);
 app.put('/api/borrow/update', borrowController.updateItem);
 app.delete('/api/borrow/delete/:id', borrowController.deleteItem);
-app.get('/api/borrow/get', borrowController.readItems);
-app.get('/api/borrow/get/:id', borrowController.readItemById);
+//Borrow Gets
+app.get('/api/borrow/get/:page', borrowController.getItems);
+app.get('/api/borrow/get/abc/:page', borrowController.getItemsByName);
+app.get('/api/borrow/get/rating/:page', borrowController.getItemsByRating);
+app.get('/api/borrow/id/:id', borrowController.getItemById);
+app.get('/api/borrow/user/:id', borrowController.getItemsByOwner);
+app.get('/api/borrow/category/:category/:page', borrowController.getItemsByCategory);
+app.get('/api/borrow/category/abc/:category/:page', borrowController.getItemsByCategory);
+app.get('/api/borrow/category/rating/:category/:page', borrowController.getItemsByCategory);
 // paypal payment 
 app.post('/create',paypalPayment.create);
 app.get('/execute',paypalPayment.execute);

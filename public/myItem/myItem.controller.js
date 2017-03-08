@@ -17,6 +17,16 @@
           console.log('User id: '+ $scope.vme.user._id + ' of type:' + Object.prototype.toString.call($scope.vme.user._id));
         })
         .then(function(){
+          $http.post('/api/lendingItem/getUserItems', $scope.vme.user)
+            .success(function(data){
+              console.log("Rent Items");
+              console.log(JSON.stringify(data));
+              $scope.rentItems = data;
+            })
+            .error(function(error){
+            console.log("Error: " + error);
+          });
+
           $http.post('/api/requestedItem/getUserItems', $scope.vme.user)
             .success(function(data){
               console.log("Requested Items");
@@ -27,13 +37,13 @@
               console.log("Error: " + error);
             });
 
-            $http.post('/api/lendingItem/getUserItems', $scope.vme.user)
-              .success(function(data){
-                console.log("Rent Items");
-                console.log(JSON.stringify(data));
-                $scope.rentItems = data;
-              })
-              .error(function(error){
+          $http.get('/api/borrow/user/'+$scope.vme.user._id)
+            .success(function(data){
+              console.log("Borrow Items");
+              console.log(JSON.stringify(data));
+              $scope.borrowItems = data;
+            })
+            .error(function(error){
               console.log("Error: " + error);
             });
         })

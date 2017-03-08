@@ -55,7 +55,7 @@
         controller: 'rentItemController'
       })
       .state('borrow',{
-        url: '/borrow',
+        url: '/borrow/:page',
         templateUrl: 'public/borrow/borrow.view.html',
         controller: 'borrowController'
       })

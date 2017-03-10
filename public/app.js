@@ -55,7 +55,12 @@
         controller: 'rentItemController'
       })
       .state('borrow',{
-        url: '/borrow/:page',
+        url: '/borrow',
+        templateUrl: 'public/borrow/borrow.view.html',
+        controller: 'borrowController'
+      })
+      .state('borrow_page',{
+        url: '/borrow/page/:page',
         templateUrl: 'public/borrow/borrow.view.html',
         controller: 'borrowController'
       })
@@ -88,6 +93,11 @@
         url: '/myItem',
         templateUrl: 'public/myItem/myItem.view.html',
         controller: 'myItemController'
+      })
+      .state('search', {
+        url: '/search/:key',
+        templateUrl: 'public/search/search.view.html',
+        controller: 'searchController'
       })
     // use the HTML5 History API
     //$locationProvider.html5Mode(true);

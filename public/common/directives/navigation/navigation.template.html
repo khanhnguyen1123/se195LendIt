@@ -22,12 +22,11 @@
 			<!--Search Bar-->
 			<form class="navbar-form navbar-left" ng-controller="searchForRentingItemController"  >
 				<div class="form-group" >
-					<input type="text" class="form-control" placeholder="Search for items" ng-model="searchedItem.name" style="border-right-width:0px; margin-left:-4px; width:250px;">
+					<input type="text" class="form-control" placeholder="Search for items" ng-model="item.key" style="border-right-width:0px; margin-left:-4px; width:250px;" required>
 				</div>
-				<button type="button" class="btn btn-default" style="border-top-left-radius:0px; border-bottom-left-radius:0px; background-color:#EDB90C; margin-left:-6px;">
-					<span class="glyphicon glyphicon-search" aria-hidden="true" ng-click="search()"></span>
+				<button type="button" class="btn btn-default" style="border-top-left-radius:0px; border-bottom-left-radius:0px; background-color:#EDB90C; margin-left:-6px;" ui-sref="search({key: item.key})">
+					<span class="glyphicon glyphicon-search" aria-hidden="true" ></span>
 				</button>
-				<div style="background-color: white" ><h1 ng-show="show">Your search result:</h1> <p ng-repeat="result in results">{{result.name}} : {{result.price}}</p></div>
 			</form>
 			<!--Right Nav Items-->
 			<ul class="nav navbar-nav navbar-right">

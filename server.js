@@ -110,14 +110,13 @@ app.post('/api/borrow/create', borrowController.createItem);
 app.put('/api/borrow/update', borrowController.updateItem);
 app.delete('/api/borrow/delete/:id', borrowController.deleteItem);
 //Borrow Gets
-app.get('/api/borrow/get/:page', borrowController.getItems);
-app.get('/api/borrow/get/abc/:page', borrowController.getItemsByName);
-app.get('/api/borrow/get/rating/:page', borrowController.getItemsByRating);
+app.get('/api/borrow/get/:sort/:page', borrowController.getItems);
+app.get('/api/borrow/category/:category/:sort/:page', borrowController.getItemsByCategory);
 app.get('/api/borrow/id/:id', borrowController.getItemById);
 app.get('/api/borrow/user/:id', borrowController.getItemsByOwner);
-app.get('/api/borrow/category/:category/:page', borrowController.getItemsByCategory);
-app.get('/api/borrow/category/abc/:category/:page', borrowController.getItemsByCategory);
-app.get('/api/borrow/category/rating/:category/:page', borrowController.getItemsByCategory);
+//Borrow Helper Methods
+app.get('/api/borrow/get/count', borrowController.countItems);
+app.get('/api/borrow/search/:key', borrowController.searchItems);
 // paypal payment 
 app.post('/create',paypalPayment.create);
 app.get('/execute',paypalPayment.execute);

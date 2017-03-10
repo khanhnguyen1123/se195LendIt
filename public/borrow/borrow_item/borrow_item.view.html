@@ -66,4 +66,36 @@
             </div>
         </div>
    </div>
+  <!--Review Buttons-->
+  <div style="display: flex; justify-content: space-around; clear: both; margin-bottom: 20px;">
+    <button ng-hide="owner" class="btn btn-info" ng-click="toggleReview('write')">Write A Review</button>
+    <button class="btn btn-info" ng-click="toggleReview('view')">View Reviews</button>
+  </div>
+  <!--Write Review-->
+  <div id="write" class="panel panel-default" style="padding: 20px; display: none;">
+    <h3>Write A Review</h3>
+    <div class="form-group">
+      <label>Rating</label>
+      <input type="number" class="form-control number-input" min="1" max="5" step="1" ng-model="review.rating" required />
+    </div>
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" class="form-control" placeholder="Title" ng-model="rewview.title" required>
+    </div>
+    <div class="form-group">
+      <textarea id="textarea" ng-model="review.content" class="form-control" style="height: 100px; resize: vertical;"></textarea>
+    </div>
+    <button class="btn btn-info" ng-click="submitReview()" style="float:right;">Submit</button>
+    <div style="clear: both;"></div>
+  </div>
+  <!--View Reviews-->
+  <div id="view" class="panel panel-default" style="padding: 20px; display:none;">
+    <h3>Reviews</h3>
+    <div ng-repeat="state in states" style="margin: 8px 0px 8px 0px;">
+      <p style="display:inline-block;">Rating</p>
+      <h4 style="display:inline-block;">Review Title</h4>
+      <p>By <a>Some User</a> on Some date</p>
+      <p>Review Content</p>
+    </div>
+  </div>
 </div>

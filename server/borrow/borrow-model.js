@@ -14,7 +14,7 @@ module.exports = mongoose.model('BorrowItem', {
    description: String,
    pictures: { type: Schema.Types.Mixed},
    //Rating and Reviews
-   rating: Number,
+   rating: { type: Number, default: 0 },
    reviews : { type: Schema.Types.Mixed},
    //Backend Information
    name2: String,

@@ -44,12 +44,11 @@
       </div>
     </div>
   </div>
-  <nav aria-label="..." style="display:none;">
+  <nav style="display:flex; justify-content: space-around;">
     <ul class="pagination">
-      <li id="previous" class="disabled"><a aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-        <li class="active"><a>1<span class="sr-only"></span></a></li>
-        <li class=""><a>2</a></li>
-      <li id="next" class="disabled"><a aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+      <li id="previous" class="disabled"><a ng-click="previous()" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+      <li ng-repeat="p in pages" id="page{{p}}"><a ui-sref="borrow_page({page: p})">{{p}}</a></li>
+      <li id="next"><a ng-click="next()" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
     </ul>
   </nav>
 </div>

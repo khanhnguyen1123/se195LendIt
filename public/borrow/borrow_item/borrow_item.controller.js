@@ -17,8 +17,8 @@
 
     $http.get('/api/borrow/id/'+id)
       .success(function(data){
-        console.log(JSON.stringify(data));
         $scope.borrowItem = data;
+        updateState();
       })
       .error(function(error) {
         console.log('Error: ' + error);
@@ -109,6 +109,16 @@
         document.getElementById('editAlert').classList.remove('alert-danger');
       $scope.editMessage = "";
       document.getElementById('editAlert').style.display = "none";
+    }
+    $scope.toggleReview = function (id) {
+      let write = document.getElementById("write");
+      let view = document.getElementById("view");
+      write.style.display = "none";
+      view.style.display = "none";
+      document.getElementById(id).style.display = "block";
+    }
+    $scope.submitReview = function() {
+      console.log("Submit Review, TBD");
     }
 
   }

@@ -6,6 +6,18 @@
 
    function homeCtrl ($scope, $location, authentication) {
       //console.log('Home Controller is Running');
+      $scope.user = {};
+      $scope.user.messages = [];
+      let message = 
+      {
+         "userImg" : "https://cdn.filepicker.io/api/file/d88adUzMQ4yg0FXN5hTp",
+         "user" : "User ID",
+         "username" : "Name",
+         "date" : new Date(),
+         "title" : "Message Title",
+         "content" : "Content"
+      }
+      $scope.user.messages[0] = message;
       
       //Check Logged In and Hide Sign In Form
       $scope.loggedIn = authentication.isLoggedIn();

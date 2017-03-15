@@ -1,7 +1,7 @@
 <navigation></navigation>
-<div class="main">
+<div class="main" >
    <!--Image and Profile Display Container-->
-   <div class="row">
+   <div class="row" ng-show="userFound">
       <div style="float:left; margin: 50px 25px 20px 50px">
          <img ng-src="{{user.profileImage.url}}" style="width:300px; height:300px; border-radius:50%;"/>
       </div>
@@ -42,6 +42,9 @@
             View Reviews
          </button>
       </div>
+   </div>
+   <div ng-show="!userFound">
+      <h1>User Not Found</h1>
    </div>
 </div>
 <div class="modal fade" id="sendMessage" tabindex="-1" role="dialog" >

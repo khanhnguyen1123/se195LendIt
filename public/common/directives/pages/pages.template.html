@@ -1,0 +1,13 @@
+<nav style="display:flex; justify-content: space-around;">
+   <ul class="pagination">
+      <li id="previous" ng-class="pageClasses[0]" ng-click="go('prev')">
+         <span aria-hidden="true">&laquo;</span>
+      </li>
+      <li ng-repeat="p in pages" ng-class="p.class" ng-click="go(p.page)">
+         <a>{{p.page}}</a>
+      </li>
+      <li id="next" ng-class="pageClasses[1]" ng-click="go('next')" >
+         <span aria-hidden="true">&raquo;</span>
+      </li>
+   </ul>
+</nav>

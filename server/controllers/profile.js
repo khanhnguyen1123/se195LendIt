@@ -127,3 +127,19 @@ module.exports.updateUserPhoto= function(req,res){
   });
 };
 
+module.exports.addReview = function(req, res) {
+   User.findById(req.params.id, function(err, data) {
+      if (req.body) {
+         if (data.aRating == 0)
+            data.aRating += req.body.rating;
+         else
+            data.aRating = (data.aRating+req.body.rating)/2;
+         data.reviews.push(req.body);
+         data.save( function(err) {
+            if (err)
+               res.send(err);
+            res.send("Review Added Successfully")
+         })
+      }
+   });
+}

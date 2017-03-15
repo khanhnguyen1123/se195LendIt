@@ -7,15 +7,25 @@
   function borrowItemController ($location, $http, $scope, $stateParams, authentication, meanData, filepickerService, $state) {
     $scope.categories = ['Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
     $scope.states = ['Available', 'Unavailble'];
-    $scope.borrowItem = {};
-    $scope.review = {};
-    $scope.user = {};
-    $scope.editButton = "Edit";
-    $scope.owner = false;
-    $scope.edit = false;
-    $scope.writeReview = false;
-    let id = $stateParams.random;
     
+    //$scope.borrowItem = {};
+    $scope.reviewForm = {};
+    //$scope.user = {};
+    
+    
+    $scope.alert = {
+      'class' : '',
+      'message' : '',
+      'show' : false,
+    };
+    $scope.item = {
+      'display' : true,
+      'edit' : false,
+      'editButton' : 'Edit'
+    };
+    $scope.writeReview = false;
+    $scope.reviews = [false, false];
+    let id = $stateParams.random;
 
     
     if (authentication.isLoggedIn()) {
@@ -27,47 +37,42 @@
           console.log(e);
         })
         .then( function () {
-          if ($scope.user._id == $scope.borrowItem.ownerId)
+          if ($scope.borrowItem && $scope.user._id == $scope.borrowItem.ownerId)
             $scope.owner = true;
-          calculateReviews($scope.borrowItem.reviews);
+          else
+            $scope.owner = false;
+          checkWriteReview();
         });
     }
     $http.get('/api/borrow/id/'+id)
-      .success(function(data){
+      .success(function(data) {
         $scope.borrowItem = data;
-        $scope.borrowItem.aRating = 0;
-        $scope.borrowItem.numReviews = data.reviews.length;
       })
       .error(function(error) {
         console.log('Error: ' + error);
-      }).then (function () {
-        calculateReviews($scope.borrowItem.reviews);
+      })
+      .then (function () {
         updateState();
+        checkWriteReview();
       });
-    var updateState = function () {
+    function updateState () {
       let itemState = document.getElementById('item-state');
       if ($scope.borrowItem.state == "Available")
         itemState.style.color = "green";
       else
         itemState.style.color = "red";  
     }
-
-    function calculateReviews(reviews) {
-      if (!$scope.owner && $scope.user) 
+    function checkWriteReview () {
+      if (!$scope.owner && $scope.user && $scope.borrowItem) {
         $scope.writeReview = true;
-      if (reviews.length > 0) { 
-        for (let i=0; i< reviews.length; i++) {
-          let temp = reviews[i];
-          $scope.borrowItem.aRating += temp.rating;
-          if (temp.user == $scope.user._id) {
+        for (let i=0; i< $scope.borrowItem.reviews.length; i++) {
+          if ($scope.borrowItem.reviews[i].user == $scope.user._id)
             $scope.writeReview = false;
-          }
         }
-        $scope.borrowItem.aRating =  ($scope.borrowItem.aRating/reviews.length);
       }
-      else
-        document.getElementById("reviews").innerHTML = "No Reviews";
     }
+
+
     $scope.upload = function() {
       filepickerService.pickMultiple({
         mimetype: 'image/*',
@@ -81,83 +86,94 @@
         $scope.$apply();
       });
     };
+
     $scope.updateItem = function (message) {
       if ($scope.owner)
         return;
       $http.put('/api/borrow/update', $scope.borrowItem)
         .success(function(data){
-          //console.log(JSON.stringify(data));
           $scope.editMessage = "Item Updated Successful!";
+          $scope.alert = {
+            'class' : 'alert-success',
+            'message' : 'Item Updated Successful',
+            'show' : true,
+          };
           document.getElementById('editAlert').classList.add("alert-success");
         })
         .error(function(data){
           //console.log(data);
           $scope.editMessage = "Item Update Failed";
-          document.getElementById('editAlert').classList.add("alert-danger");
+          $scope.alert = {
+            'class' : 'alert-danger',
+            'message' : 'Item Update Failed',
+            'show' : true,
+          };
         });
       $('.alert').show();
       $('body').scrollTop(0);
       $scope.toggleEdit();
     }
+
     $scope.deleteItem = function () {
       if (!$scope.owner)
         return;
       $http.delete('/api/borrow/delete/'+id)
         .success(function (data) {
-          console.log(data);
+          //console.log(data);
           $state.go('borrow');
         })
         .error (function (err) {
           console.log(err);
         })
     }
-    $scope.toggleEdit = function () {
-      console.log("toggle");
-      let form = document.getElementById("editItem");
-      let item = document.getElementById("item");
-      updateState();
-      if ($scope.edit) {
-        form.style.display = "none";
-        item.style.display = "block";
-        $scope.edit =! $scope.edit;
-        $scope.editButton = "Edit";
-      } else {
-        form.style.display = "block";
-        item.style.display = "none";
-        $scope.edit =! $scope.edit;
-        $scope.editButton = "View Changes";
+    $scope.submitReview = function() {
+      if ($scope.user && $scope.writeReview) {
+        $scope.reviewForm.user = $scope.user._id;
+        $scope.reviewForm.username = $scope.user.name;
+        $scope.reviewForm.date = new Date();
+
+        $http.put('/api/borrow/review/'+$scope.borrowItem._id, $scope.reviewForm)
+          .success( function(data) {
+            $scope.borrowItem = data;
+            $scope.reviewForm = {};
+          })
+          .error ( function(err) {
+
+          })
+          .then (function () {
+            $('body').scrollTop(0);
+            $scope.alert = {
+              'class' : 'alert-success',
+              'message' : 'Review Added Successfully',
+              'show' : true,
+            };
+            $scope.writeReview = false;
+          });
       }
     }
-    $scope.closeAlert = function () {
-      if ($scope.editMessage == "Item Updated Successful!")
-        document.getElementById('editAlert').classList.remove('alert-success');
-      else
-        document.getElementById('editAlert').classList.remove('alert-danger');
-      $scope.editMessage = "";
-      document.getElementById('editAlert').style.display = "none";
+    $scope.toggleReviews = function(data) {
+      if (data == 0) {
+        $scope.reviews[data] = !$scope.reviews[data];
+        $scope.reviews[1] = false;
+      }
+      else {
+        $scope.reviews[data] = !$scope.reviews[data];
+        $scope.reviews[0] = false; 
+      }
     }
-    $scope.toggleReview = function (id) {
-      let write = document.getElementById("write");
-      let view = document.getElementById("view");
-      write.style.display = "none";
-      view.style.display = "none";
-      document.getElementById(id).style.display = "block";
-    }
-    $scope.submitReview = function() {
-      if (authentication.isLoggedIn() && $scope.writeReview) {
-        $scope.review.user = $scope.user._id;
-        $scope.review.username = $scope.user.name;
-        $scope.review.date = new Date();
-        console.log("submit");
-        $scope.borrowItem.reviews.push($scope.review);
-        $scope.updateItem();
-        $scope.toggleEdit();
-        $scope.editMessage = "Review Posted Successfully";
-        console.log($scope.editMessage);
-        $scope.writeReview = false;
-        document.getElementById('write').style.display = "none";
-        $('body').scrollTop(0);
-        //Post to Server;
+    $scope.toggleEdit = function () {
+      if ($scope.item.display) {
+        $scope.item = {
+          'display' : false,
+          'edit' : true,
+          'editButton' : 'View Item',
+        }
+      } else {
+        $scope.item = {
+          'display' : true,
+          'edit' : false,
+          'editButton' : 'Edit Item',
+        }
       }
     }
 

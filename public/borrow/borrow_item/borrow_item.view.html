@@ -1,16 +1,24 @@
 <navigation> </navigation>
-<!--Borrow Item Container-->
+<!--Borrow Item Container
+
+    <stars value="1" style="display: block;"></stars>
+    <stars value="2"></stars>
+    <stars value="3"></stars>
+    <stars value="4"></stars>
+    <stars value="5"></stars>
+-->
 <div class="main">
-   <div class="alert alert-dismissible" role="alert" id="editAlert" style="display: none;">
-      <button class="close" ng-click="closeAlert()">&times;</span></button>
-      {{editMessage}}
+
+   <div class="alert alert-dismissible" ng-class="alert.class" ng-show="alert.show" role="alert" id="editAlert">
+      <button class="close" ng-click="alert.show = false;">&times;</span></button>
+      {{alert.message}}
    </div>
    <!--Images Directive for Item Pictures-->
    <images id="images" pictures="{{borrowItem.pictures}}"></images>
    <!--Item Details Container-->
    <div class="panel panel-default item-display">
-      <p ng-show="owner" style="cursor:pointer; float: right; color: #999; margin: 4px;" ng-click="toggleEdit()">{{editButton}}</p>
-      <div id="item">
+      <p ng-show="owner" style="cursor:pointer; float: right; color: #999; margin: 4px;" ng-click="toggleEdit()">{{item.editButton}}</p>
+      <div id="item" ng-show="item.display">
          <h1 style="font-size:3.5em; margin:0px">{{borrowItem.name}}</h1>
          <div style="margin-left:5px;">
             <p style="margin:0px;">
@@ -19,7 +27,7 @@
             <!--http://codepen.io/anon/pen/NqazVa-->
             <p style="display:inline-block; margin:0px;">Rating {{borrowItem.aRating}}</p>
             <div style="margin:0px 30px 0px 30px; display:inline-block;"/>
-            <p style="display:inline-block; margin:0px;">{{borrowItem.numReviews}} Reviews</p>
+            <p style="display:inline-block; margin:0px;">{{borrowItem.reviews.length}} Reviews</p>
          </div>
          <h4 style="font-size:1.2em;">
             Currently: <span id="item-state">{{borrowItem.state}}</span>
@@ -28,7 +36,7 @@
          <p style="padding:3px; word-wrap:break-word;">{{borrowItem.description}}
          </p>
       </div>
-      <div id="editItem" style="display:none; margin-top: 15px;">
+      <div id="editItem" ng-show="item.edit" style="margin-top: 15px;">
             <div class="form-group">
                 <label>Name</label>
                 <input type="text" class="form-control" placeholder="Item Name" ng-model="borrowItem.name" required>
@@ -62,40 +70,34 @@
                 </button>
                 <button style="display: inline-block; width: 40%;" class="btn btn-danger btn-block"  ng-click="updateItem()" ng-disabled="borrowItem.$invalid">Submit</button>
             </div>
-        </div>
+      </div>
    </div>
   <!--Review Buttons-->
   <div style="display: flex; justify-content: space-around; clear: both; margin-bottom: 20px;">
-    <button ng-show="writeReview" class="btn btn-info" ng-click="toggleReview('write')">Write A Review</button>
-    <button class="btn btn-info" ng-click="toggleReview('view')">View Reviews</button>
+    <h1 ng-show="test">Test</h1>
+    <button ng-show="writeReview" class="btn btn-info" ng-click="toggleReviews(0)">Write A Review</button>
+    <button class="btn btn-info" ng-click="toggleReviews(1)">View Reviews</button>
   </div>
   <!--Write Review-->
-  <div id="write" class="panel panel-default" style="padding: 20px; display: none;">
+  <div id="write" class="panel panel-default" ng-show="reviews[0]" style="padding: 5px 20px 15px 20px;">
     <h3>Write A Review</h3>
-    <form name="reviewForm">
+    <form name="rForm">
       <div class="form-group">
-        <label>Rating</label>
-        <input type="number" class="form-control number-input" min="1" max="5" step="1" ng-model="review.rating" required />
+        <label>Rating {{reviewForm.rating}}</label>
+        <rater ng-model="reviewForm.rating"></rater>
       </div>
       <div class="form-group">
         <label>Title</label>
-        <input type="text" class="form-control" placeholder="Title" ng-model="review.title" required>
+        <input type="text" class="form-control" placeholder="Title" ng-model="reviewForm.title" required>
       </div>
       <div class="form-group">
-        <textarea id="textarea" ng-model="review.content" class="form-control" style="height: 100px; resize: vertical;" required></textarea>
+        <textarea id="textarea" ng-model="reviewForm.content" class="form-control" style="height: 100px; resize: vertical;" required></textarea>
       </div>
-      <button class="btn btn-info" ng-disabled="reviewForm.$invalid"ng-click="submitReview()" style="float:right;">Submit</button>
+      <button class="btn btn-info" ng-disabled="rForm.$invalid"ng-click="submitReview()" style="float:right;">Submit</button>
     </form>
     <div style="clear: both;"></div>
   </div>
   <!--View Reviews-->
-  <div id="view" class="panel panel-default" style="padding: 20px; display:none;">
-    <h3 id="reviews">Reviews</h3>
-    <div ng-repeat="review in borrowItem.reviews" style="margin: 8px 0px 8px 0px;">
-      <p style="display:inline-block;">Rating {{review.rating}}</p>
-      <h4 style="display:inline-block;">{{review.title}}</h4>
-      <p>By <a  ui-sref="publicProfile({random: review.user})">{{review.username}}</a> on {{review.date}}</p>
-      <p>{{review.content}}</p>
-    </div>
+  <div ng-show="reviews[1]">
+    <reviews data="{{borrowItem.reviews}}"></reviews>
   </div>
-</div>

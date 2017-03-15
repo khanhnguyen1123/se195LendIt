@@ -99,3 +99,20 @@ module.exports.searchItems = function(req, res) {
       res.json(data);
    })
 }
+//Add Review
+module.exports.addReview = function(req, res) {
+   borrowModel.findById(req.params.id, function(err, data) {
+      if (req.body) {
+         if (data.aRating == 0)
+            data.aRating += req.body.rating;
+         else
+            data.aRating = (data.aRating+req.body.rating)/2;
+         data.reviews.push(req.body);
+         data.save( function(err) {
+            if (err)
+               res.send(err);
+            res.json(data);
+         })
+      }
+   });
+}

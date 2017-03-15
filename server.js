@@ -115,6 +115,7 @@ app.get('/api/borrow/category/:category/:sort/:page', borrowController.getItemsB
 app.get('/api/borrow/id/:id', borrowController.getItemById);
 app.get('/api/borrow/user/:id', borrowController.getItemsByOwner);
 //Borrow Helper Methods
+app.put('/api/borrow/review/:id', borrowController.addReview);
 app.get('/api/borrow/get/count', borrowController.countItems);
 app.get('/api/borrow/search/:key', borrowController.searchItems);
 // paypal payment 

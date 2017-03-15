@@ -44,11 +44,5 @@
       </div>
     </div>
   </div>
-  <nav style="display:flex; justify-content: space-around;">
-    <ul class="pagination">
-      <li id="previous" class="disabled"><a ng-click="previous()" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-      <li ng-repeat="p in pages" id="page{{p}}"><a ui-sref="borrow_page({page: p})">{{p}}</a></li>
-      <li id="next"><a ng-click="next()" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-    </ul>
-  </nav>
+  <pages current="{{page.current}}" max="{{page.max}}" state="borrow_page"></pages>
 </div>

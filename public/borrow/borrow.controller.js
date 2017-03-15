@@ -6,7 +6,7 @@
 
    function borrowController ($location, $http, $scope, authentication, $stateParams, $state) {
       $scope.categories = ['All', 'Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
-      $scope.sortOptions = ['Date Added', 'Alphabetically', 'Rating'];
+      $scope.sortOptions = ['Most Recent', 'Alphabetically', 'Rating'];
       let sortLinks = ['date/', 'name/', 'rate/'];
       let baseLink = '/api/borrow/';
 
@@ -14,36 +14,23 @@
       $scope.selectedCategory = $scope.categories[0];
       $scope.displayedItems = [];
       $scope.loggedIn = authentication.isLoggedIn();
-      $scope.pages = [];
-
-
-
-      var page = 1;
-      if ($stateParams.page) {
-         page = $stateParams.page;
+      $scope.page = {
+         'current' : 1,
+         'max' : 11
+      };
+      if ($stateParams.page && $stateParams.page > 0) {
+         $scope.page.current = parseInt($stateParams.page);
       }
-      //Fix UI on Page Change
+
+      //Fixes UI on Page Change
       $http.get('/api/borrow/get/count')
          .success ( function(data) {
-            let temp = Math.ceil(parseInt(data)/25);
-            for (let i=1; i < temp+1; i++) {
-               $scope.pages.push(i);
-            }
+            //$scope.page.max = Math.ceil(parseInt(data)/25);
          })
          .error ( function(err) {
             console.log(err)
-         })
-         .then (function () {
-            let prev = document.getElementById("previous");
-            let next = document.getElementById("next");
-            prev.classList.add("disabled");
-            next.classList.add("disabled");
-            if (page < $scope.pages[$scope.pages.length-1])
-               next.classList.remove("disabled");
-            if (page == $scope.pages[$scope.pages.length-1])
-               previous.classList.remove("disabled");
          });
-      getItems(baseLink+"get/date/"+page)
+      getItems(baseLink+"get/date/"+$scope.page.current)
 
       //Get Borrow Items
       function getItems (link) {
@@ -66,27 +53,15 @@
             sort = sortLinks[2];
 
          if (category == $scope.categories[0]) {
-            getItems( baseLink + "get/" + sort + page);
+            getItems( baseLink + "get/" + sort + $scope.page.current);
             return;
          }
-         getItems( baseLink + "category/" + category + "/" + sort + page);
+         getItems( baseLink + "category/" + category + "/" + sort + $scope.page.current);
       }
       //Sorts Items
       $scope.sort = function(option) {
          $scope.selectedSort = option;
          $scope.filter($scope.selectedCategory);
-      }
-      $scope.next = function() {
-         if (document.getElementById("next").classList.contains("disabled"))
-            return;
-         let next = parseInt(page)+1;
-         $state.go("borrow_page", { "page" : next});
-      }
-      $scope.previous = function() {
-         if (document.getElementById("previous").classList.contains("disabled"))
-            return;
-         let prev = parseInt(page)-1;
-         $state.go("borrow_page", { "page" : prev});
       }
    }
 })();

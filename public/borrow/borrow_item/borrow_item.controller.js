@@ -9,10 +9,9 @@
     $scope.states = ['Available', 'Unavailble'];
     
     //$scope.borrowItem = {};
-    $scope.reviewForm = {};
     //$scope.user = {};
-    
-    
+
+    $scope.reviewForm = {};
     $scope.alert = {
       'class' : '',
       'message' : '',
@@ -127,7 +126,7 @@
         })
     }
     $scope.submitReview = function() {
-      if ($scope.user && $scope.writeReview) {
+      if ($scope.user && $scope.writeReview && $scope.owner == false) {
         $scope.reviewForm.user = $scope.user._id;
         $scope.reviewForm.username = $scope.user.name;
         $scope.reviewForm.date = new Date();

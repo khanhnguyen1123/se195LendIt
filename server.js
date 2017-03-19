@@ -17,13 +17,14 @@ var fbVerifyCurrentUserToken;
 require('./server/controllers/passport');
 
 var app = express();
+
 var authenticationController = require('./server/controllers/authentication');
 var profileAuthenticationController = require('./server/controllers/profile');
-var postedRequestedItemController = require('./server/controllers/postedRequestedItem');
-var postedLendingItemController =   require('./server/controllers/postedLendingItem');
 var paypalPayment = require('./server/controllers/paypalPayment');
-var borrowController = require('./server/borrow/borrow-controller');
 
+var rentController =   require('./server/controllers/rent');
+var borrowController = require('./server/controllers/borrow');
+var requestController = require('./server/controllers/request');
 
 //  [khanh] create a collection named time-waste in your local mongodb server to run this line of code
 //username: lendit195
@@ -87,7 +88,7 @@ app.post('/api/profile/updateUser',profileAuthenticationController.updateUser);
 app.post('/api/profile/updateUserPhoto',profileAuthenticationController.updateUserPhoto);
 app.post('/api/profile/editPhoto',profileAuthenticationController.updatePhoto);
 app.post('/api/profile/editProfile',profileAuthenticationController.editProfile);
-
+/*
 // post requested items
 app.post('/api/requestedItem/post',postedRequestedItemController.post);
 app.get('/api/requestedItem/get',postedRequestedItemController.getAll);
@@ -105,6 +106,20 @@ app.post('/api/lendingItem/update',postedLendingItemController.updateItem);
 app.post('/api/lendingItem/getUserItems',postedLendingItemController.getUserItems);
 app.get('/api/lendingItemCategory/get/:category',postedLendingItemController.getCategory);
 app.post('/api/lendingItem/search',postedLendingItemController.searchRentingItem);
+*/
+//Rent 
+app.post('/api/rent/create', rentController.createItem);
+app.put('/api/rent/update', rentController.updateItem);
+app.delete('/api/rent/delete/:id', rentController.deleteItem);
+//Rent Gets
+app.get('/api/rent/get/:sort/:page', rentController.getItems);
+app.get('/api/rent/category/:category/:sort/:page', rentController.getItemsByCategory);
+app.get('/api/rent/id/:id', rentController.getItemById);
+app.get('/api/rent/user/:id', rentController.getItemsByOwner);
+//Rent Helper Methods
+app.put('/api/rent/review/:id', rentController.addReview);
+app.get('/api/rent/get/count', rentController.countItems);
+app.get('/api/rent/search/:key', rentController.searchItems);
 //Borrow 
 app.post('/api/borrow/create', borrowController.createItem);
 app.put('/api/borrow/update', borrowController.updateItem);
@@ -118,6 +133,19 @@ app.get('/api/borrow/user/:id', borrowController.getItemsByOwner);
 app.put('/api/borrow/review/:id', borrowController.addReview);
 app.get('/api/borrow/get/count', borrowController.countItems);
 app.get('/api/borrow/search/:key', borrowController.searchItems);
+//Request
+app.post('/api/request/create', requestController.createItem);
+app.put('/api/request/update', requestController.updateItem);
+app.delete('/api/request/delete/:id', requestController.deleteItem);
+//Request Gets
+app.get('/api/request/get/:sort/:page', requestController.getItems);
+app.get('/api/request/category/:category/:sort/:page', requestController.getItemsByCategory);
+app.get('/api/request/id/:id', requestController.getItemById);
+app.get('/api/request/user/:id', requestController.getItemsByOwner);
+//Request Helper Methods
+app.put('/api/request/review/:id', requestController.addReview);
+app.get('/api/request/get/count', requestController.countItems);
+app.get('/api/request/search/:key', requestController.searchItems);
 // paypal payment 
 app.post('/create',paypalPayment.create);
 app.get('/execute',paypalPayment.execute);

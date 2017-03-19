@@ -13,6 +13,16 @@
         <li ng-repeat="category in categories" ng-click="filter(category)"><a style="cursor: pointer;">{{category}}</a></li>
       </ul>
     </div>
+    <!--Sort Options-->
+    <div style="display:inline-block; float:left; margin-left:20px; " class="btn-group">
+      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Left Align">
+        {{selectedSort}}
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li ng-repeat="option in sortOptions" ng-click="sort(option)"><a style="cursor: pointer;">{{option}}</a></li>
+      </ul>
+    </div>
     <!--New Post Container-->
     <div style="display:inline-block; float:right; margin-right:15px;" ng-show="loggedIn">
       <a style="text-decoration: none; color:white;" ui-sref="rent_post">
@@ -38,4 +48,5 @@
       </div>
     </div>
   </div>
+  <pages current="{{page.current}}" max="{{page.max}}" state="rent_page"></pages>
 </div>

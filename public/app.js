@@ -44,6 +44,11 @@
         templateUrl: 'public/rent/rent.view.html',
         controller: 'rentController'
       })
+      .state('rent_page',{
+        url: '/rent/page/:page',
+        templateUrl: 'public/rent/rent.view.html',
+        controller: 'rentController'
+      })
       .state('rent_post', {
         url: '/rent/post',
         templateUrl: 'public/rent/rent_post/rent_post.view.html',
@@ -56,11 +61,6 @@
       })
       .state('borrow',{
         url: '/borrow',
-        templateUrl: 'public/borrow/borrow.view.html',
-        controller: 'borrowController'
-      })
-      .state('borrow_page',{
-        url: '/borrow/page/:page',
         templateUrl: 'public/borrow/borrow.view.html',
         controller: 'borrowController'
       })

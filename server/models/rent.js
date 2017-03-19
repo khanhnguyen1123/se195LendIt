@@ -1,8 +1,7 @@
 var mongoose = require ('mongoose');
-var Schema = mongoose.Schema;
-
-module.exports = mongoose.model('BorrowItem', {
-   //Owner and Other Details
+var Schema      = mongoose.Schema;
+module.exports = mongoose.model('RentItem',{
+	//Owner and Other Details
    ownerId: String,
    ownerName: String,
    otherId: String,
@@ -11,6 +10,9 @@ module.exports = mongoose.model('BorrowItem', {
    name: String,
    category: String,
    state: String,
+   price: Number,
+	priceOption: String,
+	quantity: Number,
    description: String,
    pictures: { type: Schema.Types.Mixed},
    //Rating and Reviews
@@ -20,6 +22,11 @@ module.exports = mongoose.model('BorrowItem', {
    name2: String,
    dateAdded: { type: Date, default: Date.now },
    lastUpdated: { type: Date, default: Date.now },
+   address : {
+      longitude : Number,
+      latitude : Number
+   },
    startDate: Date,
    endDate: Date,
+	
 });

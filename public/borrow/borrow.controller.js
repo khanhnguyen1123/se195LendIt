@@ -6,12 +6,25 @@
 
    function borrowController ($location, $http, $scope, authentication, $stateParams, $state) {
       $scope.categories = ['All', 'Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
-      $scope.sortOptions = ['Most Recent', 'Alphabetically', 'Rating'];
-      let sortLinks = ['date/', 'name/', 'rate/'];
+      $scope.sortOptions = [
+         {
+            'display' : 'Most Recent',
+            'value' : 'date/'
+         },
+         {
+            'display' : 'Alphabetically',
+            'value' : 'name/'
+         },
+         {
+            'display' : 'Rating',
+            'value' : 'rate/'
+         }
+      ];
       let baseLink = '/api/borrow/';
 
       $scope.selectedSort = $scope.sortOptions[0];
       $scope.selectedCategory = $scope.categories[0];
+      $scope.borrowItems = [];
       $scope.displayedItems = [];
       $scope.loggedIn = authentication.isLoggedIn();
       $scope.page = {
@@ -21,19 +34,33 @@
       if ($stateParams.page && $stateParams.page > 0) {
          $scope.page.current = parseInt($stateParams.page);
       }
+      countItems();
+      getItems();
+
+      //To Fix Paging, change to update items everytime page changes instead of changing state
+      
 
       //Fixes UI on Page Change
-      $http.get('/api/borrow/get/count')
-         .success ( function(data) {
-            //$scope.page.max = Math.ceil(parseInt(data)/25);
-         })
-         .error ( function(err) {
-            console.log(err)
-         });
-      getItems(baseLink+"get/date/"+$scope.page.current)
-
+      function countItems() {
+         let temp = "/api/borrow/get/count";
+         if ($scope.selectedCategory != $scope.categories[0])
+            temp = temp + "/" + $scope.selectedCategory
+         $http.get(temp)
+            .success ( function(data) {
+               //$scope.page.max = Math.ceil(parseInt(data)/25);
+               //console.log($scope.page.max);
+            })
+            .error ( function(err) {
+               console.log(err)
+            });
+      }
       //Get Borrow Items
       function getItems (link) {
+         if (link == null) {
+            link = baseLink + "get/" + $scope.selectedSort.value + $scope.page.current;
+            if ($scope.selectedCategory != $scope.categories[0])
+               link = baseLink + "category/" + $scope.category + "/" +$scope.selectedSort.value + $scope.page.current;
+         }
          $http.get(link)
             .success( function(data) {
                $scope.displayedItems = data;
@@ -42,26 +69,33 @@
                console.log('Error: ' + error);
             });
       };
+
       //Filters By Category
       $scope.filter = function(category) {
          //Update Selected Category
          $scope.selectedCategory = category;
-         let sort = sortLinks[0];
-         if ($scope.selectedSort == $scope.sortOptions[1])
-            sort = sortLinks[1];
-         else if ($scope.selectedSort == $scope.sortOptions[2])
-            sort = sortLinks[2];
-
          if (category == $scope.categories[0]) {
-            getItems( baseLink + "get/" + sort + $scope.page.current);
+            getItems( baseLink + "get/" + $scope.selectedSort.value + $scope.page.current);
             return;
          }
-         getItems( baseLink + "category/" + category + "/" + sort + $scope.page.current);
+         getItems( baseLink + "category/" + category + "/" + $scope.selectedSort.value + $scope.page.current);
       }
       //Sorts Items
       $scope.sort = function(option) {
          $scope.selectedSort = option;
          $scope.filter($scope.selectedCategory);
       }
+      $scope.update = function() {
+         countItems();
+         getItems();
+      }
+      $scope.$watch(function(scope) {
+         return scope.page;
+      }, function(newValue, oldValue) {
+         console.log($scope.page.current);
+         console.log(newValue);
+         console.log(oldValue);
+      });
+
    }
 })();

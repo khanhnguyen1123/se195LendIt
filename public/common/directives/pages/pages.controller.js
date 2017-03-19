@@ -8,7 +8,7 @@
    function pagesCtrl($scope, $state) {
       $scope.current;
       $scope.max;
-      $scope.state;
+      $scope.next;
 
       $scope.pageClasses = ['disabled', 'disabled'];
       $scope.pages = null;
@@ -25,8 +25,8 @@
          $scope.pages.push(temp);
       }
 
-      $scope.update = function () {
-         if ($scope.current && $scope.max && $scope.state && $scope.pages == null) {
+      function update() {
+         if ($scope.current && $scope.max && $scope.pages == null) {
             $scope.pages = [];
             //1 2 3 4 5 6 7
             if ($scope.max < 8 ) {
@@ -66,7 +66,7 @@
          }      
       }
 
-      $scope.go = function (data) {
+      $scope.change = function (data) {
          if (data == 'prev' && $scope.pageClasses[0]=='disabled')
             return;
          else if (data == 'next' && $scope.pageClasses[1]=='disabled')
@@ -74,14 +74,18 @@
          else if (data == '...')
             return;
 
-         let temp = { page : $scope.current};
          if (data == 'prev')
-            temp.page = $scope.current-1;
+            $scope.next = $scope.current-1;
          else if (data == 'next')
-            temp.page = $scope.current+1;
+            $scope.next = $scope.current+1;
          else
-            temp.page = data;
-         $state.go($scope.state, temp);
+            $scope.next = data;
+      }
+
+      $scope.refresh = function () {
+         $scope.pageClasses = ['disabled', 'disabled'];
+         $scope.pages = null;
+         update();
       }
    }
 

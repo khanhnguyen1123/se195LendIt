@@ -16,8 +16,10 @@
       $scope.loggedIn = authentication.isLoggedIn();
       $scope.page = {
          'current' : 1,
-         'max' : 11
+         'max' : 11,
+         'next' : null
       };
+      $scope.next;
       if ($stateParams.page && $stateParams.page > 0) {
          $scope.page.current = parseInt($stateParams.page);
       }
@@ -61,6 +63,13 @@
       //Sorts Items
       $scope.sort = function(option) {
          $scope.selectedSort = option;
+         $scope.filter($scope.selectedCategory);
+      }
+      $scope.update = function() {
+         if ($scope.page.next == null || $scope.page.next == $scope.page.current)
+            return;
+         $scope.page.current = $scope.page.next;
+         $scope.page.next = null;
          $scope.filter($scope.selectedCategory);
       }
    }

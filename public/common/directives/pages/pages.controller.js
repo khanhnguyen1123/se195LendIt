@@ -6,7 +6,9 @@
    pagesCtrl.$inject = ['$scope', '$state'];
 
    function pagesCtrl($scope, $state) {
-      $scope.data;
+      $scope.current;
+      $scope.max;
+      $scope.next;
 
       $scope.pageClasses = ['disabled', 'disabled'];
       $scope.pages = null;
@@ -16,52 +18,74 @@
             'page' : data,
             'class' : ''
          }
-         if (data == $scope.data.current)
+         if (data == $scope.current)
             temp.class = "active";
          if (data == "&#8320")
             temp.class = "disabled";
          $scope.pages.push(temp);
       }
 
-      $scope.update = function () {
-         if ($scope.data && $scope.pages == null) {
+      function update() {
+         if ($scope.current && $scope.max && $scope.pages == null) {
             $scope.pages = [];
             //1 2 3 4 5 6 7
-            if ($scope.data.max < 8 ) {
-               for (let i=1; i < 8; i++)
+            if ($scope.max < 8 ) {
+               for (let i=1; i <= $scope.max; i++)
                   addPage(i);
             }
             //1 2 3 4 5 ... 9
-            else if ($scope.data.current < 5) {
+            else if ($scope.current < 5) {
                for (let i=1; i< 6; i++)
                   addPage(i);
                addPage("...");
-               addPage($scope.data.max);
+               addPage($scope.max);
             }
             //1 ... 5 6 7 8 9
-            else if ( ($scope.data.max - $scope.data.current) < 4) {
+            else if ( ($scope.max - $scope.current) < 4) {
                addPage(1);
                addPage("...");
-               let i = ($scope.data.max - 5);
-               for (; i < $scope.data.max; i++)
+               let i = ($scope.max - 5);
+               for (; i < $scope.max; i++)
                   addPage(i+1)
             }
             //1 ... 4 5 6 7 8 ... 11
             else {
                addPage(1);
                addPage("...");
-               let i = ($scope.data.current-2);
-               let max = ($scope.data.current + 3);
+               let i = ($scope.current-2);
+               let max = ($scope.current + 3);
                for (; i < max; i++)
                   addPage(i);
                addPage("...");
-               addPage($scope.data.max);
+               addPage($scope.max);
             }
-            if ($scope.data.current > 1)
+            if ($scope.current > 1)
                $scope.pageClasses[0] = '';
-            if ($scope.data.current < $scope.max)
+            if ($scope.current < $scope.max)
                $scope.pageClasses[1] = '';
          }      
+      }
+
+      $scope.change = function (data) {
+         if (data == 'prev' && $scope.pageClasses[0]=='disabled')
+            return;
+         else if (data == 'next' && $scope.pageClasses[1]=='disabled')
+            return;
+         else if (data == '...')
+            return;
+
+         if (data == 'prev')
+            $scope.next = $scope.current-1;
+         else if (data == 'next')
+            $scope.next = $scope.current+1;
+         else
+            $scope.next = data;
+      }
+
+      $scope.refresh = function () {
+         $scope.pageClasses = ['disabled', 'disabled'];
+         $scope.pages = null;
+         update();
       }
    }
 

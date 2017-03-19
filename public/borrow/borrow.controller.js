@@ -29,7 +29,7 @@
       $scope.loggedIn = authentication.isLoggedIn();
       $scope.page = {
          'current' : 1,
-         'max' : 11
+         'max' : 3
       };
       if ($stateParams.page && $stateParams.page > 0) {
          $scope.page.current = parseInt($stateParams.page);
@@ -37,9 +37,7 @@
       countItems();
       getItems();
 
-      //To Fix Paging, change to update items everytime page changes instead of changing state
       
-
       //Fixes UI on Page Change
       function countItems() {
          let temp = "/api/borrow/get/count";
@@ -48,7 +46,7 @@
          $http.get(temp)
             .success ( function(data) {
                //$scope.page.max = Math.ceil(parseInt(data)/25);
-               //console.log($scope.page.max);
+               console.log($scope.page.max);
             })
             .error ( function(err) {
                console.log(err)
@@ -59,8 +57,9 @@
          if (link == null) {
             link = baseLink + "get/" + $scope.selectedSort.value + $scope.page.current;
             if ($scope.selectedCategory != $scope.categories[0])
-               link = baseLink + "category/" + $scope.category + "/" +$scope.selectedSort.value + $scope.page.current;
+               link = baseLink + "category/" + $scope.selectedCategory + "/" +$scope.selectedSort.value + $scope.page.current;
          }
+         console.log(link);
          $http.get(link)
             .success( function(data) {
                $scope.displayedItems = data;
@@ -73,29 +72,32 @@
       //Filters By Category
       $scope.filter = function(category) {
          //Update Selected Category
-         $scope.selectedCategory = category;
-         if (category == $scope.categories[0]) {
-            getItems( baseLink + "get/" + $scope.selectedSort.value + $scope.page.current);
-            return;
+         if ($scope.selectedCategory != category) {
+            $scope.page.current = 1;
+            $scope.selectedCategory = category;
+            if (category == $scope.categories[0])
+               getItems( baseLink + "get/" + $scope.selectedSort.value + $scope.page.current);
+            else
+            getItems( baseLink + "category/" + category + "/" + $scope.selectedSort.value + $scope.page.current);
          }
-         getItems( baseLink + "category/" + category + "/" + $scope.selectedSort.value + $scope.page.current);
       }
       //Sorts Items
       $scope.sort = function(option) {
-         $scope.selectedSort = option;
-         $scope.filter($scope.selectedCategory);
+         if (option != $scope.selectedSort) {
+            $scope.page.current = 1;
+            $scope.selectedSort = option;
+            getItems();
+         }
       }
       $scope.update = function() {
+         
+         if ($scope.page.next == null || $scope.page.next == $scope.page.current)
+            return;
+         $scope.page.current = $scope.page.next;
+         $scope.page.next = null;
          countItems();
          getItems();
       }
-      $scope.$watch(function(scope) {
-         return scope.page;
-      }, function(newValue, oldValue) {
-         console.log($scope.page.current);
-         console.log(newValue);
-         console.log(oldValue);
-      });
 
    }
 })();

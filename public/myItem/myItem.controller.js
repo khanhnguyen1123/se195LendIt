@@ -23,7 +23,7 @@
           console.log('User id: '+ $scope.vme.user._id + ' of type:' + Object.prototype.toString.call($scope.vme.user._id));
         })
         .then(function(){
-          $http.post('/api/lendingItem/getUserItems', $scope.vme.user)
+          $http.get('/api/rent/user/'+$scope.vme.user._id)
             .success(function(data){
               //console.log("Rent Items");
               //console.log(JSON.stringify(data));
@@ -37,7 +37,7 @@
                 $scope.rentTitle = "Rent Items";
             });
 
-          $http.post('/api/requestedItem/getUserItems', $scope.vme.user)
+          $http.get('/api/request/user/'+$scope.vme.user._id)
             .success(function(data){
               //console.log("Requested Items");
               //console.log(JSON.stringify(data));

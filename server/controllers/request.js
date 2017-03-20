@@ -3,7 +3,7 @@ var requestModel = require('../models/request');
 
 //Create Item
 module.exports.createItem = function(req, res) {
-   let newItem = new rentModel(req.body);
+   let newItem = new requestModel(req.body);
    newItem.name2 = req.body.name.toLowerCase();
    //Saves Item to DB
    newItem.save(function(err, data) {
@@ -16,7 +16,7 @@ module.exports.createItem = function(req, res) {
 module.exports.updateItem = function(req, res) {
    req.body.lastUpdated = new Date();
    req.body.name2 = req.body.name.toLowerCase();
-   rentModel.update({_id: req.body._id}, req.body, function(err) {
+   requestModel.update({_id: req.body._id}, req.body, function(err) {
       if (err)
          res.send(err);
       res.send("Item Update Successfully");
@@ -24,7 +24,7 @@ module.exports.updateItem = function(req, res) {
 }
 //Delete Item
 module.exports.deleteItem = function(req, res) {
-   rentModel.remove({_id: req.params.id}, function(err, data) {
+   requestModel.remove({_id: req.params.id}, function(err, data) {
       if (err)
          res.send(err);
       res.send("Item Delted Successfully");
@@ -36,7 +36,7 @@ module.exports.getItems = function(req, res) {
    if (req.params.sort == "date")
       sort = { "dateAdded" : -1};
 
-   let query = rentModel.find({}).sort(sort).limit(25).skip((req.params.page-1)*25);
+   let query = requestModel.find({}).sort(sort).limit(25).skip((req.params.page-1)*25);
    query.exec(function(err, data){
       if(err)
          res.send(err);
@@ -49,7 +49,7 @@ module.exports.getItemsByCategory = function(req, res) {
    if (req.params.sort == "date")
       sort = { "dateAdded" : -1};
 
-   let query = rentModel.find({'category': req.params.category}).sort(sort).limit(25).skip((req.params.page-1)*25);
+   let query = requestModel.find({'category': req.params.category}).sort(sort).limit(25).skip((req.params.page-1)*25);
    query.exec( function(err,data) {
       if(err) 
          res.send(err);    
@@ -58,7 +58,7 @@ module.exports.getItemsByCategory = function(req, res) {
 }
 //Get Item By ID
 module.exports.getItemById = function(req, res) {
-   rentModel.findById(req.params.id, function(err, data) {
+   requestModel.findById(req.params.id, function(err, data) {
       if (err)
          res.send(err);
       res.send(data);
@@ -66,7 +66,7 @@ module.exports.getItemById = function(req, res) {
 }
 //Get Item By Owner ID
 module.exports.getItemsByOwner = function(req, res) {
-   rentModel.find({'ownerId':req.params.id},function(err,data){
+   requestModel.find({'ownerId':req.params.id},function(err,data){
       if(err) 
          res.send(err);    
       res.json(data);
@@ -79,7 +79,7 @@ module.exports.countItems = function(req, res) {
 //Search Items
 module.exports.searchItems = function(req, res) {
    let key = req.params.key.toLowerCase();
-   rentModel.find({'name2': { '$regex' : key} }, function(err, data) {
+   requestModel.find({'name2': { '$regex' : key} }, function(err, data) {
       if (err)
          res.send(err);
       res.json(data);
@@ -87,7 +87,7 @@ module.exports.searchItems = function(req, res) {
 }
 //Add Review
 module.exports.addReview = function(req, res) {
-   rentModel.findById(req.params.id, function(err, data) {
+   requestModel.findById(req.params.id, function(err, data) {
       if (req.body) {
          if (data.aRating == 0)
             data.aRating += req.body.rating;

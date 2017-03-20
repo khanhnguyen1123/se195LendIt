@@ -32,9 +32,8 @@
          $scope.requestPost.ownerId = $scope.pr.user._id;
          $scope.requestPost.ownerName = $scope.pr.user.name;
          
-         $http.post('/api/requestedItem/post', $scope.requestPost)
-            .success(function(data){
-               console.log(JSON.stringify(data));   
+         $http.post('/api/request/create', $scope.requestPost)
+            .success(function(data){   
                $scope.requestPost = {};
                $state.go('request');
                document.getElementById("images").style.display = "none";

@@ -20,7 +20,7 @@
     $scope.item = {
       'display' : true,
       'edit' : false,
-      'editButton' : 'Edit'
+      'editButton' : 'Edit Item'
     };
     $scope.writeReview = false;
     $scope.reviews = [false, false];
@@ -87,21 +87,15 @@
     };
 
     $scope.updateItem = function (message) {
-      if ($scope.owner)
-        return;
       $http.put('/api/borrow/update', $scope.borrowItem)
         .success(function(data){
-          $scope.editMessage = "Item Updated Successful!";
           $scope.alert = {
             'class' : 'alert-success',
             'message' : 'Item Updated Successful',
             'show' : true,
           };
-          document.getElementById('editAlert').classList.add("alert-success");
         })
         .error(function(data){
-          //console.log(data);
-          $scope.editMessage = "Item Update Failed";
           $scope.alert = {
             'class' : 'alert-danger',
             'message' : 'Item Update Failed',
@@ -114,8 +108,6 @@
     }
 
     $scope.deleteItem = function () {
-      if (!$scope.owner)
-        return;
       $http.delete('/api/borrow/delete/'+id)
         .success(function (data) {
           //console.log(data);
@@ -137,7 +129,7 @@
             $scope.reviewForm = {};
           })
           .error ( function(err) {
-
+            console.log(err);
           })
           .then (function () {
             $('body').scrollTop(0);
@@ -147,6 +139,7 @@
               'show' : true,
             };
             $scope.writeReview = false;
+            $scope.reviews[0] = false;
           });
       }
     }

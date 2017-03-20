@@ -24,21 +24,17 @@
 
       $scope.selectedSort = $scope.sortOptions[0];
       $scope.selectedCategory = $scope.categories[0];
-      $scope.borrowItems = [];
       $scope.displayedItems = [];
       $scope.loggedIn = authentication.isLoggedIn();
       $scope.page = {
          'current' : 1,
-         'max' : 3
+         'max' : 3,
+         'next' : null
       };
-      if ($stateParams.page && $stateParams.page > 0) {
-         $scope.page.current = parseInt($stateParams.page);
-      }
       countItems();
       getItems();
-
       
-      //Fixes UI on Page Change
+      //Counts Items in DB
       function countItems() {
          let temp = "/api/borrow/get/count";
          if ($scope.selectedCategory != $scope.categories[0])
@@ -46,7 +42,7 @@
          $http.get(temp)
             .success ( function(data) {
                //$scope.page.max = Math.ceil(parseInt(data)/25);
-               console.log($scope.page.max);
+               //console.log($scope.page.max);
             })
             .error ( function(err) {
                console.log(err)
@@ -59,7 +55,6 @@
             if ($scope.selectedCategory != $scope.categories[0])
                link = baseLink + "category/" + $scope.selectedCategory + "/" +$scope.selectedSort.value + $scope.page.current;
          }
-         console.log(link);
          $http.get(link)
             .success( function(data) {
                $scope.displayedItems = data;
@@ -68,10 +63,8 @@
                console.log('Error: ' + error);
             });
       };
-
       //Filters By Category
       $scope.filter = function(category) {
-         //Update Selected Category
          if ($scope.selectedCategory != category) {
             $scope.page.current = 1;
             $scope.selectedCategory = category;
@@ -89,8 +82,8 @@
             getItems();
          }
       }
+      //Updates Displayed Item on Page Change
       $scope.update = function() {
-         
          if ($scope.page.next == null || $scope.page.next == $scope.page.current)
             return;
          $scope.page.current = $scope.page.next;

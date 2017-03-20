@@ -6,8 +6,28 @@
 
    function rentController ($location, $http, $scope, authentication, $stateParams, $state) {
       $scope.categories = ['All', 'Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
-      $scope.sortOptions = ['Most Recent', 'Alphabetically', 'Rating', 'Price Low to High', 'Price High to Low'];
-      let sortLinks = ['date/', 'name/', 'rate/', 'priceLtH', 'priceHtL'];
+      $scope.sortOptions = [
+         {
+            'display' : 'Most Recent',
+            'value' : 'date/'
+         },
+         {
+            'display' : 'Alphabetically',
+            'value' : 'name/'
+         },
+         {
+            'display' : 'Rating',
+            'value' : 'rate/'
+         },
+         {
+            'display' : 'Price Low to High',
+            'value' : 'priceLtH/'
+         },
+         {
+            'display' : 'Price High to Low',
+            'value' : 'priceHtL/'
+         }
+      ];
       let baseLink = '/api/rent/';
 
       $scope.selectedSort = $scope.sortOptions[0];
@@ -16,24 +36,34 @@
       $scope.loggedIn = authentication.isLoggedIn();
       $scope.page = {
          'current' : 1,
-         'max' : 11
+         'max' : 11,
+         'next' : null
       };
-      if ($stateParams.page && $stateParams.page > 0) {
-         $scope.page.current = parseInt($stateParams.page);
-      }
+      countItems();
+      getItems();
 
-      //Fixes UI on Page Change
-      $http.get('/api/rent/get/count')
-         .success ( function(data) {
-            //$scope.page.max = Math.ceil(parseInt(data)/25);
-         })
-         .error ( function(err) {
-            console.log(err)
-         });
-      getItems(baseLink+"get/date/"+$scope.page.current)
+      //Counts Items in DB
+      function countItems() {
+         let temp = "/api/rent/get/count";
+         if ($scope.selectedCategory != $scope.categories[0])
+            temp = temp + "/" + $scope.selectedCategory
+         $http.get(temp)
+            .success ( function(data) {
+               //$scope.page.max = Math.ceil(parseInt(data)/25);
+               //console.log($scope.page.max);
+            })
+            .error ( function(err) {
+               console.log(err)
+            });
+      }
 
       //Get Rent Items
       function getItems (link) {
+         if (link == null) {
+            link = baseLink + "get/" + $scope.selectedSort.value + $scope.page.current;
+            if ($scope.selectedCategory != $scope.categories[0])
+               link = baseLink + "category/" + $scope.selectedCategory + "/" +$scope.selectedSort.value + $scope.page.current;
+         }
          $http.get(link)
             .success( function(data) {
                $scope.displayedItems = data;
@@ -44,28 +74,31 @@
       };
       //Filters By Category
       $scope.filter = function(category) {
-         //Update Selected Category
-         $scope.selectedCategory = category;
-         let sort = sortLinks[0];
-         if ($scope.selectedSort == $scope.sortOptions[1])
-            sort = sortLinks[1];
-         else if ($scope.selectedSort == $scope.sortOptions[2])
-            sort = sortLinks[2];
-         else if ($scope.selectedSort == $scope.sortOptions[3])
-            sort = sortLinks[3];
-         else if ($scope.selectedSort == $scope.sortOptions[4])
-            sort = sortLinks[3];
-
-         if (category == $scope.categories[0]) {
-            getItems( baseLink + "get/" + sort + $scope.page.current);
-            return;
+         if ($scope.selectedCategory != category) {
+            $scope.page.current = 1;
+            $scope.selectedCategory = category;
+            if (category == $scope.categories[0])
+               getItems( baseLink + "get/" + $scope.selectedSort.value + $scope.page.current);
+            else
+            getItems( baseLink + "category/" + category + "/" + $scope.selectedSort.value + $scope.page.current);
          }
-         getItems( baseLink + "category/" + category + "/" + sort + $scope.page.current);
       }
-      //Sorts Items
+       //Sorts Items
       $scope.sort = function(option) {
-         $scope.selectedSort = option;
-         $scope.filter($scope.selectedCategory);
+         if (option != $scope.selectedSort) {
+            $scope.page.current = 1;
+            $scope.selectedSort = option;
+            getItems();
+         }
+      }
+      //Updates Displayed Item on Page Change
+      $scope.update = function() {
+         if ($scope.page.next == null || $scope.page.next == $scope.page.current)
+            return;
+         $scope.page.current = $scope.page.next;
+         $scope.page.next = null;
+         countItems();
+         getItems();
       }
    }
 })();

@@ -41,9 +41,9 @@ module.exports.getItems = function(req, res) {
    else if (req.params.sort == "rate")
       sort = { "rating" : -1};
    else if (req.params.sort == "priceLtH")
-      sort = { "price" : -1};
-   else if (req.params.sort == "priceHtL")
       sort = { "price" : 1};
+   else if (req.params.sort == "priceHtL")
+      sort = { "price" : -1};
 
    let query = rentModel.find({}).sort(sort).limit(25).skip((req.params.page-1)*25);
    query.exec(function(err, data){
@@ -60,10 +60,11 @@ module.exports.getItemsByCategory = function(req, res) {
    else if (req.params.sort == "rate")
       sort = { "rating" : -1};
    else if (req.params.sort == "priceLtH")
-      sort = { "price" : -1};
-   else if (req.params.sort == "priceHtL")
       sort = { "price" : 1};
+   else if (req.params.sort == "priceHtL")
+      sort = { "price" : -1};
 
+   console.log(sort);
    let query = rentModel.find({'category': req.params.category}).sort(sort).limit(25).skip((req.params.page-1)*25);
    query.exec( function(err,data) {
       if(err) 

@@ -2,7 +2,7 @@
     <h3>Reviews</h3>
     <h4>{{message}}</h4>
     <div ng-repeat="review in reviews" style="margin: 8px 0px 8px 0px;">
-      <p style="display:inline-block;">Rating {{review.rating}}</p>
+      <stars value="{{review.rating}}"></stars>
       <h4 style="display:inline-block;">{{review.title}}</h4>
       <p>By <a  ui-sref="publicProfile({random: review.user})">{{review.username}}</a> on {{review.date}}</p>
       <p>{{review.content}}</p>

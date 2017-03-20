@@ -34,11 +34,11 @@
          $scope.rentPost.ownerId = $scope.pr.user._id;
          $scope.rentPost.ownerName = $scope.pr.user.name;
          $scope.rentPost.state = "Available";
-         $scope.rentPost.address = $scope.pr.user.address;
-         $http.post('/api/lendingItem/post', $scope.rentPost)
+         //TBD, Add Longitude and Latitude on Creation
+         //$scope.rentPost.address = $scope.pr.user.address;
+
+         $http.post('/api/rent/create', $scope.rentPost)
             .success(function(data){
-               console.log(JSON.stringify(data));   
-               //Clean the form to allow the user to create new post   
                $scope.rentPost = {};
                $state.go("rent")
                document.getElementById("images").style.display = "none";

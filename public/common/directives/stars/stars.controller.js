@@ -9,13 +9,16 @@
       $scope.black = [];
       $scope.white = [];
       
-      $scope.update = function (data) {
-         console.log("Data " + data);
-         for (let i=0; i<5; i++) {
-           if (i < $scope.value)
-             $scope.black.push(i);
-           else
-             $scope.white.push(i);
+      $scope.update = function () {
+         if ($scope.value) {
+            $scope.black = [];
+            $scope.white = [];
+            for (let i=0; i<5; i++) {
+               if (i < $scope.value)
+                  $scope.black.push(i);
+               else
+                  $scope.white.push(i);
+            }
          }
       }
    }

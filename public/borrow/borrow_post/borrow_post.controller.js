@@ -35,7 +35,7 @@
 
          $http.post('/api/borrow/create', $scope.borrowPost)
             .success(function(data){
-               console.log(JSON.stringify(data));   
+               //console.log(JSON.stringify(data));   
                //Clean the form to allow the user to create new post   
                $scope.borrowPost = {};
                $state.go("borrow");

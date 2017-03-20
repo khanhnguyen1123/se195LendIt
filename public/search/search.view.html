@@ -3,12 +3,13 @@
 <div class="main" ng-controller='searchController'>
    <h2>Search Results for {{key}}</h2>
    <ul class="nav nav-tabs" style="margin: 0px -15px 0px -15px; list-style-type: none;">
-      <li id="rent-tab" class="tab" ng-click="toggle(0)">Rent</li>
-      <li id="borrow-tab" class="tab" ng-click="toggle(1)">Borrow</li>
-      <li id="request-tab" class="tab" ng-click="toggle(2)">Request</li>
+      <li ng-class="tabs[0]" class="tab" ng-click="toggle(0)">Rent</li>
+      <li ng-class="tabs[1]" class="tab" ng-click="toggle(1)">Borrow</li>
+      <li ng-class="tabs[2]" class="tab" ng-click="toggle(2)">Request</li>
    </ul>
    <!--Items Container-->
    <div class="row" style="margin:20px 10px 0px 10px;" >
+      <h2>{{message}}</h2>
       <!--Item-->
       <div class="col-md-4" style="width:246px; display:inline-block;" ng-repeat="item in displayItems">
          <!--Item Preview Content-->

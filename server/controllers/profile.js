@@ -3,10 +3,10 @@ var User = mongoose.model('User');
 
 module.exports.profileRead = function(req, res) {
 
-  console.log("khanh test inside profile "+req.payload.email+"  khanh "+req.payload._id+ " khanh "+req.body);
+  //console.log("khanh test inside profile "+req.payload.email+"  khanh "+req.payload._id+ " khanh "+req.body);
 
   if (!req.payload._id) {
-      console.log("khanh Req.payload._id is not exist in side profileRead"+req.payload._id);
+      //console.log("khanh Req.payload._id is not exist in side profileRead"+req.payload._id);
     res.status(401).json({
       "message" : "UnauthorizedError: private profile"
     });
@@ -15,7 +15,7 @@ module.exports.profileRead = function(req, res) {
       .findById(req.payload._id)
       .exec(function(err, user) {
         res.status(200).json(user);
-        console.log(user);
+        //console.log(user);
       });
   }
 
@@ -23,17 +23,17 @@ module.exports.profileRead = function(req, res) {
 
 module.exports.updatePhoto= function(req,res){
   var userId = req.body._id;
-  console.log('khanh in side update photto  :'+req.body._id);
+  //console.log('khanh in side update photto  :'+req.body._id);
   var image = req.body.profileImage;
   User.findById(userId, function(err, userData){
                 var user = userData;
                 user.profileImage = image;
                 user.save(function(err){
                     if (err){
-                        console.log("failed save")
+                        //console.log("failed save")
                         res.json({status: 500})
                     } else {
-                        console.log("save successful");
+                        //console.log("save successful");
                         
                         res.json({status: 200})
                     }
@@ -64,10 +64,10 @@ module.exports.editProfile= function(req,res){
               */
                 user.save(function(err){
                     if (err){
-                        console.log("failed save")
+                        //console.log("failed save")
                         res.json({status: 500})
                     } else {
-                        console.log("save successful");
+                        //console.log("save successful");
                         
                         res.json({status: 200})
                     }
@@ -99,10 +99,10 @@ module.exports.updateUser = function(req, res) {
     if (req.body.paypalAccount) user.paypalAccount = req.body.paypalAccount;
     user.save(function(err){
       if (err) {
-        console.log("User Update Failed")
+        //console.log("User Update Failed")
         res.json({status: 500})
       } else {
-        console.log("User Update Successful");   
+        //console.log("User Update Successful");   
         res.json({status: 200})
       }
     });
@@ -117,10 +117,10 @@ module.exports.updateUserPhoto= function(req,res){
     user.profileImage = image;
     user.save( function(err){
       if (err){
-        console.log("failed save")
+        //console.log("failed save")
         res.json({status: 500})
       } else {
-        console.log("save successful");
+        //console.log("save successful");
         res.json({status: 200})
       }
     })

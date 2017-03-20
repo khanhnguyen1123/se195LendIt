@@ -1,43 +1,92 @@
 (function() { 
-  angular
-    .module('meanApp')
-    .controller('requestController', requestController);
+   angular
+      .module('meanApp')
+      .controller('requestController', requestController);
  	requestController.$inject = ['$location','$http','$scope', 'authentication'];
 
-    function requestController ($location,$http,$scope, authentication) {
+   function requestController ($location,$http,$scope, authentication) {
       $scope.categories = ['All', 'Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
+      $scope.sortOptions = [
+         {
+            'display' : 'Most Recent',
+            'value' : 'date/'
+         },
+         {
+            'display' : 'Alphabetically',
+            'value' : 'name/'
+         }
+      ];
+      let baseLink = '/api/request/';
+
+      $scope.selectedSort = $scope.sortOptions[0];
       $scope.selectedCategory = $scope.categories[0];
-      $scope.requestedItems = [];
       $scope.displayedItems = [];
       $scope.loggedIn = authentication.isLoggedIn();
-
-      //Retrieve all the requested items to show the request page
-      $http.get('/api/requestedItem/get')
-        .success(function(data){
-          //console.log("Requested Items");
-          //console.log(JSON.stringify(data));
-          $scope.requestedItems = data;
-          $scope.displayedItems = data;
-        })
-        .error(function(error) {
-          console.log('Requested Items Error: ' + error);
-        });
-
-        $scope.filter = function(category) {
-          //console.log("Filtered Category: " + category);
-          $scope.selectedCategory = category;
-          if (category == "All") {
-            $scope.displayedItems = $scope.requestedItems;
-            return;
-          }
-          $scope.displayedItems = [];
-          for (let i = 0; i < $scope.requestedItems.length; i++) { 
-            let item = $scope.requestedItems[i];
-            if (item.category == category)
-              $scope.displayedItems.push(item);
-          }
-        }
+      $scope.page = {
+         'current' : 1,
+         'max' : 11,
+         'next' : null
+      };
+      countItems();
+      getItems();
       
-    }// end requestController
-
+      //Counts Items in DB
+      function countItems() {
+         let temp = "/api/request/get/count";
+         if ($scope.selectedCategory != $scope.categories[0])
+            temp = temp + "/" + $scope.selectedCategory
+         $http.get(temp)
+            .success ( function(data) {
+               //$scope.page.max = Math.ceil(parseInt(data)/25);
+               //console.log($scope.page.max);
+            })
+            .error ( function(err) {
+               console.log(err)
+            });
+      }
+      //Get Borrow Items
+      function getItems (link) {
+         if (link == null) {
+            link = baseLink + "get/" + $scope.selectedSort.value + $scope.page.current;
+            if ($scope.selectedCategory != $scope.categories[0])
+               link = baseLink + "category/" + $scope.selectedCategory + "/" +$scope.selectedSort.value + $scope.page.current;
+         }
+         $http.get(link)
+            .success( function(data) {
+               $scope.displayedItems = data;
+            })
+            .error ( function(error) {
+               console.log('Error: ' + error);
+            });
+      };
+      //Filters By Category
+      $scope.filter = function(category) {
+         if ($scope.selectedCategory != category) {
+            $scope.page.current = 1;
+            $scope.selectedCategory = category;
+            if (category == $scope.categories[0])
+               getItems( baseLink + "get/" + $scope.selectedSort.value + $scope.page.current);
+            else
+            getItems( baseLink + "category/" + category + "/" + $scope.selectedSort.value + $scope.page.current);
+         }
+      }
+      //Sorts Items
+      $scope.sort = function(option) {
+         if (option != $scope.selectedSort) {
+            $scope.page.current = 1;
+            $scope.selectedSort = option;
+            getItems();
+         }
+      }
+      //Updates Displayed Item on Page Change
+      $scope.update = function() {
+         if ($scope.page.next == null || $scope.page.next == $scope.page.current)
+            return;
+         $scope.page.current = $scope.page.next;
+         $scope.page.next = null;
+         countItems();
+         getItems();
+      }
+      
+    }
 })();

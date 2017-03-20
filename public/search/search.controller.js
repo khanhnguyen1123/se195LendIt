@@ -5,11 +5,10 @@
    searchController.$inject = ['$location', '$http', '$scope', '$window', '$stateParams'];
 
    function searchController ($location,$http,$scope,$window, $stateParams) {      
-      $scope.searchRent = {};
-      $scope.searchBorrow = {};
-      $scope.searchController = {};
       $scope.displayItems = {};
       $scope.key = $stateParams.key;
+      $scope.tabs = ['', '', ''];
+      $scope.message = "";
 
       let searchLinks = ['/api/rent/search/', '/api/borrow/search/', '/api/request/search/']
 
@@ -21,29 +20,21 @@
             .error ( function(error) {
                console.log(error);
             })
+            .then ( function () {
+               if ($scope.displayItems.length == 0)
+                  $scope.message = "No Items Found";
+               else
+                  $scope.message = "";
+            });
       }
 
       $scope.toggle = function(index) {
-         let rent = document.getElementById("rent-tab");
-         let borrow = document.getElementById("borrow-tab");
-         let request = document.getElementById("request-tab");
-         rent.classList.remove("tab-active");
-         borrow.classList.remove("tab-active");
-         request.classList.remove("tab-active");
-         if (index == 0) {
-            rent.classList.add("tab-active");
-            $scope.displayItems = {};
-            return;
-         } else if (index == 1) {
-            borrow.classList.add("tab-active");
-         } else {
-            request.classList.add("tab-active");
-            $scope.displayItems = {};
-            return;
-         }
+         $scope.tabs = ['', '', ''];
+         $scope.tabs[index] = "tab-active";
+         $scope.displayItems = {};
          getItems(searchLinks[index]+$stateParams.key);
       }
-      $scope.toggle(1);
+      $scope.toggle(0);
    }
 
 })();

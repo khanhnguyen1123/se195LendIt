@@ -1,0 +1,22 @@
+<navigation> </navigation>
+<!--Rent Post Container-->
+<div class="main" ng-controller='searchController'>
+   <h2>Search Results for {{key}}</h2>
+   <ul class="nav nav-tabs" style="margin: 0px -15px 0px -15px; list-style-type: none;">
+      <li id="rent-tab" class="tab" ng-click="toggle(0)">Rent</li>
+      <li id="borrow-tab" class="tab" ng-click="toggle(1)">Borrow</li>
+      <li id="request-tab" class="tab" ng-click="toggle(2)">Request</li>
+   </ul>
+   <!--Items Container-->
+   <div class="row" style="margin:20px 10px 0px 10px;" >
+      <!--Item-->
+      <div class="col-md-4" style="width:246px; display:inline-block;" ng-repeat="item in displayItems">
+         <!--Item Preview Content-->
+         <div class="thumbnail item" ui-sref="borrow_item({random: item._id})">
+            <img ng-src="{{item.pictures[0].url}}" alt="Image Not Found" style="width:100%; height:140px;"/>
+            <p class="item-preview-title">{{item.name}}</p>
+            <p class="item-preview-description">{{item.description}}</p>
+         </div>
+      </div>
+   </div>
+</div>

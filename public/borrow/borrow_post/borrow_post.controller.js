@@ -32,6 +32,7 @@
          $scope.borrowPost.ownerId = $scope.pr.user._id;
          $scope.borrowPost.ownerName = $scope.pr.user.name;
          $scope.borrowPost.state = "Available";
+
          $http.post('/api/borrow/create', $scope.borrowPost)
             .success(function(data){
                console.log(JSON.stringify(data));   

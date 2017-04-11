@@ -86,11 +86,11 @@ module.exports.getUserItems = function(req, res){
 module.exports.getCategory = function(req,res){
   var category = req.params.category;
   LendingItem.find({'category':category},function(err,data){
-    if(err) res.send(err);
-        //If no errors, send it back to the client
-        res.json(data);
-  });// end calling finding function in mogoose    
-}; // end getBookAndAudible function
+    if(err) 
+      res.send(err);    
+    res.json(data);
+  });
+}; 
 
 module.exports.updateItem = function(req, res) {
   LendingItem.findById(req.body._id, function(err, data) {

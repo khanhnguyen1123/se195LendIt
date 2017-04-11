@@ -44,6 +44,11 @@
         templateUrl: 'public/request/request.view.html',
         controller: 'requestController'
       })
+      .state('requestmap',{
+        url: '/request/requestmap',
+        templateUrl: 'public/request/map/requestmap.view.html',
+        controller: 'requestMapController'
+      })
       .state('request_post', {
         url: '/request/post',
         templateUrl: 'public/request/request_post/request_post.view.html',
@@ -58,6 +63,11 @@
         url: '/rent',
         templateUrl: 'public/rent/rent.view.html',
         controller: 'rentController'
+      })
+      .state('rentmap',{
+        url: '/rent/rentmap',
+        templateUrl: 'public/rent/map/rentmap.view.html',
+        controller: 'rentmapController'
       })
       .state('rent_post', {
         url: '/rent/post',

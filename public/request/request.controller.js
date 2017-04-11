@@ -12,32 +12,31 @@
       $scope.loggedIn = authentication.isLoggedIn();
 
       //Retrieve all the requested items to show the request page
-      $http.get('/api/requestedItem/get')
-        .success(function(data){
-          //console.log("Requested Items");
-          //console.log(JSON.stringify(data));
-          $scope.requestedItems = data;
-          $scope.displayedItems = data;
-        })
-        .error(function(error) {
-          console.log('Requested Items Error: ' + error);
-        });
+      $http.get('/api/requestedItem/getAll')
+      .success(function(data){
+        //console.log(JSON.stringify(data));
+        $scope.requestedItems = data;
+        $scope.displayedItems = data;
+      })
+      .error(function(error){
+      console.log("Error: " + error);
+      });
 
-        $scope.filter = function(category) {
-          //console.log("Filtered Category: " + category);
-          $scope.selectedCategory = category;
-          if (category == "All") {
-            $scope.displayedItems = $scope.requestedItems;
-            return;
-          }
-          $scope.displayedItems = [];
-          for (let i = 0; i < $scope.requestedItems.length; i++) { 
-            let item = $scope.requestedItems[i];
-            if (item.category == category)
-              $scope.displayedItems.push(item);
-          }
+      $scope.filter = function(category) {
+        //console.log("Filtered Category: " + category);
+        $scope.selectedCategory = category;
+        if (category == "All") {
+          $scope.displayedItems = $scope.requestedItems;
+          return;
         }
-      
-    }// end requestController
+        $scope.displayedItems = [];
+        for (let i = 0; i < $scope.requestedItems.length; i++) { 
+          let item = $scope.requestedItems[i];
+          if (item.category == category)
+            $scope.displayedItems.push(item);
+        }
+      }
+    
+  }// end requestController
 
 })();

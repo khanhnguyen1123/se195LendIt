@@ -42,26 +42,18 @@
 	<script src="public/rent/rent.controller.js"></script>
 	<script src="public/rent/rent_item/rent_item.controller.js"></script>
 	<script src="public/rent/rent_post/rent_post.controller.js"></script>
+	<script src="public/rent/map/rentmap.controller.js"></script>
 	<!--Request-->
 	<script src="public/request/request.controller.js"></script>
 	<script src="public/request/request_post/request_post.controller.js"></script>
 	<script src="public/request/request_item/request_item.controller.js"></script>
+	<script src="public/request/map/requestmap.controller.js"></script>
 	<!--My Item-->
 	<script src="public/myItem/myItem.controller.js"></script>
 	
 
 	<!-- Google Maps API & Scripts-->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPwdZTuGLzv76_l9MdMnuCo7reDrBfBQg"></script> 
-	<script >
-		function initMap(){
-			var map = new google.maps.Map(document.getElementById('map'), {
-		          zoom: 15,
-		          center: {lat: 37.712, lng: -122.092}
-		        });
-		}
-		// not in use yet
-		//initMap();
-	</script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPwdZTuGLzv76_l9MdMnuCo7reDrBfBQg"></script> 
 
 	<!--LendIt CSS-->
 	<style>
@@ -115,10 +107,15 @@
 		Always set the map height explicitly to define the size of the div
       element that contains the map. 
       */
-      #map {
-      	height: 645px;
-   		width: 645px;
-      }
+		#map {
+		    height:420px;
+		    width:100%;
+		}
+		.infoWindowContent {
+		    font-size:  14px !important;
+		    border-top: 1px solid #ccc;
+		    padding-top: 10px;
+		}
       /* Optional: Makes the sample page fill the window. */ 
 	</style>
 </html>

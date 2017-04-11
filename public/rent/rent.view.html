@@ -23,19 +23,21 @@
         </button>
       </a>
     </div>
-
-    <div style="clear:both;"/></div>
-
-    <!--Items Container-->
-    <div class="row" style="margin:20px 10px 0px 10px;" >
-      <!--Item-->
-      <div class="col-md-4" style="width:246px; display:inline-block;" ng-repeat="item in displayedItems">
-        <!--Item Preview Content-->
-        <div class="thumbnail" ui-sref="rent_item({random: item._id})">
-          <img ng-src="{{item.pictures[0].url}}" alt="Image Not Found" style="width:100%; height:140px;"/>
-          <p class="item-preview-title">{{item.name}}</p>
-          <p class="item-preview-description">{{item.description}}</p>
-        </div>
+    <div style="clear:both;"/>
+  </div>
+  
+  <!--Items Container-->
+  <div class="row" style="margin:20px 10px 0px 10px;" >
+    <!--Item-->
+    <div class="col-md-4" style="width:246px; display:inline-block;" ng-repeat="item in displayedItems">
+      <!--Item Preview Content-->
+      <div class="thumbnail item" ui-sref="rent_item({random: item._id})">
+        <img ng-src="{{item.pictures[0].url}}" alt="Image Not Found" style="width:100%; height:140px;"/>
+        <p class="item-preview-title">{{item.name}}</p>
+        <p class="item-preview-description">
+          {{item.description}}
+          <span class="item-preview-price">{{item.price}} USD</span>
+        </p>
       </div>
     </div>
 

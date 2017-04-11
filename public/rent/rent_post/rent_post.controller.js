@@ -9,7 +9,7 @@
    function rentPostController ($location, $http, $scope, $state,filepickerService, meanData, authentication) {
       const c_state = 'Rent Post Controller';
       //console.log('State: ' + c_state);
-      $scope.categories = ['Books & Audible', 'Movies, Music & Games', 'Electronics & Games', 'Home & Garden','Beauty, Health & Grocery', 'Toys, Kids & Baby', 'Clothing, Shoes, & Jewelry', 'Handmade', 'Sports & Outdoors', 'Autmotive & Industrial', 'Private Parking', 'Others'];
+      $scope.categories = ['Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
       $scope.priceOptions = ['per hour', 'per day', 'per week'];
       $scope.rentPost = {};
       $scope.rentPost.category = $scope.categories[0];
@@ -44,7 +44,6 @@
             var lng = Math.round(parseFloat(tmp[4]) * 1000) / 1000;
             $scope.rentPost.location.lat = lat;
             $scope.rentPost.location.lng = lng;
-
             $http.post('/api/lendingItem/post', $scope.rentPost)
             .success(function(data){
                console.log(JSON.stringify(data));   

@@ -6,6 +6,7 @@ var LendingItem = require('../datasets/lendingItems.js');
 // post Lending item
 module.exports.post = function(req, res){
       //Creates a new 
+      req.body.name = req.body.name.toLowerCase();
       var newLendingItem = new LendingItem(req.body);
       console.log(JSON.stringify(req.location));
       var itemId;
@@ -90,3 +91,44 @@ module.exports.getCategory = function(req,res){
         res.json(data);
   });// end calling finding function in mogoose    
 }; // end getBookAndAudible function
+
+module.exports.updateItem = function(req, res) {
+  LendingItem.findById(req.body._id, function(err, data) {
+    if (req.body.name) data.name = req.body.name;
+    if (req.body.category) data.category = req.body.category;
+    if (req.body.description) data.description = req.body.description;
+    if (req.body.pictures) data.pictures = req.body.pictures;
+    if (req.body.price) data.price = req.body.price;
+    if (req.body.priceOption) data.priceOption = req.body.priceOption;
+    if (req.body.quantity) data.quantity = req.body.quantity;
+    if (req.body.state) data.state = req.body.state;
+    data.save(function (err) {
+      if (err)
+        res.send(err);
+      res.send("Item Update Successful");
+    })
+  });
+}
+
+module.exports.deleteItem = function (req, res) {
+  LendingItem.remove({_id: req.params.id}, function(err, data) {
+    if (err)
+      res.send(err);
+    res.send("Item Delted Successfully");
+  })
+}
+
+// search for renting items|| @parameter: renting item's name
+module.exports.searchRentingItem = function(req,res){
+  var searchedItemName = req.body.name.toLowerCase();
+  console.log("search item name: "+searchedItemName);
+  LendingItem.find({'name':searchedItemName},function(err,data){
+    if(err) res.send(err);
+        //If no errors, send it back to the client
+    if(data){
+        res.json(data);
+        console.log("inside search function :"+ data);
+      }
+  });
+};// end search function
+

@@ -1,25 +1,24 @@
 (function() { 
   angular
     .module('meanApp')
-    .controller('rentItemController', rentItemController);
-  rentItemController.$inject = ['$location','$http','$scope','$stateParams', 'authentication', 'meanData', 'filepickerService', '$state'];
+    .controller('borrowItemController', borrowItemController);
+  borrowItemController.$inject = ['$location','$http','$scope','$stateParams', 'authentication', 'meanData', 'filepickerService', '$state'];
 
-  function rentItemController ($location, $http, $scope, $stateParams, authentication, meanData, filepickerService, $state) {
+  function borrowItemController ($location, $http, $scope, $stateParams, authentication, meanData, filepickerService, $state) {
     $scope.categories = ['Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
-    $scope.priceOptions = ['per hour', 'per day', 'per week'];
     $scope.states = ['Available', 'Unavailble'];
-    $scope.rentItem = {};
+    $scope.borrowItem = {};
     $scope.user = {};
     $scope.editButton = "Edit";
     $scope.owner = false;
     $scope.edit = false;
     let id = $stateParams.random;
+    
 
-    $http.get('/api/lendingItem/get/'+id)
+    $http.get('/api/borrow/get/'+id)
       .success(function(data){
         console.log(JSON.stringify(data));
-        $scope.rentItem = data;
-        updateState();
+        $scope.borrowItem = data;
       })
       .error(function(error) {
         console.log('Error: ' + error);
@@ -32,29 +31,17 @@
         .error(function (e) {
           console.log(e);
         }); 
-      if ($scope.user._id == $scope.rentItem.ownerId) 
+      if ($scope.user._id == $scope.borrowItem.ownerId) 
         $scope.owner = true;
     }
     var updateState = function () {
-      console.log($scope.rentItem.state);
+      console.log($scope.borrowItem.state);
       let itemState = document.getElementById('item-state');
-      if ($scope.rentItem.state == "Available")
+      if ($scope.borrowItem.state == "Available")
         itemState.style.color = "green";
       else
         itemState.style.color = "red";  
     }
-    //Redirects to Paypal Payment
-    $scope.makePaypalPayment = function(){
-      console.log("Paypal Payment Processing");
-      $http.post('/create', $scope.rentItem)
-        .success(function(data){
-          console.log('Paypal Payment Success: '+JSON.stringify(data));   
-          $window.location.href=data.link;
-        })
-        .error(function(data) {
-          console.log('Paypal Payment Error: ' + data);
-        });
-    };
     $scope.upload = function() {
       filepickerService.pickMultiple({
         mimetype: 'image/*',
@@ -64,7 +51,7 @@
         openTo: 'IMAGE_SEARCH'
       }, function(data){
         console.log(JSON.stringify(data));
-        $scope.rentItem.pictures = data;
+        $scope.borrowItem.pictures = data;
         $scope.$apply();
       });
     };
@@ -72,7 +59,7 @@
       if (!$scope.owner)
         return;
       document.getElementById('editAlert').classList.add("alert-success");
-      $http.post('/api/lendingItem/update', $scope.rentItem)
+      $http.put('/api/borrow/update', $scope.borrowItem)
         .success(function(data){
           console.log(JSON.stringify(data));
           $scope.editMessage = "Item Updated Successful!";
@@ -89,17 +76,18 @@
     $scope.deleteItem = function () {
       if (!$scope.owner)
         return;
-      $http.delete('/api/lendingItem/delete/'+id)
+      $http.delete('/api/borrow/delete/'+id)
         .success(function (data) {
           console.log(data);
           console.log("Item Deleted Succesfully");
-          $state.go('rent');
+          $state.go('borrow');
         })
         .error (function (err) {
           console.log(err);
         })
     }
     $scope.toggleEdit = function () {
+      console.log("toggle");
       let form = document.getElementById("editItem");
       let item = document.getElementById("item");
       updateState();
@@ -122,7 +110,8 @@
         document.getElementById('editAlert').classList.remove('alert-danger');
       $scope.editMessage = "";
       document.getElementById('editAlert').style.display = "none";
-    } 
+    }
+
   }
 
 })();

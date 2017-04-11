@@ -49,37 +49,6 @@
 							console.log('Geocode was not successful for the following reason: ' + status);
 						}
 					});
-			}
-			// initMap();
-
-			// function initMap(){
-			//   var uluru = {lat: 37.712, lng: -122.092};
-			//   var map = new google.maps.Map(document.getElementById('map'), {
-			//         zoom: 15,
-			//         center: uluru,
-			//       });
-
-			//     var marker = new google.maps.Marker({
-			//     position: uluru,
-			//     map: map
-			//   });
-			// }
-
-
-			// function display(){
-			//   console.log("display here> " + JSON.stringify($scope.rentItems));
-
-			//   var ids = [];
-			//   for (let i = 0; i < $scope.rentItems.length; i++) { 
-			//     let item = $scope.rentItems[i];
-			//     console.log("Item " + i + ": " + item.ownerId);
-			//     ids.push(item.ownerId);
-			//   }
-
-			//   gservice.refresh(37.333,-121.887);
-			// }
-
-			
+			}			
 		}// end requestController
-
 })();

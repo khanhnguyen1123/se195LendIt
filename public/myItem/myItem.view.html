@@ -11,7 +11,7 @@
   </div>
   <div class="row" style="margin:5px 10px 0px 10px;" >
     <div class="col-md-4" style="width:246px; display:inline-block;" ng-repeat="item in requestedItems">
-      <div class="thumbnail" ui-sref="request_item({random: item._id})">
+      <div class="thumbnail item" ui-sref="request_item({random: item._id})">
         <img ng-src="{{item.pictures[0].url}}" alt="Image Not Found" style="width:100%; height:140px;"/>
         <p style="font-size:1.5em; margin:0px 5px 0px 5px;">
           <b>{{item.name}}</b>
@@ -28,7 +28,7 @@
   </div>
   <div class="row" style="margin:5px 10px 0px 10px;" >
     <div class="col-md-4" style="width:246px; display:inline-block;" ng-repeat="item in rentItems">
-      <div class="thumbnail" ui-sref="rent_item({random: item._id})">
+      <div class="thumbnail item" ui-sref="rent_item({random: item._id})">
         <img ng-src="{{item.pictures[0].url}}" alt="Image Not Found" style="width:100%; height:140px;"/>
         <p style="font-size:1.5em; margin:0px 5px 0px 5px;">
           <b>{{item.name}}</b>

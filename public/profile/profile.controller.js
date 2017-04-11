@@ -5,20 +5,7 @@
       .controller('profileCtrl', profileCtrl);
    profileCtrl.$inject = ['$scope', '$location', 'meanData', '$http', 'authentication', '$state', 'filepickerService'];
    
-   function profileCtrl($scope,$location, meanData,$http,authentication, $state, filepickerService) {
-      $scope.user = {};
-      if (!authentication.isLoggedIn()) {
-         $state.go("login");
-      } else {
-         meanData.getProfile()
-            .success(function(data) {
-               $scope.user = data;
-               console.log('Profile Controller: ' + data.email);
-            })
-            .error(function (e) {
-               console.log(e);
-            });
-      }
+   function profileCtrl($scope,$location, meanData,$http,authentication, $state, filepickerService) {      
       $scope.reload = function(){
          meanData.getProfile()
             .success(function(data) {
@@ -28,7 +15,9 @@
             .error(function (e) {
                console.log(e);
             });
+         $scope.closeAlert();
       };
+
       $scope.uploadUserPhoto = function () {
          filepickerService.pick({
             mimetype: 'image/*',
@@ -56,11 +45,32 @@
          $http.post('/api/profile/updateUser', $scope.user)
             .success(function(data){
                console.log(JSON.stringify(data));
+               $scope.editMessage = "Profile Updated Successful!";
+               document.getElementById('editAlert').classList.add("alert-success");
             })
             .error(function(data){
                console.log('Profile Controller Error on Updating User');
                console.log(data);
+               $scope.editMessage = "Profile Update Failed";
+               document.getElementById('editAlert').classList.add("alert-danger");
             })
+         $('.alert').show();
       };
+      $scope.closeAlert = function () {
+         console.log("Closing");
+         if ($scope.editMessage == "Profile Updated Successful!")
+            document.getElementById('editAlert').classList.remove('alert-success');
+         else
+            document.getElementById('editAlert').classList.remove('alert-danger');
+         $scope.editMessage = "";
+         document.getElementById('editAlert').style.display = "none";
+      }
+
+      $scope.user = {};
+      if (!authentication.isLoggedIn()) {
+         $state.go("login");
+      } else {
+         $scope.reload();
+      }
    }
 })();

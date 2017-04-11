@@ -26,17 +26,29 @@
                <label class="col-sm-3 control-label">Phone Number</label>
                <p class="form-control-static">{{user.phone}}</p>
             </div>
+            <div class="form-group">
+               <label class="col-sm-3 control-label">Address</label>
+               <p class="form-control-static">{{user.address}}</p>
+            </div>
+            <div class="form-group">
+               <label class="col-sm-3 control-label">PayPal Account</label>
+               <p class="form-control-static">{{user.paypalAccount}}</p>
+            </div>
          </div>
       </div>
    </div>
    <!--Edit Profile Display Container-->
    <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" >
       <div class="modal-dialog" role="document">
-         <form class="modal-content" ng-submit="updateUser()">
+         <form class="modal-content">
             <div class="modal-header">
                <h4 class="modal-title">Edit Profile</h4>
             </div>
             <div class="modal-body">
+               <div class="alert alert-dismissible" role="alert" id="editAlert" style="display: none;">
+                  <button class="close" ng-click="closeAlert()">&times;</span></button>
+                  {{editMessage}}
+               </div>
                <div class="form-group">
                   <label>User Name</label>
                   <input type="text" class="form-control" text="{{user.name}}" placeholder="Enter Name" ng-model="user.name" >
@@ -49,10 +61,18 @@
                   <label for="username">Phone Number</label>
                   <input type="text" class="form-control" placeholder="Phone Number" ng-model="user.phone" text="{{user.phone}}">
                </div>
+               <div class="form-group">
+                  <label>Address</label>
+                  <input type="text" class="form-control" text="{{user.address}}" placeholder="Enter Address" ng-model="user.address">
+               </div>
+               <div class="form-group">
+                  <label>PayPal Account</label>
+                  <input type="text" class="form-control" text="{{user.paypalAccount}}" placeholder="Enter PayPal Account" ng-model="user.paypalAccount">
+               </div>
             </div>
             <div class="modal-footer">
                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click='reload()'>Close</button>
-               <button type="submit" class="btn btn-primary">Save changes</button>
+               <button type="submit" class="btn btn-primary" ng-click="updateUser()">Save changes</button>
             </div>
          </form>
       </div>

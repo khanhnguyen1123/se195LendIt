@@ -1,32 +1,34 @@
 <navigation> </navigation>
-<!--Request View Container-->
+<!--Borrow View Container-->
 <div class="main">
-  <!--Filter Options-->
+  <!--Filter Buttons Container-->
   <div class="row" >
-    <!--Category Container-->
+    <!--Categories Container-->
     <div style="display:inline-block; float:left; margin-left:20px; " class="btn-group">
       <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Left Align">
-        {{selectedCategory}}<span class="caret"></span>
+        {{selectedCategory}}
+        <span class="caret"></span>
       </button>
-      <!--Category List-->
       <ul class="dropdown-menu">
         <li ng-repeat="category in categories" ng-click="filter(category)"><a style="cursor: pointer;">{{category}}</a></li>
       </ul>
     </div>
-    <!--New Request Container-->
+    <!--New Post Container-->
     <div style="display:inline-block; float:right; margin-right:15px;" ng-show="loggedIn">
-      <a style="text-decoration: none; color:white;" ui-sref="request_post">
+      <a style="text-decoration: none; color:white;" ui-sref="borrow_post">
         <button type="button" class="btn btn-info" aria-label="text-right Align">
-          Post New Request
+          Post New Item
         </button>
       </a>
     </div>
     <div style="clear:both;"/>
   </div>
-  <!--Requests-->
+  <!--Items Container-->
   <div class="row" style="margin:20px 10px 0px 10px;" >
-    <div class="col-md-4" style="width:246px; display:inline-block; height:231px;" ng-repeat="item in displayedItems">
-      <div class="thumbnail item" ui-sref="request_item({random: item._id})" >
+    <!--Item-->
+    <div class="col-md-4" style="width:246px; display:inline-block;" ng-repeat="item in displayedItems">
+      <!--Item Preview Content-->
+      <div class="thumbnail item" ui-sref="borrow_item({random: item._id})">
         <img ng-src="{{item.pictures[0].url}}" alt="Image Not Found" style="width:100%; height:140px;"/>
         <p class="item-preview-title">{{item.name}}</p>
         <p class="item-preview-description">{{item.description}}</p>

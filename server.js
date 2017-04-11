@@ -23,6 +23,7 @@ var postedRequestedItemController = require('./server/controllers/postedRequeste
 var postedLendingItemController =   require('./server/controllers/postedLendingItem');
 var paypalPayment = require('./server/controllers/paypalPayment');
 var googleGetAddr = require('./server/controllers/mapLocation');
+var borrowController = require('./server/borrow/borrow-controller');
 
 
 //  [khanh] create a collection named time-waste in your local mongodb server to run this line of code
@@ -31,6 +32,7 @@ var googleGetAddr = require('./server/controllers/mapLocation');
 //cl acccess: lendit:lendit@ds157529.mlab.com:57529/lendit
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://lendit:lendit@ds157529.mlab.com:57529/lendit')
+
 
 app.use(bodyParser.json());
 //app.use(multipartMiddleware);
@@ -94,17 +96,27 @@ app.post('/api/requestedItem/post',postedRequestedItemController.post);
 app.get('/api/requestedItem/getAll',postedRequestedItemController.getAll);
 app.post('/api/requestedItem/getLoggedin',postedRequestedItemController.getAllLoggedIn);
 app.get('/api/requestedItem/get/:id',postedRequestedItemController.getOne);
+app.post('/api/requestedItem/update',postedRequestedItemController.updateItem);
+app.delete('/api/requestedItem/delete/:id',postedRequestedItemController.deleteItem);
 app.post('/api/requestedItem/getUserItems',postedRequestedItemController.getUserItems);
 app.get('/api/requestedItemCategory/get/:category',postedRequestedItemController.getCategory);
 
 // post lending items
 app.post('/api/lendingItem/post',postedLendingItemController.post);
 app.get('/api/lendingItem/getAll',postedLendingItemController.getAll);
-app.post('/api/lendingItem/getLoggedin',postedLendingItemController.getAllLoggedIn);
+app.delete('/api/lendingItem/delete/:id',postedLendingItemController.deleteItem);
+// app.get('/api/lendingItem/get',postedLendingItemController.getAll);
 app.get('/api/lendingItem/get/:id',postedLendingItemController.getOne);
+app.post('/api/lendingItem/update',postedLendingItemController.updateItem);
 app.post('/api/lendingItem/getUserItems',postedLendingItemController.getUserItems);
 app.get('/api/lendingItemCategory/get/:category',postedLendingItemController.getCategory);
-
+app.post('/api/lendingItem/search',postedLendingItemController.searchRentingItem);
+//Borrow
+app.post('/api/borrow/create', borrowController.createItem);
+app.put('/api/borrow/update', borrowController.updateItem);
+app.delete('/api/borrow/delete/:id', borrowController.deleteItem);
+app.get('/api/borrow/get', borrowController.readItems);
+app.get('/api/borrow/get/:id', borrowController.readItemById);
 // paypal payment 
 app.post('/create',paypalPayment.create);
 app.get('/execute',paypalPayment.execute);
@@ -112,6 +124,7 @@ app.get('/cancel',paypalPayment.cancel);
 
 //Google Location
 app.post('/api/googleMap/getAddress',googleGetAddr.getAddress);
+
 /*
 var paypal = require('paypal-rest-sdk');
 var config = {

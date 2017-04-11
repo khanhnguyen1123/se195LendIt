@@ -25,7 +25,7 @@
 
 		<!--Price-->
 		<div class="form-group">
-			<label style="width:auto;">Price</label>
+			<label style="width:auto;">Price(USD)</label>
 			<input type="number" class="form-control number-input" min="1" step="1" ng-model="rentPost.price" required />
 			<!--Add ng-model, TBD-->
 			<select ng-model="rentPost.priceOption" class="form-control" style="width:auto; display: inline-block;" required>
@@ -36,18 +36,14 @@
 				<input type="number" class="form-control number-input" min="1" step="1" ng-model="rentPost.quantity" required />
 			</div>
 		</div>
-		<!--Quantity-->
-		<div class="form-group">
-			
-		</div>
 		<!--Description-->
 		<div class="form-group">
 			<label >Item Description</label>
-			<textarea id="textarea" ng-model="rentPost.description" class="form-control" style="height: 150px;"></textarea>
+			<textarea id="textarea" ng-model="rentPost.description" class="form-control" style="height: 150px; resize: none;"></textarea>
 		</div>
 		<button type="button" class="btn btn-default" ng-click="upload()">
 			Upload Picture
 		</button>
-		<button style="margin-top: 15px;"type="submit" class="btn btn-danger btn-block"  ng-click="createRentPost()" ng-disabled="rentPostForm.$invalid">Submit</button>
+		<button style="margin-top: 15px;" class="btn btn-danger btn-block"  ng-click="createRentPost()" ng-disabled="rentPostForm.$invalid">Submit</button>
 	</form>
 </div>

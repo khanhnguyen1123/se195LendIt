@@ -5,7 +5,7 @@
  	requestController.$inject = ['$location','$http','$scope', 'authentication'];
 
     function requestController ($location,$http,$scope, authentication) {
-      $scope.categories = ['All', 'Books & Audible', 'Movies, Music & Games', 'Electronics & Games', 'Home & Garden','Beauty, Health & Grocery', 'Toys, Kids & Baby', 'Clothing, Shoes, & Jewelry', 'Handmade', 'Sports & Outdoors', 'Autmotive & Industrial', 'Private Parking', 'Others'];
+      $scope.categories = ['All', 'Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
       $scope.selectedCategory = $scope.categories[0];
       $scope.requestedItems = [];
       $scope.displayedItems = [];

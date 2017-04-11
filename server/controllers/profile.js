@@ -95,6 +95,8 @@ module.exports.updateUser = function(req, res) {
     if (req.body.name) user.name = req.body.name;
     if (req.body.email) user.email = req.body.email;
     if (req.body.phone) user.phone = req.body.phone;
+    if (req.body.address) user.address = req.body.address;
+    if (req.body.paypalAccount) user.paypalAccount = req.body.paypalAccount;
     user.save(function(err){
       if (err) {
         console.log("User Update Failed")

@@ -2,6 +2,10 @@
 <div class="main" >
    <!--Image and Profile Display Container-->
    <div class="row" ng-show="userFound">
+      <div class="alert alert-dismissible" style="margin: 10px 20px 20px 20px;" ng-class="alert.class" ng-show="alert.show" role="alert">
+         <button class="close" ng-click="alert.show = false;">&times;</span></button>
+         {{alert.message}}
+      </div>
       <div style="float:left; margin: 50px 25px 20px 50px">
          <img ng-src="{{user.profileImage.url}}" style="width:300px; height:300px; border-radius:50%;"/>
       </div>
@@ -10,14 +14,14 @@
             <h1 class="form-signin-heading" style="display:inline-block;">
                {{user.name}}'s Profile
             </h1>
-
             <button type="button" class="btn btn-info" aria-label="text-right Align" style="margin-left: 30px; margin-bottom: 15px;" data-toggle="modal" data-target="#sendMessage" ng-show="loggedIn">
                Send A Message
             </button>
          </div>
          <div class="row" style="padding-left: 15px;">
-           <p style="display:inline-block; margin:0px 8px 0px 0px;">Rating</p>
-           <p style="display:inline-block; margin:0px 0px 0px 8px;"># Reviews</p>
+           <stars value="{{user.aRating}}"></stars>
+           <p style="display:inline-block; margin:0px 8px 0px 0px;">{{user.aRating}}</p>
+           <p style="display:inline-block; margin:0px 0px 0px 8px;">{{user.reviews.length}} Reviews</p>
          </div>
          <div class="form-horizontal" style="margin-top: 15px; ">
             <div class="form-group">
@@ -35,16 +39,19 @@
          </div>
       </div>
       <div style="display:flex; justify-content: space-around; width: 300px;">
-         <button type="button" class="btn btn-info" aria-label="text-right Align" data-toggle="modal" data-target="#writeReview" ng-show="loggedIn">
+         <button type="button" class="btn btn-info" aria-label="text-right Align" data-toggle="modal" data-target="#writeReview" ng-show="buttons[1]">
             Write A Review
          </button>
-         <button type="button" class="btn btn-info" aria-label="text-right Align" ng-show="loggedIn" ng-click="viewReviews()">
+         <button type="button" class="btn btn-info" aria-label="text-right Align" ng-show="loggedIn" ng-click="buttons[2] = !buttons[2]">
             View Reviews
          </button>
       </div>
    </div>
+   <div ng-show="buttons[2]" style="margin-top: 20px;">
+      <reviews data="{{user.reviews}}"></reviews>
+   </div>
    <div ng-show="!userFound">
-      <h1>User Not Found</h1>
+      <h1 style="text-align: center;">User Not Found</h1>
    </div>
 </div>
 <div class="modal fade" id="sendMessage" tabindex="-1" role="dialog" >
@@ -56,17 +63,13 @@
          <div class="modal-body">
             <!--Change NG Models-->
             <div class="form-group">
-               <label>Subject</label>
-               <input type="text" class="form-control" text="{{}}" placeholder="Message Subject" ng-model="message.subject" >
-            </div>
-            <div class="form-group">
                <label>Message</label>
-               <textarea id="textarea" ng-model="message.contents" class="form-control" style="height: 150px; resize: none;"></textarea>
+               <textarea id="textarea" ng-model="message.content" class="form-control" style="height: 150px; resize: none;"></textarea>
             </div>
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" ng-click="sendMessage()">Send</button>
+            <button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="sendMessage()">Send</button>
          </div>
       </form>
    </div>
@@ -80,17 +83,17 @@
          <div class="modal-body">
             <!--Change NG Models-->
             <div class="form-group">
-               <label>Rating</label>
-               <input type="number" class="form-control number-input" min="1" max="5" step="1" ng-model="review.rating" required />
+               <label>Rating {{review.rating}}</label>
+               <rater ng-model="review.rating"></rater>
             </div>
             <div class="form-group">
                <label>Review</label>
-               <textarea id="textarea" ng-model="review.contents" class="form-control" style="height: 150px; resize: none;"></textarea>
+               <textarea id="textarea" ng-model="review.content" class="form-control" style="height: 150px; resize: none;"></textarea>
             </div>
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" ng-click="sendReview()">Send</button>
+            <button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="sendReview()">Send</button>
          </div>
       </form>
    </div>

@@ -2,12 +2,20 @@
    angular
       .module('meanApp')
       .controller('homeCtrl', homeCtrl);
-   homeCtrl.$inject = ['$scope', '$location', 'authentication'];
+   homeCtrl.$inject = ['$scope', '$location', 'authentication', 'meanData'];
 
-   function homeCtrl ($scope, $location, authentication) {
+   function homeCtrl ($scope, $location, authentication, meanData) {
       //console.log('Home Controller is Running');
+
+      //TBD
+      //Fix Home Page, Delete Messages, Fix User Model to View Message Chains, Add Reply
       $scope.user = {};
-      $scope.user.messages = [];
+      $scope.form = {
+         email : "",
+         password : ""
+      };
+      $scope.loggedIn = authentication.isLoggedIn();
+
       let message = 
       {
          "userImg" : "https://cdn.filepicker.io/api/file/d88adUzMQ4yg0FXN5hTp",
@@ -17,19 +25,18 @@
          "title" : "Message Title",
          "content" : "Content"
       }
-      $scope.user.messages[0] = message;
       
       //Check Logged In and Hide Sign In Form
-      $scope.loggedIn = authentication.isLoggedIn();
       if ($scope.loggedIn) {
-         document.getElementById('welcome_text').style.paddingRight = "0px";
-      } else {
-         document.getElementById('welcome_text').style.paddingRight = "300px";
+         meanData.getProfile()
+            .success(function(data) {
+               $scope.user = data;
+               $scope.user.messages.push(message);
+            })
+            .error(function (e) {
+               console.log(e);
+            });
       }
-      $scope.form = {
-         email : "",
-         password : ""
-      };
       //Login In Function
       $scope.signIn = function () {
          authentication

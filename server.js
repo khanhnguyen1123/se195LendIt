@@ -88,6 +88,8 @@ app.post('/api/profile/updateUser',profileAuthenticationController.updateUser);
 app.post('/api/profile/updateUserPhoto',profileAuthenticationController.updateUserPhoto);
 app.post('/api/profile/editPhoto',profileAuthenticationController.updatePhoto);
 app.post('/api/profile/editProfile',profileAuthenticationController.editProfile);
+app.put('/api/profile/review/:id',profileAuthenticationController.addReview);
+app.put('/api/profile/message/:id',profileAuthenticationController.addMessage);
 /*
 // post requested items
 app.post('/api/requestedItem/post',postedRequestedItemController.post);

@@ -20,10 +20,8 @@ var userSchema = new mongoose.Schema({
   billingAddress: String,
   phone: String,
   paypalAccount: String,
-    requestedItems:[{requestedItemId: String}],
-    rentedItems:[{rentedItemId: String}],
-    borrowedItems: [{borrowedItemId: String}],
-    lendingItems: [{lendingItemId: String}],
+  aRating: Number,
+  reviews : [Schema.Types.Mixed],
   hash: String,
   salt: String,
   facebook: {

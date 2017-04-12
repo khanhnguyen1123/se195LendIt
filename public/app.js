@@ -45,7 +45,7 @@
         controller: 'rentController'
       })
       .state('rentmap',{
-        url: '/rent/rentmap',
+        url: '/rent/map',
         templateUrl: 'public/rent/map/rentmap.view.html',
         controller: 'rentmapController'
       })
@@ -90,7 +90,7 @@
         controller: 'requestController'
       })
       .state('requestmap',{
-        url: '/request/requestmap',
+        url: '/request/map',
         templateUrl: 'public/request/map/requestmap.view.html',
         controller: 'requestMapController'
       })

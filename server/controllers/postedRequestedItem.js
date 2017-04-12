@@ -26,7 +26,6 @@ module.exports.post = function(req, res){
       });
 }; // end post requested item
 
-
 // get all requested items
 module.exports.getAll = function(req, res){
       console.log('Getting all requested items');
@@ -38,6 +37,17 @@ module.exports.getAll = function(req, res){
         res.json(requestedItems);
       });
 }; // end get all requested items
+
+//get all request item from not belong to current user
+module.exports.getAllLoggedIn = function(req, res){
+  console.log('User: '+ req.body._id + ' of type:' + Object.prototype.toString.call(req.body._id));
+  var query = RequestedItem.find({ownerId: {$ne: req.body._id}});
+  query.exec(function(err, requestedItems){
+        if(err) res.send(err);
+        //If no errors, send them back to the client
+        res.json(requestedItems);
+      });
+};
 
 // get a requested item by id
 module.exports.getOne = function(req, res){

@@ -3,6 +3,7 @@
 <div class="main">
   <!--Filter Buttons Container-->
   <div class="row" >
+
     <!--Categories Container-->
     <div style="display:inline-block; float:left; margin-left:20px; " class="btn-group">
       <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Left Align">
@@ -13,6 +14,7 @@
         <li ng-repeat="category in categories" ng-click="filter(category)"><a style="cursor: pointer;">{{category}}</a></li>
       </ul>
     </div>
+
     <!--New Post Container-->
     <div style="display:inline-block; float:right; margin-right:15px;" ng-show="loggedIn">
       <a style="text-decoration: none; color:white;" ui-sref="rent_post">
@@ -21,8 +23,16 @@
         </button>
       </a>
     </div>
+
+    <div style="display:inline-block; float:right; margin-right:10px; " class="btn-group">
+      <button type="button" class="btn btn-info" aria-label="text-right Align" ui-sref="rentmap">
+          Map View
+      </button>
+    </div>
+    
     <div style="clear:both;"/>
   </div>
+  
   <!--Items Container-->
   <div class="row" style="margin:20px 10px 0px 10px;" >
     <!--Item-->
@@ -37,5 +47,6 @@
         </p>
       </div>
     </div>
+
   </div>
 </div>

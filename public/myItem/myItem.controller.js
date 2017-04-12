@@ -1,11 +1,12 @@
 (function() { 
-  angular
-    .module('meanApp')
-    .controller('myItemController', myItemController);
-  myItemController.$inject = ['$location','meanData','$http','$scope'];
-    function myItemController ($location,meanData,$http,$scope) {
-      console.log("In myItemController");
+	angular
+	.module('meanApp')
+	.controller('myItemController', myItemController);
+	myItemController.$inject = ['$location','meanData','$http','$scope'];
+	function myItemController ($location,meanData,$http,$scope) {
+		console.log("In myItemController");
 
+<<<<<<< HEAD
       $scope.rentTitle = "No Rent Items Found";
       $scope.borrowTitle = "No Borrow Items Found";
       $scope.requestTitle = "No Requests Found";
@@ -13,6 +14,10 @@
       $scope.rentItems = [];
       $scope.borrowItems = [];
       $scope.requestedItems = [];
+=======
+		$scope.requestedItems = [];
+		$scope.rentItems = [];
+>>>>>>> d5c1c1eb21f5fa5bb2bc7a4290664c2c07952aa3
 
       $scope.vme = this;
       $scope.vme.user = {};

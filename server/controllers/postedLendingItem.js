@@ -8,6 +8,7 @@ module.exports.post = function(req, res){
       //Creates a new 
       req.body.name = req.body.name.toLowerCase();
       var newLendingItem = new LendingItem(req.body);
+      console.log(JSON.stringify(req.location));
       var itemId;
       //Save it into the DB.
       newLendingItem.save(function(err,item){
@@ -26,9 +27,20 @@ module.exports.post = function(req, res){
       });
 }; // end post Lending item
 
-
-// get all lending items
+//get all lending item from not belong to current user
 module.exports.getAll = function(req, res){
+  console.log('User: '+ req.body._id + ' of type:' + Object.prototype.toString.call(req.body._id));
+  var query = LendingItem.find({});
+  query.exec(function(err, lendingItems){
+        if(err) res.send(err);
+        //If no errors, send them back to the client
+        res.json(lendingItems);
+      });
+};
+
+// get all requested items
+module.exports.getAll = function(req, res){
+      console.log('Getting all requested items');
       //Query the DB and if no errors, send all the superheroes
       var query = LendingItem.find({});
       query.exec(function(err, lendingItems){
@@ -36,7 +48,18 @@ module.exports.getAll = function(req, res){
         //If no errors, send them back to the client
         res.json(lendingItems);
       });
-}; // end get all Lending items
+}; // end get all requested items
+
+//get all lending item from not belong to current user
+module.exports.getAllLoggedIn = function(req, res){
+  console.log('User: '+ req.body._id + ' of type:' + Object.prototype.toString.call(req.body._id));
+  var query = LendingItem.find({ownerId: {$ne: req.body._id}});
+  query.exec(function(err, lendingItems){
+        if(err) res.send(err);
+        //If no errors, send them back to the client
+        res.json(lendingItems);
+      });
+};
 
 // get a lending item by id
 module.exports.getOne = function(req, res){

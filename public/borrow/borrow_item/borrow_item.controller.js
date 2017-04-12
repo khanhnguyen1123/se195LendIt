@@ -44,6 +44,7 @@
           checkWriteReview();
         });
     }
+<<<<<<< HEAD
     $http.get('/api/borrow/id/'+id)
       .success(function(data) {
         $scope.borrowItem = data;
@@ -56,6 +57,11 @@
         checkWriteReview();
       });
     function updateState () {
+=======
+    var updateState = function () {
+      console.log(JSON.stringify($scope.borrowItem));
+      console.log($scope.borrowItem.state);
+>>>>>>> d5c1c1eb21f5fa5bb2bc7a4290664c2c07952aa3
       let itemState = document.getElementById('item-state');
       if ($scope.borrowItem.state == "Available")
         itemState.style.color = "green";

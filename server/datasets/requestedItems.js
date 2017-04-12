@@ -13,5 +13,8 @@ module.exports = mongoose.model('RequestedItem',{
 	pictures: {type: Schema.Types.Mixed},
 	startDate: Date,
 	endDate: Date,
-	
+	location: {
+		lat: Number,
+		lng: Number
+	}
 });

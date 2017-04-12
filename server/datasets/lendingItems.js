@@ -16,6 +16,8 @@ module.exports = mongoose.model('LendingItem',{
 	pictures: {type: Schema.Types.Mixed},
 	startDate: Date,
 	endDate: Date,
-	address: String,
-	
+	location: {
+		lat: Number,
+		lng: Number
+	}
 });

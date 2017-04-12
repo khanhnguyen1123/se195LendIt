@@ -127,6 +127,7 @@ module.exports.updateUserPhoto= function(req,res){
   });
 };
 
+
 module.exports.addReview = function(req, res) {
    User.findById(req.params.id, function(err, data) {
       if (req.body) {
@@ -143,3 +144,12 @@ module.exports.addReview = function(req, res) {
       }
    });
 }
+
+module.exports.getAddress = function(req, res){
+    User
+      .findById(req.body._id)
+      .exec(function(err, user) {
+        res.status(200).json(user.address);
+      });
+};
+

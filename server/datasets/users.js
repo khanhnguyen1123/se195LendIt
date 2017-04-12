@@ -26,6 +26,7 @@ var userSchema = new mongoose.Schema({
     lendingItems: [{lendingItemId: String}],
   hash: String,
   salt: String,
+  lastViewMessageLenght: {type: Number,default: 0}, 
   facebook: {
         fbid:{
             type: String,

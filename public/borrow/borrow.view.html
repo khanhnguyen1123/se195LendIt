@@ -22,6 +22,7 @@
         <li ng-repeat="option in sortOptions" ng-click="sort(option)"><a style="cursor: pointer;">{{option}}</a></li>
       </ul>
     </div>
+
     <!--New Post Container-->
     <div style="display:inline-block; float:right; margin-right:15px;" ng-show="loggedIn">
       <a style="text-decoration: none; color:white;" ui-sref="borrow_post">
@@ -30,6 +31,13 @@
         </button>
       </a>
     </div>
+
+    <div style="display:inline-block; float:right; margin-right:10px; " class="btn-group">
+      <button type="button" class="btn btn-info" aria-label="text-right Align" ui-sref="borrowmap">
+          Map View
+      </button>
+    </div>
+
     <div style="clear:both;"/>
   </div>
   <!--Items Container-->

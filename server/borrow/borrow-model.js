@@ -22,4 +22,8 @@ module.exports = mongoose.model('BorrowItem', {
    lastUpdated: { type: Date, default: Date.now },
    startDate: Date,
    endDate: Date,
+   location: {
+      lat: Number,
+      lng: Number
+   }
 });

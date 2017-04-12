@@ -1,0 +1,64 @@
+<navigation> </navigation>
+<div class="main">
+  <!--Rent-->
+  
+  <div>
+    <div class="row" style="margin:20px 10px 0px 0px;">
+      <h2>Received Messages</h2>
+    </div>
+    <div class="row" style="margin:5px 10px 0px 10px;" >
+      <div class="col-md-8"  ng-repeat="itemIn in receivedMessages">
+        <p> From: {{itemIn.ownerName}} ({{itemIn.date}}) | Subject: {{itemIn.subject}} | Content: {{itemIn.content}}  
+          <button type="button" class="btn btn-info" aria-label="text-right Align"  data-toggle="modal" data-target="#sendMessage"  ng-click="getInfo(itemIn.ownerName,itemIn.ownerId,itemIn.subject)">
+                 Reply
+          </button>
+          <button type="button" class="btn btn-info" aria-label="text-right Align"  ng-click="delete(itemIn._id)">
+                 Delete
+          </button>
+        </p>
+        
+      </div>
+    </div>
+  </div>
+  <!--Borrow-->
+  <div>
+    <div class="row" style="margin:20px 10px 0px 0px;">
+      <h2>Send Messages</h2>
+    </div>
+    <div class="row" style="margin:5px 10px 0px 10px;" >
+      <div class="col-md-8"  ng-repeat="itemOut in sendMessages">
+        <p> From: {{itemOut.ownerName}} ({{itemOut.date}}) | Subject: {{itemOut.subject}} | Content: {{itemOut.content}} </p>
+      </div>
+    </div>
+  </div>
+  <!--Requests-->
+  
+
+</div>
+
+<!--Message toggle form - -->
+<div class="modal fade" id="sendMessage" tabindex="-1" role="dialog" >
+   <div class="modal-dialog" role="document">
+      <form class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Message Form</h4>
+         </div>
+         <div class="modal-body">
+            <!--Change NG Models-->
+            <div class="form-group">
+               <label>Subject</label>
+               <input type="text" class="form-control" text="{{}}" placeholder="message.subject" ng-model="message.subject" >
+            </div>
+            <div class="form-group">
+               <label>Message</label>
+               <textarea id="textarea" ng-model="message.content" class="form-control" style="height: 150px; resize: none;"></textarea>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" ng-click="replyMessage()">Send Reply</button>
+         </div>
+      </form>
+   </div>
+</div>
+<!-- end message toggle -->

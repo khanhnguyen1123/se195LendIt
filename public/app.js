@@ -109,6 +109,11 @@
         templateUrl: 'public/search/search.view.html',
         controller: 'searchController'
       })
+      .state('message', {
+        url: '/message',
+        templateUrl: 'public/message/message.view.html',
+        controller: 'messageController'
+      })
     // use the HTML5 History API
     //$locationProvider.html5Mode(true);
     $locationProvider.html5Mode({

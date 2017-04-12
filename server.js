@@ -24,7 +24,7 @@ var postedLendingItemController =   require('./server/controllers/postedLendingI
 var paypalPayment = require('./server/controllers/paypalPayment');
 var googleGetAddr = require('./server/controllers/mapLocation');
 var borrowController = require('./server/borrow/borrow-controller');
-
+var messageController = require('./server/controllers/message');
 
 //  [khanh] create a collection named time-waste in your local mongodb server to run this line of code
 //username: lendit195
@@ -131,6 +131,15 @@ app.get('/cancel',paypalPayment.cancel);
 
 //Google Location
 app.post('/api/googleMap/getAddress',googleGetAddr.getAddress);
+
+// message
+app.post('/api/message/send', messageController.send);
+app.post('/api/message/getSendMessages', messageController.getSendMessages);
+app.post('/api/message/getReceievedMessages', messageController.getReceievedMessages);
+app.post('/api/message/delete', messageController.delete);
+app.post('/api/message/getLength', messageController.getLength);
+app.post('/api/message/updateLength', messageController.updateLength);
+
 
 /*
 var paypal = require('paypal-rest-sdk');

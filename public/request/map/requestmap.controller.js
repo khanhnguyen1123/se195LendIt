@@ -10,6 +10,7 @@
       $scope.requestedItems = [];
       $scope.displayedItems = [];
       $scope.loggedIn = authentication.isLoggedIn();
+      var geocoder = new google.maps.Geocoder();
 
       //Retrieve all the requested items to show the request page
       $http.get('/api/requestedItem/getAll')
@@ -78,22 +79,34 @@
 
         var createMarker = function (item){
           
-          var icon = {
-              url: item.pictures[0].url, // url
-              scaledSize: new google.maps.Size(50, 50), // scaled size
-              origin: new google.maps.Point(0,0), // origin
-              anchor: new google.maps.Point(0, 0) // anchor
-          };
-          var marker = new google.maps.Marker({
-            map: $scope.map,
-            position: new google.maps.LatLng(item.location),
-            title: item.name,
-            icon: icon
-          });
+          if(typeof item.pictures != 'undefined'){
+            var icon = {
+                url: item.pictures[0].url, // url
+                scaledSize: new google.maps.Size(50, 50), // scaled size
+                origin: new google.maps.Point(0,0), // origin
+                anchor: new google.maps.Point(0, 0) // anchor
+            };
 
-          console.log(item.pictures[0].url);
-          var itemURL = "http://localhost:5000/#/rent/" + item._id;
-          marker.content = '<div class="infoWindowContent">' + '<img src="' + item.pictures[0].url + '" alt="Image Not Found" style="width:150px; height:150px; "/>' + '</p>' +'<a href="' + itemURL + '">Show Item</a>.' + '</div>';
+            var marker = new google.maps.Marker({
+              map: $scope.map,
+              position: new google.maps.LatLng(item.location),
+              title: item.name,
+              icon: icon
+            });
+
+            var itemURL = "http://localhost:5000/#/rent/" + item._id;
+            marker.content = '<div class="infoWindowContent">' + '<img src="' + item.pictures[0].url + '" alt="Image Not Found" style="width:150px; height:150px; "/>' + '</p>' +'<a href="' + itemURL + '">Show Item</a>.' + '</div>';
+          }
+          else{
+            var marker = new google.maps.Marker({
+              map: $scope.map,
+              position: new google.maps.LatLng(item.location),
+              title: item.name
+            });
+
+            var itemURL = "http://localhost:5000/#/rent/" + item._id;
+            marker.content = '<div class="infoWindowContent">' + '<img src="" alt="Image Not Found" style="width:150px; height:150px; "/>' + '</p>' +'<a href="' + itemURL + '">Show Item</a>.' + '</div>';
+          }
 
           google.maps.event.addListener(marker, 'click', function(){
             infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);

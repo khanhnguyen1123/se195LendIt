@@ -20,7 +20,11 @@
 
 		<div class="form-group">
 			<label>Address</label>
-			<input type="text" class="form-control" placeholder="Item Address" ng-model="location" required>
+			<input id="from" placeholder="Item Address" type="text" ng-model="user.from" placeholder="Type Address" class="form-control" autocomplete="off" required>
+		</div>
+
+		<div>
+			<div id="map"></div>
 		</div>
 
 		<!--Price-->

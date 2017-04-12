@@ -22,7 +22,6 @@
 			.error(function(error){
 			console.log("Error: " + error);
 			});
-			
 
 			$scope.filter = function(category) {
 				//console.log("Filtered Category: " + category);
@@ -39,16 +38,6 @@
 					if (item.category == category)
 						$scope.displayedItems.push(item);
 				}
-			}
-
-			function getLatLng(address){
-				geocoder.geocode( { 'address': address}, function(results, status) {
-						if (status == 'OK') {
-							return results[0].geometry.location;
-						} else {
-							console.log('Geocode was not successful for the following reason: ' + status);
-						}
-					});
 			}			
 		}// end requestController
 })();

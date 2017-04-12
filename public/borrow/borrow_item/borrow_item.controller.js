@@ -35,6 +35,7 @@
         $scope.owner = true;
     }
     var updateState = function () {
+      console.log(JSON.stringify($scope.borrowItem));
       console.log($scope.borrowItem.state);
       let itemState = document.getElementById('item-state');
       if ($scope.borrowItem.state == "Available")

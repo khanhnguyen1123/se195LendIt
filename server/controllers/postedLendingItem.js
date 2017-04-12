@@ -30,7 +30,7 @@ module.exports.post = function(req, res){
 //get all lending item from not belong to current user
 module.exports.getAll = function(req, res){
   console.log('User: '+ req.body._id + ' of type:' + Object.prototype.toString.call(req.body._id));
-  var query = LendingItem.find({ownerId: {$ne: req.body._id}});
+  var query = LendingItem.find({});
   query.exec(function(err, lendingItems){
         if(err) res.send(err);
         //If no errors, send them back to the client

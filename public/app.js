@@ -74,6 +74,11 @@
         templateUrl: 'public/borrow/borrow_post/borrow_post.view.html',
         controller: 'borrowPostController'
       })
+      .state('borrowmap', {
+        url: '/borrow/map',
+        templateUrl: 'public/borrow/map/borrowmap.view.html',
+        controller: 'borrowmapController'
+      })
       .state('borrow_item', {
         url: '/borrow/:random',
         templateUrl: 'public/borrow/borrow_item/borrow_item.view.html',
@@ -84,6 +89,11 @@
         templateUrl: 'public/request/request.view.html',
         controller: 'requestController'
       })
+      .state('requestmap',{
+        url: '/request/requestmap',
+        templateUrl: 'public/request/map/requestmap.view.html',
+        controller: 'requestMapController'
+      })
       .state('request_post', {
         url: '/request/post',
         templateUrl: 'public/request/request_post/request_post.view.html',
@@ -93,11 +103,6 @@
         url: '/request/:random',
         templateUrl: 'public/request/request_item/request_item.view.html',
         controller: 'requestItemController'
-      })
-      .state('requestmap',{
-        url: '/request/requestmap',
-        templateUrl: 'public/request/map/requestmap.view.html',
-        controller: 'requestMapController'
       })
       .state('myItem', {
         url: '/myItem',

@@ -116,6 +116,7 @@ app.post('/api/borrow/create', borrowController.createItem);
 app.put('/api/borrow/update', borrowController.updateItem);
 app.delete('/api/borrow/delete/:id', borrowController.deleteItem);
 //Borrow Gets
+app.get('/api/borrow/getAll',borrowController.getAll);
 app.get('/api/borrow/get/:sort/:page', borrowController.getItems);
 app.get('/api/borrow/category/:category/:sort/:page', borrowController.getItemsByCategory);
 app.get('/api/borrow/id/:id', borrowController.getItemById);

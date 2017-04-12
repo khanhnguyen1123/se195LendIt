@@ -2,22 +2,22 @@
 (function() { 
 	angular
 	.module('meanApp')
-	.controller('rentmapController', rentmapController);
-	rentmapController.$inject = ['$location','$http','$scope','authentication'];
+	.controller('borrowmapController', borrowmapController);
+	borrowmapController.$inject = ['$location','$http','$scope','authentication', 'meanData'];
 	
-	function rentmapController ($location, $http, $scope, authentication) {
+	function borrowmapController ($location, $http, $scope, authentication, meanData) {
 
 		$scope.categories = ['All', 'Books & Audible', 'Movies, Music & Games', 'Electronics & Games', 'Home & Garden','Beauty, Health & Grocery', 'Toys, Kids & Baby', 'Clothing, Shoes, & Jewelry', 'Handmade', 'Sports & Outdoors', 'Autmotive & Industrial', 'Private Parking', 'Others'];
 		$scope.selectedCategory = $scope.categories[0];
-		$scope.requestedItems = [];
+		$scope.borrowItems = [];
 		$scope.displayedItems = [];
 		$scope.loggedIn = authentication.isLoggedIn();
 		var geocoder = new google.maps.Geocoder();
 
-		$http.get('/api/lendingItem/getAll')
+		$http.get('/api/borrow/getAll')
 		.success(function(data){
 			console.log(JSON.stringify(data));
-			$scope.rentItems = data;
+			$scope.borrowItems = data;
 			$scope.displayedItems = data;
 			initMap();
 			refreshMap();
@@ -31,13 +31,13 @@
 			$scope.selectedCategory = category;
 
 			if (category == "All") {
-				$scope.displayedItems = $scope.rentItems;
+				$scope.displayedItems = $scope.borrowItems;
 				return;
 			}
 
 			$scope.displayedItems = [];
-			for (let i = 0; i < $scope.rentItems.length; i++) { 
-				let item = $scope.rentItems[i];
+			for (let i = 0; i < $scope.borrowItems.length; i++) { 
+				let item = $scope.borrowItems[i];
 				if (item.category == category) $scope.displayedItems.push(item);
 			}
 			refreshMap();
@@ -55,7 +55,6 @@
 		}
 
 		function refreshMap(data){
-
 			var infoWindow = new google.maps.InfoWindow();
 
 			// Try HTML5 geolocation.
@@ -81,6 +80,7 @@
 
 			var createMarker = function (item){
 				
+				console.log(JSON.stringify.item);
 				if(typeof item.pictures != 'undefined'){
 					var icon = {
 					    url: item.pictures[0].url, // url

@@ -2,10 +2,10 @@
   
   angular
     .module('meanApp')
-    .controller('messageController', messageController);
-  messageController.$inject = ['$scope','$http','$stateParams', 'authentication','$window'];
+    .controller('sendMessageController', sendMessageController);
+  sendMessageController.$inject = ['$scope','$http','$stateParams', 'authentication','$window'];
 
-  function messageController($scope,$http,$stateParams, authentication,$window) {
+  function sendMessageController($scope,$http,$stateParams, authentication,$window) {
     $scope.sendMessages = {};
     $scope.receivedMessages = {};
     $scope.message={
@@ -21,17 +21,7 @@
       .error(function(error) {
         console.log('Error: ' + error);
       });
-    //  get all received messages
-    $scope.getReceievedMessages = function(){
-      $http.post('/api/message/getReceievedMessages',authentication.currentUser())
-      .success(function(data){       
-        $scope.receivedMessages = data;
-      })
-      .error(function(error) {
-        console.log('Error: ' + error);
-      });
-    };// end get recieved messages
-    $scope.getReceievedMessages();  
+    
 
     $scope.getInfo = function(id,subject){
       
@@ -62,7 +52,7 @@
        .success(function(data){       
           console.log("after send message : "+data.message);
           $window.alert("Message was Deleted ");
-          $scope.getReceievedMessages();
+         
         })
        .error(function(error) {
           console.log('Error: ' + error);

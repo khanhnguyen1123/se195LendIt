@@ -14,7 +14,7 @@
     vm.newCountMessage;
     vm.diff;
 
-    console.log("inside navigationCtrl test diff : "+ vm.diff);
+    
     //adding logout user
     vm.logout = function(){
     	//console.log("khanh logout is pressed ");
@@ -28,6 +28,7 @@
       $http.post('/api/message/getLength',authentication.currentUser())
       .success(function(data){       
         vm.lastCountMessages = data.lastViewMessageLenght;
+
       })
       .error(function(error) {
         console.log('Error: ' + error);
@@ -35,32 +36,31 @@
     };//end get last message length
     vm.getLastMessageLenght();
     //  get all received messages
-    vm.getReceievedMessages = function(){
-      $http.post('/api/message/getReceievedMessages',authentication.currentUser())
+    vm.getReceievedMessagesLength = function(){
+      $http.post('/api/message/getNewLengthMessage',authentication.currentUser())
       .success(function(data){       
-        vm.newCountMessage = Object.keys(data).length;
-        vm.diff = Object.keys(data).length - vm.lastCountMessages;
+        vm.newCountMessage = data.newLengthMesage;
+        
+        vm.diff = vm.newCountMessage - vm.lastCountMessages;
         if(vm.diff<0){vm.diff=0; }
       })
       .error(function(error) {
         console.log('Error: ' + error);
       });
     };// end get recieved messages
-    vm.getReceievedMessages();
+    vm.getReceievedMessagesLength();
 
     // this call is update every 4 second to get new messages count
     $interval(function(){
-            $http.post('/api/message/getReceievedMessages',authentication.currentUser())
+            $http.post('/api/message/getNewLengthMessage',authentication.currentUser())
               .success(function(data){       
-                
-                if (Object.keys(data).length>vm.lastCountMessages){
-                    vm.newCountMessage = Object.keys(data).length;
-                    vm.diff = Object.keys(data).length - vm.lastCountMessages;
-                }
+                vm.newCountMessage = data.newLengthMesage;
+                vm.diff = vm.newCountMessage - vm.lastCountMessages;
+                if(vm.diff<0){vm.diff=0; }
               })
               .error(function(error) {
                 console.log('Error: ' + error);
-              });// end http post call
+              });
             
       }, 4000); // end interval call
 
@@ -74,13 +74,13 @@
       .success(function(data){   
        // vm.getLastMessageLenght();    
         vm.lastCountMessages = vm.newCountMessage;
-        vm.getReceievedMessages();
+      //  vm.getReceievedMessages();
         
       })
       .error(function(error) {
         console.log('Error: ' + error);
       });
-    }; // end reset diff
+    }; // end reset diff    
   }// end navigationCtrl
 
 })();

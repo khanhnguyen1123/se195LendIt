@@ -3,13 +3,15 @@ var Schema      = mongoose.Schema;
 module.exports = mongoose.model('Message',{
 	ownerId: String,
 	ownerName: String,
-	//ownerImage: String,
+	ownerImage: Schema.Types.Mixed,
 
 	receiverId: String,
 	receiverName: String,
-	
+	reveiverImage: Schema.Types.Mixed,
+
 	subject: String,
 	content: String,
-	date: {type: Date, default: Date.now}
-	
+	date: {type: Date, default: Date.now},
+	receiverReply:   [{image:Schema.Types.Mixed, name:String, content:String, date: {type: Date, default: Date.now} }],
+	ownerReply:      [{image:Schema.Types.Mixed, name:String, content:String, date: {type: Date, default: Date.now} }]
 });

@@ -34,6 +34,7 @@
         ownerName: authentication.currentUser().name,
         receiverId: $scope.user._id,
         receiverName: $scope.user.name,
+        reveiverImage: $scope.user.profileImage,
         subject: $scope.message.subject,
         content: $scope.message.content
       }; 

@@ -140,7 +140,8 @@ app.post('/api/message/getReceievedMessages', messageController.getReceievedMess
 app.post('/api/message/delete', messageController.delete);
 app.post('/api/message/getLength', messageController.getLength);
 app.post('/api/message/updateLength', messageController.updateLength);
-
+app.post('/api/message/reply', messageController.reply);
+app.post('/api/message/getNewLengthMessage', messageController.getNewLengthMessage);
 
 /*
 var paypal = require('paypal-rest-sdk');

@@ -4,28 +4,28 @@
   
   <div>
     <div class="row" style="margin:20px 10px 0px 0px;">
-      <h2><h2><a ui-sref="message">Received Messages</a> || <a ui-sref="sendMessage">Sended Messages</a> </h2></h2>
+      <h2><a ui-sref="message">Received Messages</a> || <a ui-sref="sendMessage">Sended Messages</a> </h2>
     </div>
     <div class="row" style="margin:5px 10px 0px 10px;" >
       
       
       <!--testing for inside loop itemIn -->
-            <div ng-repeat="itemIn in receivedMessages | orderBy: '-date' " >
+            <div ng-repeat="item in sendMessages | orderBy: '-date' " >
             <br>
             <hr>
-            <p style="display: inline-block; margin-left: 7px;"><a ui-sref="publicProfile">From {{itemIn.ownerName}} | </a> on {{itemIn.date | date: "short"}} | Title: {{itemIn.subject}} | Content: {{itemIn.content}}
-              <button type="button" class="btn btn-info" aria-label="text-right Align"  data-toggle="modal" data-target="#sendMessage"  ng-click="getInfo(itemIn._id,itemIn.subject)">
+            <p style="display: inline-block; margin-left: 7px;"><a ui-sref="publicProfile">From {{item.ownerName}} | </a> on {{item.date | date: "short"}} | Title: {{item.subject}} | Content: {{item.content}}
+              <button type="button" class="btn btn-info" aria-label="text-right Align"  data-toggle="modal" data-target="#sendMessage"  ng-click="getInfo(item._id,item.subject)">
                    Reply
               </button>
-              <button type="button" class="btn btn-info" aria-label="text-right Align"  ng-click="delete(itemIn._id)">
+              <button type="button" class="btn btn-info" aria-label="text-right Align"  ng-click="delete(item._id)">
                      Delete
               </button>
             </p>
             
 
 
-            <!-- ----------------------begin conversation-------------------------- -->
-                      <div ng-repeat="rep in conbine = itemIn.receiverReply.concat(itemIn.ownerReply) | orderBy:'date' "> 
+            <!--begin conversation---------------------------->
+                      <div ng-repeat="rep in conbine = item.receiverReply.concat(item.ownerReply) | orderBy:'date' "> 
                         
                        
                             <div class="media-body">
@@ -45,11 +45,12 @@
                             </div>
                         
                         </div>
-             <!------------------------end conversation-------------------------------------------- -->         
+             <!--end conversation-------------------------------------------- -->         
           </div>
     </div>
   </div>
- 
+  <!--Borrow-->
+  
   
 
 </div>

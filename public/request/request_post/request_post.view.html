@@ -17,6 +17,16 @@
 				<option ng-repeat="category in categories">{{category}}</option>
 			</select>
 		</div>
+
+		<div class="form-group">
+			<label>Address</label>
+			<input id="from" placeholder="Item Address" type="text" ng-model="user.from" placeholder="Type Address" class="form-control" autocomplete="off" required>
+		</div>
+
+		<div>
+			<div id="map"></div>
+		</div>
+
 		<!--Description-->
 		<div class="form-group">
 			<label >Item Description</label>

@@ -46,6 +46,17 @@ module.exports.getItems = function(req, res) {
       res.json(data);
    });
 }
+
+//get all borrow item
+module.exports.getAll = function(req, res){
+  let query = borrowModel.find();
+  query.exec(function(err, lendingItems){
+        if(err) res.send(err);
+        //If no errors, send them back to the client
+        res.json(lendingItems);
+      });
+};
+
 //Get Item By Category
 module.exports.getItemsByCategory = function(req, res) {
    let sort = { "name2" : 1};
@@ -85,9 +96,13 @@ module.exports.countItems = function(req, res) {
 }
 //Counts Items, TBD by Khanh
 module.exports.countItemsByCategory = function(req, res) {
-   let query = borrowModel.find({'category':req.params.category}).count( function(err, data) {
-      res.send(""+data);
-   });
+   if (req.params.category == null)
+      countItems(req, res);
+   else {
+      let query = borrowModel.find({'category':req.params.category}).count( function(err, data) {
+         res.send(""+data);
+      });
+   }
 }
 //Search Items
 module.exports.searchItems = function(req, res) {

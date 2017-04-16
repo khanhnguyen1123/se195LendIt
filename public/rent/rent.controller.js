@@ -1,7 +1,8 @@
 (function() { 
-  angular
-    .module('meanApp')
-    .controller('rentController', rentController);
+
+   angular
+      .module('meanApp')
+      .controller('rentController', rentController);
    rentController.$inject = ['$location','$http','$scope','authentication', '$stateParams', '$state'];
 
    function rentController ($location, $http, $scope, authentication, $stateParams, $state) {
@@ -29,14 +30,14 @@
          }
       ];
       let baseLink = '/api/rent/';
-
+      let geocoder = new google.maps.Geocoder();
       $scope.selectedSort = $scope.sortOptions[0];
       $scope.selectedCategory = $scope.categories[0];
       $scope.displayedItems = [];
       $scope.loggedIn = authentication.isLoggedIn();
       $scope.page = {
          'current' : 1,
-         'max' : 11,
+         'max' : 1,
          'next' : null
       };
       countItems();
@@ -49,7 +50,7 @@
             temp = temp + "/" + $scope.selectedCategory
          $http.get(temp)
             .success ( function(data) {
-               //$scope.page.max = Math.ceil(parseInt(data)/25);
+               $scope.page.max = Math.ceil(parseInt(data)/25);
                //console.log($scope.page.max);
             })
             .error ( function(err) {

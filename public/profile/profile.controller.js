@@ -10,7 +10,7 @@
          meanData.getProfile()
             .success(function(data) {
                $scope.user = data;
-               console.log('Profile Controller: ' + data.email);
+               //console.log('Profile Controller: ' + data.email);
             })
             .error(function (e) {
                console.log(e);
@@ -26,7 +26,7 @@
             openTo: 'IMAGE_SEARCH'
          },
             function(data){
-            console.log(JSON.stringify(data));
+            //console.log(JSON.stringify(data));
             $scope.user.profileImage = data;
             $scope.updateUserPhoto();
          });
@@ -35,7 +35,7 @@
          console.log("Upload Profile Picture");
          $http.post('/api/profile/updateUserPhoto', $scope.user)
             .success(function(data){
-               console.log(JSON.stringify(data));                      
+               //console.log(JSON.stringify(data));                      
             })
             .error(function(data) {
                console.log('Error: ' + data);
@@ -44,20 +44,20 @@
       $scope.updateUser = function () {
          $http.post('/api/profile/updateUser', $scope.user)
             .success(function(data){
-               console.log(JSON.stringify(data));
+               //console.log(JSON.stringify(data));
                $scope.editMessage = "Profile Updated Successful!";
                document.getElementById('editAlert').classList.add("alert-success");
             })
             .error(function(data){
-               console.log('Profile Controller Error on Updating User');
-               console.log(data);
+               //console.log('Profile Controller Error on Updating User');
+               //console.log(data);
                $scope.editMessage = "Profile Update Failed";
                document.getElementById('editAlert').classList.add("alert-danger");
             })
          $('.alert').show();
       };
       $scope.closeAlert = function () {
-         console.log("Closing");
+         //console.log("Closing");
          if ($scope.editMessage == "Profile Updated Successful!")
             document.getElementById('editAlert').classList.remove('alert-success');
          else

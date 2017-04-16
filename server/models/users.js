@@ -24,6 +24,7 @@ var userSchema = new mongoose.Schema({
   reviews : [Schema.Types.Mixed],
   hash: String,
   salt: String,
+  lastViewMessageLenght: {type: Number,default: 0}, 
   facebook: {
         fbid:{
             type: String,

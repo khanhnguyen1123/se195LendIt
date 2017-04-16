@@ -30,6 +30,15 @@ module.exports.deleteItem = function(req, res) {
       res.send("Item Delted Successfully");
    })
 }
+//Gets All Items
+module.exports.getAll = function(req, res) {
+   let query = requestModel.find({});
+   query.exec(function(err, data) {
+      if (err)
+         res.send(err);
+      res.json(data);
+   })
+}
 //Get Item
 module.exports.getItems = function(req, res) {
    let sort = { "name2" : 1};
@@ -72,9 +81,21 @@ module.exports.getItemsByOwner = function(req, res) {
       res.json(data);
   });
 }
-//Counts Items, TBD by Khanh
+//Counts All Items
 module.exports.countItems = function(req, res) {
-   res.send('27');
+   let query = requestModel.find({}).count( function(err, data) {
+      res.send(""+data);
+   });
+}
+//Counts Items in a Category
+module.exports.countItemsByCategory = function(req, res) {
+   if (req.params.category == null)
+      countItems(req,res);
+   else {
+      let query = requestModel.find({'category':req.params.category}).count( function(err, data) {
+         res.send(""+data);
+      });
+   }
 }
 //Search Items
 module.exports.searchItems = function(req, res) {

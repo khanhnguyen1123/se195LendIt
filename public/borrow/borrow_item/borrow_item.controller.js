@@ -26,6 +26,7 @@
     $scope.reviews = [false, false];
     let id = $stateParams.random;
 
+    //TODO Fix Buttons
     
     if (authentication.isLoggedIn()) {
       meanData.getProfile()

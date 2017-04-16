@@ -28,7 +28,7 @@
       $scope.loggedIn = authentication.isLoggedIn();
       $scope.page = {
          'current' : 1,
-         'max' : 3,
+         'max' : 1,
          'next' : null
       };
       countItems();
@@ -41,7 +41,7 @@
             temp = temp + "/" + $scope.selectedCategory
          $http.get(temp)
             .success ( function(data) {
-               //$scope.page.max = Math.ceil(parseInt(data)/25);
+               $scope.page.max = Math.ceil(parseInt(data)/25);
                //console.log($scope.page.max);
             })
             .error ( function(err) {
@@ -71,7 +71,7 @@
             if (category == $scope.categories[0])
                getItems( baseLink + "get/" + $scope.selectedSort.value + $scope.page.current);
             else
-            getItems( baseLink + "category/" + category + "/" + $scope.selectedSort.value + $scope.page.current);
+               getItems( baseLink + "category/" + category + "/" + $scope.selectedSort.value + $scope.page.current);
          }
       }
       //Sorts Items
@@ -91,6 +91,9 @@
          countItems();
          getItems();
       }
-
+      
+      //Initializes display      
+      $scope.filter($scope.selectedCategory);
    }
+   
 })();

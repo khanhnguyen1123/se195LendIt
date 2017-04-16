@@ -1,10 +1,11 @@
 (function() { 
-  angular
-    .module('meanApp')
-    .controller('myItemController', myItemController);
-  myItemController.$inject = ['$location','meanData','$http','$scope'];
-    function myItemController ($location,meanData,$http,$scope) {
-      console.log("In myItemController");
+	angular
+	.module('meanApp')
+	.controller('myItemController', myItemController);
+	myItemController.$inject = ['$location','meanData','$http','$scope'];
+	function myItemController ($location,meanData,$http,$scope) {
+		console.log("In myItemController");
+
 
       $scope.rentTitle = "No Rent Items Found";
       $scope.borrowTitle = "No Borrow Items Found";

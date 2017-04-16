@@ -26,4 +26,8 @@ module.exports = mongoose.model('BorrowItem', {
    },
    startDate: Date,
    endDate: Date,
+   location: {
+      lat: Number,
+      lng: Number
+   }
 });

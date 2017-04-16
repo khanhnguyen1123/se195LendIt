@@ -49,6 +49,12 @@
         templateUrl: 'public/rent/rent.view.html',
         controller: 'rentController'
       })
+      .state('rentmap',{
+        url: '/rent/map',
+        templateUrl: 'public/rent/map/rentmap.view.html',
+        controller: 'rentmapController'
+
+      })
       .state('rent_post', {
         url: '/rent/post',
         templateUrl: 'public/rent/rent_post/rent_post.view.html',
@@ -69,6 +75,11 @@
         templateUrl: 'public/borrow/borrow_post/borrow_post.view.html',
         controller: 'borrowPostController'
       })
+      .state('borrowmap', {
+        url: '/borrow/map',
+        templateUrl: 'public/borrow/map/borrowmap.view.html',
+        controller: 'borrowmapController'
+      })
       .state('borrow_item', {
         url: '/borrow/:random',
         templateUrl: 'public/borrow/borrow_item/borrow_item.view.html',
@@ -78,6 +89,11 @@
         url: '/request',
         templateUrl: 'public/request/request.view.html',
         controller: 'requestController'
+      })
+      .state('requestmap',{
+        url: '/request/map',
+        templateUrl: 'public/request/map/requestmap.view.html',
+        controller: 'requestMapController'
       })
       .state('request_post', {
         url: '/request/post',
@@ -98,6 +114,16 @@
         url: '/search/:key',
         templateUrl: 'public/search/search.view.html',
         controller: 'searchController'
+      })
+      .state('message', {
+        url: '/message',
+        templateUrl: 'public/message/message.view.html',
+        controller: 'messageController'
+      })
+      .state('sendMessage', {
+        url: '/sendMessage',
+        templateUrl: 'public/message/sendMessage.view.html',
+        controller: 'sendMessageController'
       })
     // use the HTML5 History API
     //$locationProvider.html5Mode(true);

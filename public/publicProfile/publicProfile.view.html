@@ -14,7 +14,7 @@
             <h1 class="form-signin-heading" style="display:inline-block;">
                {{user.name}}'s Profile
             </h1>
-            <button type="button" class="btn btn-info" aria-label="text-right Align" style="margin-left: 30px; margin-bottom: 15px;" data-toggle="modal" data-target="#sendMessage" ng-show="loggedIn">
+            <button type="button" class="btn btn-info" aria-label="text-right Align" style="margin-left: 30px; margin-bottom: 15px;" data-toggle="modal" data-target="#sendMessage" ng-show="buttons[0]">
                Send A Message
             </button>
          </div>
@@ -42,7 +42,7 @@
          <button type="button" class="btn btn-info" aria-label="text-right Align" data-toggle="modal" data-target="#writeReview" ng-show="buttons[1]">
             Write A Review
          </button>
-         <button type="button" class="btn btn-info" aria-label="text-right Align" ng-show="loggedIn" ng-click="buttons[2] = !buttons[2]">
+         <button type="button" class="btn btn-info" aria-label="text-right Align" ng-click="buttons[2] = !buttons[2]">
             View Reviews
          </button>
       </div>
@@ -54,6 +54,7 @@
       <h1 style="text-align: center;">User Not Found</h1>
    </div>
 </div>
+<!--Message toggle form - -->
 <div class="modal fade" id="sendMessage" tabindex="-1" role="dialog" >
    <div class="modal-dialog" role="document">
       <form class="modal-content">
@@ -74,6 +75,8 @@
       </form>
    </div>
 </div>
+
+
 <div class="modal fade" id="writeReview" tabindex="-1" role="dialog" >
    <div class="modal-dialog" role="document">
       <form class="modal-content">

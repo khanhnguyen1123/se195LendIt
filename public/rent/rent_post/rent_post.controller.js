@@ -19,6 +19,7 @@
       $scope.pr.user = {};
       document.getElementById("images").style.display = "none";
       var geocoder = new google.maps.Geocoder();
+      var marker = null;
       
       if(!authentication.isLoggedIn())
          $state.go("login");
@@ -40,6 +41,9 @@
          $scope.rentPost.location.lat = Math.round(parseFloat(place.geometry.location.lat()) * 1000) / 1000;
          $scope.rentPost.location.lng = Math.round(parseFloat(place.geometry.location.lng()) * 1000) / 1000;
          console.log($scope.rentPost.location.lng + " " + $scope.rentPost.location.lng);
+         if(marker != null){
+            marker.setMap(null);
+         }
          refreshMap($scope.rentPost.location.lat, $scope.rentPost.location.lng);
          $scope.$apply(); 
       });
@@ -99,7 +103,7 @@
          $scope.map.setZoom(15);
          console.log(lat + " " + lng);
 
-         var marker = new google.maps.Marker({
+         marker = new google.maps.Marker({
             map: $scope.map,
             position: location
          });

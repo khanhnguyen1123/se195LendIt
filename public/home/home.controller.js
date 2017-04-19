@@ -2,9 +2,9 @@
    angular
       .module('meanApp')
       .controller('homeCtrl', homeCtrl);
-   homeCtrl.$inject = ['$scope', '$location', 'authentication', 'meanData'];
+   homeCtrl.$inject = ['$scope', '$location', 'authentication', 'meanData', '$http'];
 
-   function homeCtrl ($scope, $location, authentication, meanData) {
+   function homeCtrl ($scope, $location, authentication, meanData, $http) {
       //console.log('Home Controller is Running');
 
       //TBD
@@ -15,6 +15,7 @@
          password : ""
       };
       $scope.loggedIn = authentication.isLoggedIn();
+      $scope.m2 = {};
 
       let message = 
       {
@@ -35,7 +36,10 @@
             })
             .error(function (e) {
                console.log(e);
-            });
+            })
+            .finally( function() {
+               getMessages();
+            })
       }
       //Login In Function
       $scope.signIn = function () {
@@ -49,6 +53,28 @@
                $location.path('profile');
             });
       };
+      function getMessages () {
+         $http.get('api/message2/get/'+$scope.user._id)
+            .success( function(data) {
+               $scope.m2 = data;
+               console.log(data);
+            })
+            .error ( function(error) {
+               console.log(error);
+            })
+            .finally( function() {
+               //deleteMessage();
+            });
+      }
+      function deleteMessage () {
+         $http.delete('api/message2/delete/'+$scope.m2[$scope.m2.length-1]._id)
+            .success( function(data) {
+               console.log(data);
+            })
+            .error ( function(error) {
+               console.log(error);
+            })
+      }
    }
 
 })();

@@ -12,6 +12,17 @@ module.exports = mongoose.model('Message',{
    subject: String,
    content: String,
    date: {type: Date, default: Date.now},
-   receiverReply:   [{image:Schema.Types.Mixed, name:String, content:String, date: {type: Date, default: Date.now} }],
-   ownerReply:      [{image:Schema.Types.Mixed, name:String, content:String, date: {type: Date, default: Date.now} }]
+   receiverReply:   [
+      {
+         image:Schema.Types.Mixed, 
+         name:String, content:String, 
+         date: {type: Date, default: Date.now} 
+      }],
+   ownerReply: [
+      {
+         image:Schema.Types.Mixed, 
+         name:String, 
+         content:String, 
+         date: {type: Date, default: Date.now} 
+      }]
 });

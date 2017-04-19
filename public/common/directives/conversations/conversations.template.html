@@ -1,0 +1,21 @@
+<div style="border: 1px solid black; width: 300px; display: inline-block;" ng-repeat="c in conv">
+   <div style="padding: 8px; border-bottom: 1px solid black;" >
+      <img style="width: 50px; border-radius: 50%;" ng-src="{{c.otherImage}}"/>
+      <a ui-sref="publicProfile({random: c.otherId})" style="display: inline-block; margin-right: 10px;"><p>{{c.otherName}}</p></a>
+      <span style="float: right; margin: 15px 10px 0px 0px;" class="glyphicon glyphicon-trash" ng-click="delete(c)" />
+   </div>
+   <div id="{{c._id}}" style="height: 240px; overflow: scroll;">
+      <div ng-repeat="message in c.messages" style="padding: 10px; ">
+         <div ng-class="message.class">
+            <span style="overflow-wrap: break-word;">{{message.content}}</span>
+            <br />
+            <span>{{message.date | date : 'short'}}</span>
+         </div>
+      </div>
+   </div>
+   <form>
+      <input style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px" type="text" class="form-control" placeholder="Send a message" ng-model="c.response">
+      <button class="btn btn-primary" style="width: 100%; padding: 3px; border-radius: 0px;" ng-click="send(c)">Send</button>
+   </form>
+   
+</div>

@@ -1,6 +1,6 @@
 <navigation></navigation>
 <!--Home View Container-->
-<div ng-hide="loggedIn" style="width:100%; padding-top:50px; height:100%;">
+<div ng-if="!loggedIn" style="width:100%; padding-top:50px; height:100%;">
 	<!--Sign In Container-->
 	<div style="float:right; background-image:url('http://www.nexus6wallpapers.com/wp-content/uploads/Simple/Gradient%20background%2016%20Nexus%206%20Wallpapers.jpg'); background-attachment:fixed; background-repeat:no-repeat; background-size:cover; width:300px; height:100%; text-align:center; border-left:4px solid #2F829E">
 		<br/>
@@ -28,7 +28,7 @@
 		</h1>
 	</div>
 </div>
-<div ng-show="loggedIn" class="main">
+<div ng-if="loggedIn" class="main">
 	<h1 style="text-align: center;">Welcome to LendIt</h1>
 	<table style="width: 100%;">
 		<tr>
@@ -44,11 +44,12 @@
 	<table>
 	<!--Update UI for Thread Messages-->
 	<div class="messages">
-		<h3>Messages</h3>
+		<h3>Conversations</h3>
 		<div ng-repeat="message in user.messages">
 			<img ng-src="{{message.userImg}}" style="border-radius: 50%; width: 50px; height: 50px; display: inline-block;">
 			<p style="display: inline-block; margin-left: 7px;"><a ui-sref="publicProfile({random: message.user})">{{message.username}}</a> on {{message.date | date : 'short'}}</p>
 			<p>{{message.content}}</p>
 		</div>
 	</div>
+	<conversations data="{{m2}}" />
 </div>

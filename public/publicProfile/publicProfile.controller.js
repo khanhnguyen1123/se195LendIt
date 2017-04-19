@@ -73,15 +73,41 @@
          }
       }
 
-      //TODO Fix HTTP Call
       //Sends message to user
       $scope.sendMessage = function () {
-         $scope.message.ownerId = $scope.currentUser._id;
-         $scope.message.ownerName = $scope.currentUser.name;
-         $scope.message.receiverId = $scope.user._id;
-         $scope.message.receiverName = $scope.user.name;
-         $scope.message.date = new Date();
-
+         let newMessage = {
+            'userId' : $scope.currentUser._id,
+            'userName' : $scope.currentUser.name,
+            'userImage' : $scope.currentUser.profileImage.url,
+            'otherId' : $scope.user._id,
+            'otherName' : $scope.user.name,
+            'otherImage' : $scope.user.profileImage.url,
+            'messages' : [ {
+               'class' : 'convUser',
+               'content' : $scope.message.content,
+               'date' : new Date()
+            }]
+         }
+         
+         $http.post('api/message2/new', newMessage)
+            .success( function(data) {
+               $scope.message = {};
+               $scope.alert = {
+                  'class' : 'alert-success',
+                  'message' : 'Message Sent Successfully',
+                  'show' : true,
+               };
+            })
+            .error ( function(error) {
+               $scope.alert = {
+                  'class' : 'alert-danger',
+                  'message' : 'Message Failed To Send',
+                  'show' : true,
+               };
+               console.log(error);
+            });
+         
+         /*
          $http.post('/api/message/send', $scope.message)
             .success(function(data){    
                $scope.user.messages.push($scope.message);
@@ -100,6 +126,7 @@
                };
                console.log(error);
             });
+            */
       }
       
       //Sends Review

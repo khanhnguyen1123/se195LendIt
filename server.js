@@ -27,6 +27,7 @@ var borrowController = require('./server/controllers/borrow');
 var requestController = require('./server/controllers/request');
 var googleGetAddr = require('./server/controllers/mapLocation');
 var messageController = require('./server/controllers/message');
+var messageController2 = require('./server/controllers/message2');
 
 //  [khanh] create a collection named time-waste in your local mongodb server to run this line of code
 //username: lendit195
@@ -172,6 +173,11 @@ app.get('/cancel',paypalPayment.cancel);
 //Google Location
 app.post('/api/googleMap/getAddress',googleGetAddr.getAddress);
 
+//TODO Check API Links
+app.get('/api/message2/get/:id', messageController2.getMessages);
+app.delete('/api/message2/delete/:id', messageController2.deleteMessage);
+app.put('/api/message2/send', messageController2.sendMessage);
+app.post('/api/message2/new', messageController2.newMessage);
 // message
 app.post('/api/message/send', messageController.send);
 app.post('/api/message/getSendMessages', messageController.getSendMessages);

@@ -88,13 +88,13 @@ module.exports.getItemsByOwner = function(req, res) {
       res.json(data);
   });
 }
-//Counts Items, TBD by Khanh
+//Counts Items
 module.exports.countItems = function(req, res) {
    let query = borrowModel.find({}).count( function(err, data) {
       res.send(""+data);
    });
 }
-//Counts Items, TBD by Khanh
+//Counts Items By Category
 module.exports.countItemsByCategory = function(req, res) {
    if (req.params.category == null)
       countItems(req, res);

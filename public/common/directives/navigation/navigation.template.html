@@ -31,7 +31,7 @@
 			<!--Right Nav Items-->
 			<ul class="nav navbar-nav navbar-right">
 				<li ng-hide="navvm.isLoggedIn"><a ui-sref="login">Sign in</a></li>
-				<li  ng-show="navvm.isLoggedIn" ng-click="navvm.resetDiff()"><a ui-sref="message">Messages<span ng-if="navvm.diff>=0" class="badge" >{{navvm.diff}}</span> </a></li>
+				<li  ng-show="navvm.isLoggedIn" ng-click="navvm.resetDiff()"><a ui-sref="message">Messages <span ng-if="navvm.newMessages>=1" class="badge">{{navvm.newMessages}}</span> </a></li>
 				<li ng-show="navvm.isLoggedIn"><a ui-sref="profile">{{ navvm.currentUser.name }}</a></li>
 				<li><a ng-show="navvm.isLoggedIn" ng-click="navvm.logout()" href="#"> Logout</a></li>
 				<li><a ng-hide="navvm.isLoggedIn" ui-sref="register">Register</a></li>

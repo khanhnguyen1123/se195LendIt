@@ -175,6 +175,7 @@ app.post('/api/googleMap/getAddress',googleGetAddr.getAddress);
 
 //TODO Check API Links
 app.get('/api/message2/get/:id', messageController2.getMessages);
+app.get('/api/message2/getNew/:id', messageController2.getNewMessages);
 app.delete('/api/message2/delete/:id', messageController2.deleteMessage);
 app.put('/api/message2/send', messageController2.sendMessage);
 app.post('/api/message2/new', messageController2.newMessage);

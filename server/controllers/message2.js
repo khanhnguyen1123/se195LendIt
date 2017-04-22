@@ -22,6 +22,13 @@ messages : [
    }
 ]
 */
+module.exports.getNewMessages = function(req, res) {
+   User.findById(req.params.id, function(err, data) {
+      if (err)
+         res.send(err)
+      res.send(""+data.newMessages);
+   })
+}
 module.exports.getMessages = function (req, res) {
    User.findById(req.params.id, function(err, data) {
       if (err)

@@ -63,14 +63,15 @@ module.exports.sendMessage = function (req, res) {
    Message.findById(req.body._id, function(err, data) {
       if (err)
          res.send(err);
-      if (data) {
-         data.messages = req.body.messages;
-         //console.log(data.messages)
-         data.save( function(err2, data2) {
-            if (err2)
-               res.send(err2);
-         })
-      }
+      data.messages = req.body.messages;
+      console.log(data.messages);
+      //console.log(data.messages)
+      data.save( function(err2, data2) {
+         if (err2)
+            res.send(err2);
+         //res.send(data2);
+      })
+      
    })
    User.findById(req.body.otherId, function(err, data) {
       if (err)
@@ -80,6 +81,7 @@ module.exports.sendMessage = function (req, res) {
          data.save( function(err2, data2) {
             if (err2)
                res.send(err2);
+            //res.send(data2);
          })
       }
    })
@@ -94,6 +96,7 @@ module.exports.sendMessage = function (req, res) {
             if (err2)
                res.send(err2);
          });
+
       } else {
          let temp = {
             'userId' : req.body.otherId,

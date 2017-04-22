@@ -1,73 +1,94 @@
 (function() {
   
-  angular
-    .module('meanApp')
-    .controller('messageController', messageController);
-  messageController.$inject = ['$scope','$http','$stateParams', 'authentication','$window'];
+   angular
+      .module('meanApp')
+      .controller('messageController', messageController);
+   messageController.$inject = ['$scope', '$http', '$stateParams', 'authentication', '$window', 'meanData'];
 
-  function messageController($scope,$http,$stateParams, authentication,$window) {
-    $scope.sendMessages = {};
-    $scope.receivedMessages = {};
-    $scope.message={
-      ownerName: authentication.currentUser().name,
-      ownerId : authentication.currentUser()._id
-    };
+   function messageController($scope, $http, $stateParams, authentication, $window, meanData) {
+      $scope.response = {'data' : ''};
+      $scope.user;
+      $scope.conversations;
+      $scope.selectedConv;
 
-    // get all sended messages
-    $http.post('/api/message/getSendMessages',authentication.currentUser())
-      .success(function(data){       
-        $scope.sendMessages = data;
-      })
-      .error(function(error) {
-        console.log('Error: ' + error);
-      });
-    //  get all received messages
-    $scope.getReceievedMessages = function(){
-      $http.post('/api/message/getReceievedMessages',authentication.currentUser())
-      .success(function(data){       
-        $scope.receivedMessages = data;
-      })
-      .error(function(error) {
-        console.log('Error: ' + error);
-      });
-    };// end get recieved messages
-    $scope.getReceievedMessages();  
+      if (authentication.isLoggedIn()) {
+         meanData.getProfile()
+            .success(function(data) {
+               $scope.user = data;
+            })
+            .error(function (e) {
+               console.log(e);
+            })
+            .finally( function() {
+               getMessages();
+            });
+      }
 
-    $scope.getInfo = function(id,subject){
-      
-      $scope.message._id=id;
-      $scope.message.subject=subject;
-    }; //end get info function  
+      function getMessages(id) {
+         $http.get('api/message2/get/'+$scope.user._id)
+            .success( function(data) {
+               $scope.conversations = data;
+               console.log(data);
+            })
+            .error ( function(error) {
+               console.log(error);
+            })
+            .finally (function() {
+               for (conv in $scope.conversations) {
+                  if (id && conv._id == id)
+                     $scope.selectedConv = conv;
+               }
 
+            });
+      }
 
+      $scope.selectConversation = function(data) {
+         if ($scope.selectedConv) {
+            var temp = document.getElementById($scope.selectedConv._id)
+            if (temp != null)
+               temp.style.backgroundColor = "white";
+         }
+         var temp = document.getElementById(data._id);
+         if (temp != null)
+            temp.style.backgroundColor = "#B6D8E3";
+         $scope.selectedConv = data;
+      }
 
+      $scope.deleteMessage = function(data) {
+         console.log(data);
+         $http.delete('api/message2/delete/'+data._id)
+            .success( function(data) {
+               console.log(data);
+            })
+            .error ( function(error) {
+               console.log(error);
+            })
+            .finally ( function() {
+               $scope.selectedConv = null;
+               getMessages();
+            })
+      }
 
-    $scope.replyMessage = function () {
-
-       $http.post('/api/message/reply',$scope.message)
-       .success(function(data){       
-          console.log("after send message : "+data.message);
-          $window.alert("Message was Sent ");
-        })
-       .error(function(error) {
-          console.log('Error: ' + error);
-        }); // end http call
-    }; // end send message function
-
-    $scope.delete= function(id){
-       var de = {
-        _id: id
-       }
-       $http.post('/api/message/delete',de)
-       .success(function(data){       
-          console.log("after send message : "+data.message);
-          $window.alert("Message was Deleted ");
-          $scope.getReceievedMessages();
-        })
-       .error(function(error) {
-          console.log('Error: ' + error);
-        }); // end http call 
-    }; // end delete fundtion
-
-  };// end message controller funtion
+      $scope.sendMessage = function () {
+         if ($scope.response.data == '' || !$scope.selectedConv)
+            return;
+         let newMessage = {
+            class : 'convUser',
+            content : $scope.response.data,
+            date : new Date()
+         }
+         $scope.selectedConv.messages.push(newMessage);
+         $scope.response.data = "";
+         $http.put('api/message2/send', $scope.selectedConv)
+            .success( function(data) {
+               //console.log(data);
+            })
+            .error ( function(error) {
+               console.log(error);
+            })
+            .finally( function() {
+               
+            });
+      }
+   }
 })();

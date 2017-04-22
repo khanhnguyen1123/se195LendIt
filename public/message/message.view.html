@@ -1,82 +1,30 @@
 <navigation> </navigation>
 <div class="main">
-  <!--Rent-->
-  
-  <div>
-    <div class="row" style="margin:20px 10px 0px 0px;">
-      <h2><h2><a ui-sref="message">Received Messages</a> || <a ui-sref="sendMessage">Sended Messages</a> </h2></h2>
-    </div>
-    <div class="row" style="margin:5px 10px 0px 10px;" >
-      
-      
-      <!--testing for inside loop itemIn -->
-            <div ng-repeat="itemIn in receivedMessages | orderBy: '-date' " >
-            <br>
-            <hr>
-            <p style="display: inline-block; margin-left: 7px;">From <a ui-sref="publicProfile({random: itemIn.ownerId})">{{itemIn.ownerName}} | </a> on {{itemIn.date | date: "short"}} | Title: {{itemIn.subject}} | Content: {{itemIn.content}}
-              <button type="button" class="btn btn-info" aria-label="text-right Align"  data-toggle="modal" data-target="#sendMessage"  ng-click="getInfo(itemIn._id,itemIn.subject)">
-                   Reply
-              </button>
-              <button type="button" class="btn btn-info" aria-label="text-right Align"  ng-click="delete(itemIn._id)">
-                     Delete
-              </button>
-            </p>
-            
-
-
-            <!-- ----------------------begin conversation-------------------------- -->
-                      <div ng-repeat="rep in conbine = itemIn.receiverReply.concat(itemIn.ownerReply) | orderBy:'date' "> 
-                        
-                       
-                            <div class="media-body">
-                                <div class="media">
-                                    <a class="pull-left" href="#">
-                        
-                                        <img class="media-object img-circle " ng-src="{{rep.image.url}}" style="border-radius: 50%; width: 50px; height: 50px; display: inline-block;">
-                                    </a>
-                                    <div class="media-body">
-                                        {{rep.content}}
-                                        <br>
-                                       <small class="text-muted">{{rep.name}} | {{rep.date | date: "short"}}</small>
-                                        <hr>
-                                    </div>
-                                </div>
-        
-                            </div>
-                        
-                        </div>
-             <!------------------------end conversation-------------------------------------------- -->         
-          </div>
-    </div>
-  </div>
- 
-  
-
-</div>
-
-<!--Message toggle form - -->
-<div class="modal fade" id="sendMessage" tabindex="-1" role="dialog" >
-   <div class="modal-dialog" role="document">
-      <form class="modal-content">
-         <div class="modal-header">
-            <h4 class="modal-title">Message Form</h4>
+   <div style="border: 1px solid black; width: 300px; height: calc(100vh - 110px); display: inline-block;">
+      <h2 style="text-align: center">Conversations</h2>
+      <div style="overflow: scroll; height: calc(100vh - 175px)">
+         <div ng-repeat="conv in conversations" style="padding: 5px 10px 5px 10px;" ng-click="selectConversation(conv)" id="{{conv._id}}">
+            <div style="width: 90%; margin: 5px auto 8px auto; height: 1px; background-color: grey;"></div>
+            <img ng-src="{{conv.otherImage}}" style="width: 60px; border-radius: 50%;"/>
+            <a ui-sref="publicProfile({'random' : conv.otherId})"><p style="display: inline-block; font-size: 1.3em; margin-left: 10px;">{{conv.otherName}}</p></a>
+            <span style="float: right; margin: 20px 10px 0px 0px;" class="glyphicon glyphicon-trash" ng-click="deleteMessage(conv)" />
+            <div style="width: 90%; margin: 8px auto 5px auto; height: 1px; background-color: grey;"></div>
          </div>
-         <div class="modal-body">
-            <!--Change NG Models-->
-            <div class="form-group">
-               <label>Subject</label>
-               <input type="text" class="form-control" text="{{}}" placeholder="message.subject" ng-model="message.subject" readonly>
-            </div>
-            <div class="form-group">
-               <label>Message</label>
-               <textarea id="textarea" ng-model="message.content" class="form-control" style="height: 150px; resize: none;"></textarea>
+      </div>
+   </div>
+   <div style="border: 1px solid black; width: calc(100% - 350px); display: inline-block; margin-right: 15px; float: right;" ng-if="selectedConv">
+      <div style="height: calc(100vh - 172px); overflow: scroll; ">
+         <div ng-repeat="message in selectedConv.messages" style="padding: 10px; ">
+            <div ng-class="message.class">
+               <span style="overflow-wrap: break-word;">{{message.content}}</span>
+               <br />
+               <span>{{message.date | date : 'short'}}</span>
             </div>
          </div>
-         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" ng-click="replyMessage()">Send Reply</button>
-         </div>
+      </div>
+      <form>
+         <input style="border-radius: 0px;" type="text" class="form-control" placeholder="Send a message" ng-model="response.data">
+         <button class="btn btn-primary" style="width: 100%; padding: 3px; border-radius: 0px;" ng-click="sendMessage()" ng-disabled="!response.data">Send</button>
       </form>
    </div>
 </div>
-<!-- end message toggle -->

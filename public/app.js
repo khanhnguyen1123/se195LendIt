@@ -120,11 +120,6 @@
         templateUrl: 'public/message/message.view.html',
         controller: 'messageController'
       })
-      .state('sendMessage', {
-        url: '/sendMessage',
-        templateUrl: 'public/message/sendMessage.view.html',
-        controller: 'sendMessageController'
-      })
     // use the HTML5 History API
     //$locationProvider.html5Mode(true);
     $locationProvider.html5Mode({

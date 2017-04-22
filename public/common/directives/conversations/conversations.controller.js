@@ -22,13 +22,15 @@
             })
       }
       $scope.send = function(c) {
+         console.log(c);
+         c = angular.fromJson(c);
          let newMessage = {
             class : 'convUser',
             content : c.response,
             date : new Date()
          }
          c.messages.push(newMessage);
-         c.response = "";
+         console.log(angular.fromJson(c));
          $http.put('api/message2/send', c)
             .success( function(data) {
                //console.log(data);

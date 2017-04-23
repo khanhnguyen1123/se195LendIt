@@ -37,7 +37,7 @@
     function getNew() {
       if (!vm.currentUser)
         return;
-      $http.get('/api/message2/getNew/'+vm.currentUser._id)
+      $http.get('/api/message/getNew/'+vm.currentUser._id)
         .success( function(data) {
           vm.newMessages = data;
         })

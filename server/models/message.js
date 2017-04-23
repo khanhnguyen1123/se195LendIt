@@ -1,6 +1,6 @@
 var mongoose = require ('mongoose');
 var Schema      = mongoose.Schema;
-module.exports = mongoose.model('Message2',{
+module.exports = mongoose.model('Message',{
    userId: String,
    userName: String,
    userImage: Schema.Types.Mixed,

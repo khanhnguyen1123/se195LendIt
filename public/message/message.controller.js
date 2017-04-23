@@ -25,7 +25,7 @@
       }
 
       function getMessages(id) {
-         $http.get('api/message2/get/'+$scope.user._id)
+         $http.get('api/message/get/'+$scope.user._id)
             .success( function(data) {
                $scope.conversations = data;
                console.log(data);
@@ -56,7 +56,7 @@
 
       $scope.deleteMessage = function(data) {
          console.log(data);
-         $http.delete('api/message2/delete/'+data._id)
+         $http.delete('api/message/delete/'+data._id)
             .success( function(data) {
                console.log(data);
             })
@@ -79,7 +79,7 @@
          }
          $scope.selectedConv.messages.push(newMessage);
          $scope.response.data = "";
-         $http.put('api/message2/send', $scope.selectedConv)
+         $http.put('api/message/send', $scope.selectedConv)
             .success( function(data) {
                //console.log(data);
             })

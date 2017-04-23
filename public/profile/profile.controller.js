@@ -6,6 +6,7 @@
    profileCtrl.$inject = ['$scope', '$location', 'meanData', '$http', 'authentication', '$state', 'filepickerService'];
    
    function profileCtrl($scope,$location, meanData,$http,authentication, $state, filepickerService) {      
+      $scope.reviews = false;
       $scope.reload = function(){
          meanData.getProfile()
             .success(function(data) {

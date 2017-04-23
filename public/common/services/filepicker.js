@@ -2657,7 +2657,7 @@ filepicker.extend("json", function() {
     var fp = this;
     var special = {
         "\b": "\\b",
-        "	": "\\t",
+        "   ": "\\t",
         "\n": "\\n",
         "\f": "\\f",
         "\r": "\\r",

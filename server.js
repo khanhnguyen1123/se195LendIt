@@ -27,7 +27,6 @@ var borrowController = require('./server/controllers/borrow');
 var requestController = require('./server/controllers/request');
 var googleGetAddr = require('./server/controllers/mapLocation');
 var messageController = require('./server/controllers/message');
-var messageController2 = require('./server/controllers/message2');
 
 //  [khanh] create a collection named time-waste in your local mongodb server to run this line of code
 //username: lendit195
@@ -166,28 +165,18 @@ app.get('/api/request/get/count', requestController.countItems);
 app.get('/api/request/get/count/category/:category', requestController.countItemsByCategory);
 app.get('/api/request/search/:key', requestController.searchItems);
 // paypal payment 
-app.post('/create',paypalPayment.create);
-app.get('/execute',paypalPayment.execute);
-app.get('/cancel',paypalPayment.cancel);
-
+app.post('/create', paypalPayment.create);
+app.get('/execute', paypalPayment.execute);
+app.get('/cancel', paypalPayment.cancel);
+//Message
+app.get('/api/message/get/:id', messageController.getMessages);
+app.get('/api/message/getNew/:id', messageController.getNewMessages);
+app.delete('/api/message/delete/:id', messageController.deleteMessage);
+app.put('/api/message/send', messageController.sendMessage);
+app.post('/api/message/new', messageController.newMessage);
 //Google Location
 app.post('/api/googleMap/getAddress',googleGetAddr.getAddress);
 
-//TODO Check API Links
-app.get('/api/message2/get/:id', messageController2.getMessages);
-app.get('/api/message2/getNew/:id', messageController2.getNewMessages);
-app.delete('/api/message2/delete/:id', messageController2.deleteMessage);
-app.put('/api/message2/send', messageController2.sendMessage);
-app.post('/api/message2/new', messageController2.newMessage);
-// message
-app.post('/api/message/send', messageController.send);
-app.post('/api/message/getSendMessages', messageController.getSendMessages);
-app.post('/api/message/getReceievedMessages', messageController.getReceievedMessages);
-app.post('/api/message/delete', messageController.delete);
-app.post('/api/message/getLength', messageController.getLength);
-app.post('/api/message/updateLength', messageController.updateLength);
-app.post('/api/message/reply', messageController.reply);
-app.post('/api/message/getNewLengthMessage', messageController.getNewLengthMessage);
 
 /*
 var paypal = require('paypal-rest-sdk');

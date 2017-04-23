@@ -26,9 +26,21 @@
     $scope.reviews = [false, false];
     let id = $stateParams.random;
 
-    //TODO Fix Buttons
-    
-    if (authentication.isLoggedIn()) {
+    //Gets Item
+    $http.get('/api/borrow/id/'+id)
+      .success(function(data) {
+        $scope.borrowItem = data;
+      })
+      .error(function(error) {
+        console.log('Error: ' + error);
+      })
+      .then (function () {
+        updateState();
+      });
+    //Checks User 
+    function checkUser() {
+      if (!authentication.isLoggedIn())
+        return;
       meanData.getProfile()
         .success(function(data) {
           $scope.user = data;
@@ -44,17 +56,7 @@
           checkWriteReview();
         });
     }
-    $http.get('/api/borrow/id/'+id)
-      .success(function(data) {
-        $scope.borrowItem = data;
-      })
-      .error(function(error) {
-        console.log('Error: ' + error);
-      })
-      .then (function () {
-        updateState();
-        checkWriteReview();
-      });
+    //Updates Item State
     function updateState () {
       let itemState = document.getElementById('item-state');
       if ($scope.borrowItem.state == "Available")
@@ -62,6 +64,7 @@
       else
         itemState.style.color = "red";  
     }
+    //Checks if user can write a review
     function checkWriteReview () {
       if (!$scope.owner && $scope.user && $scope.borrowItem) {
         $scope.writeReview = true;
@@ -71,8 +74,7 @@
         }
       }
     }
-
-
+    //Upload New Item Image
     $scope.upload = function() {
       filepickerService.pickMultiple({
         mimetype: 'image/*',
@@ -86,7 +88,6 @@
         $scope.$apply();
       });
     };
-
     $scope.updateItem = function (message) {
       $http.put('/api/borrow/update', $scope.borrowItem)
         .success(function(data){

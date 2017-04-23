@@ -89,7 +89,7 @@
             }]
          }
          
-         $http.post('api/message2/new', newMessage)
+         $http.post('api/message/new', newMessage)
             .success( function(data) {
                $scope.message = {};
                $scope.alert = {

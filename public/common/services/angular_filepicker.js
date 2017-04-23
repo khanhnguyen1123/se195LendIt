@@ -64,7 +64,7 @@ angular.module('angular-filepicker')
 
 function filepickerPreviewDirective($rootScope, filepickerService){
 
-	return {
+   return {
         restrict: 'A',
         scope:{
             url: '=',

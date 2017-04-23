@@ -9,6 +9,9 @@
     $scope.states = ['Available', 'Unavailble'];
     $scope.priceOptions = ['per hour', 'per day', 'per week'];
     $scope.reviewForm = {};
+    $scope.rentItem = {};
+    $scope.paymentLabel = "";
+    $scope.paymentLength = 0;
     $scope.alert = {
       'class' : '',
       'message' : '',
@@ -26,6 +29,7 @@
     $http.get('/api/rent/id/'+id)
       .success(function(data) {
         $scope.rentItem = data;
+        $scope.paymentLabel = data.priceOption.split(" ")[1]+"s";
       })
       .error(function(error) {
         console.log('Error: ' + error);
@@ -171,6 +175,24 @@
         }
       }
     }
+
+   //TODO Khanh change payment costs
+   $scope.paymentData = {
+      currency: "USD",
+      amount  : "5.00" ,
+      description: " khanh testing paypal payment"
+   };
+
+   $scope.makePayment = function() {
+      $http.post('/create', $scope.rentItem)
+         .success(function(data){
+            console.log('khanh successfully inside make paypal payment scope '+JSON.stringify(data));   
+            $window.location.href = data.link;
+         })
+         .error(function(data) {
+            console.log('Error fail calling makePaypalPayment: ' + data);
+         });
+   };
 
   }
 

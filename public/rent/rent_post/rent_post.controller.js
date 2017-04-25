@@ -88,7 +88,8 @@
          var mapOptions = {
             zoom: 11,
             center: new google.maps.LatLng(37.33, -121.88),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            scrollwheel: false
          }
 
          $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);

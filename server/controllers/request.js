@@ -52,6 +52,15 @@ module.exports.getItems = function(req, res) {
       res.json(data);
    });
 }
+//Get top 10 recent Items
+module.exports.getRecentItems = function(req, res) {
+   let query = requestModel.find({}).sort({ "dateAdded" : -1}).limit(10);
+   query.exec(function(err, data){
+      if(err)
+         res.send(err);
+      res.json(data);
+   });
+}
 //Get Item By Category
 module.exports.getItemsByCategory = function(req, res) {
    let sort = { "name2" : 1};

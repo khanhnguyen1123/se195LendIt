@@ -129,6 +129,7 @@ app.get('/api/rent/get/:sort/:page', rentController.getItems);
 app.get('/api/rent/category/:category/:sort/:page', rentController.getItemsByCategory);
 app.get('/api/rent/id/:id', rentController.getItemById);
 app.get('/api/rent/user/:id', rentController.getItemsByOwner);
+app.get('/api/rent/getRecent',rentController.getRecentItems);
 //Rent Helper Methods
 app.put('/api/rent/review/:id', rentController.addReview);
 app.get('/api/rent/get/count', rentController.countItems);
@@ -138,6 +139,7 @@ app.get('/api/rent/search/:key', rentController.searchItems);
 app.post('/api/borrow/create', borrowController.createItem);
 app.put('/api/borrow/update', borrowController.updateItem);
 app.delete('/api/borrow/delete/:id', borrowController.deleteItem);
+app.get('/api/borrow/getRecent', borrowController.getRecentItems);
 //Borrow Gets
 app.get('/api/borrow/getAll',borrowController.getAll);
 app.get('/api/borrow/get/:sort/:page', borrowController.getItems);
@@ -153,6 +155,7 @@ app.get('/api/borrow/search/:key', borrowController.searchItems);
 app.post('/api/request/create', requestController.createItem);
 app.put('/api/request/update', requestController.updateItem);
 app.delete('/api/request/delete/:id', requestController.deleteItem);
+app.get('/api/request/getRecent', requestController.getRecentItems);
 //Request Gets
 app.get('/api/request/getAll', requestController.getAll);
 app.get('/api/request/get/:sort/:page', requestController.getItems);

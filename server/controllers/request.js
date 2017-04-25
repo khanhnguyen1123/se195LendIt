@@ -54,7 +54,7 @@ module.exports.getItems = function(req, res) {
 }
 //Get top 10 recent Items
 module.exports.getRecentItems = function(req, res) {
-   let query = requestModel.find({}).sort({ "dateAdded" : -1}).limit(10);
+   let query = requestModel.find({}).sort({ "dateAdded" : -1}).limit(5);
    query.exec(function(err, data){
       if(err)
          res.send(err);

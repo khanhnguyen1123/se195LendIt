@@ -41,13 +41,13 @@
 	<table width=100%>
 		<tr>
 			<td width=33.3%>
-				<h3 style="text-align:center;">Recent Renting Items</h3>
+				<h3 style="text-align:center;">New Renting Items</h3>
 			</td>
 			<td width=33.3%>
-				<h3 style="text-align:center;">Recent Borrow Items</h3>
+				<h3 style="text-align:center;">New Borrow Items</h3>
 			</td>
 			<td width=33.3%>
-				<h3 style="text-align:center;">Recent Request Items</h3>		
+				<h3 style="text-align:center;">New Request Items</h3>		
 			</td>
 		</tr>
 	</table>
@@ -59,14 +59,14 @@
 				        <img ng-src="{{item.pictures[0].url}}" alt="Image Not Found" style="width:100px; height:100px;"/>
 				        <p class="item-preview-title">{{item.name}}</p>
 				        <p class="item-preview-description">
-				          	<span class="item-preview-price">{{item.price}} USD/{{item.priceOption}}</span>
+				          	<span class="item-preview-price">{{item.price}} USD {{item.priceOption}}</span>
 				        </p>
 				   	</div>
 				</div>
 			</td>
 			<td width=33.3% style="vertical-align: top">
 				<div ng-repeat="item in displayedBorrowItems" style="margin: auto; width: 50%;" >
-					<div class="thumbnail item" ui-sref="rent_item({random: item._id})">
+					<div class="thumbnail item" ui-sref="borrow_item({random: item._id})">
 				        <img ng-src="{{item.pictures[0].url}}" alt="Image Not Found" style="width:100px; height:100px;"/>
 				        <p class="item-preview-title">{{item.name}}</p>
 				        <p class="item-preview-description">FREE</p>
@@ -75,7 +75,7 @@
 			</td>
 			<td width=33.3% style="vertical-align: top">
 				<div ng-repeat="item in displayedRequestItems" style="margin: auto; width: 50%;" >
-					<div class="thumbnail item" ui-sref="rent_item({random: item._id})">
+					<div class="thumbnail item" ui-sref="request_item({random: item._id})">
 				        <img ng-src="{{item.pictures[0].url}}" alt="Image Not Found" style="width:100px; height:100px;"/>
 				        <p class="item-preview-title">{{item.name}}</p>
 				   	</div>

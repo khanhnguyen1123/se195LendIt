@@ -2,9 +2,9 @@
   angular
     .module('meanApp')
     .controller('rentItemController', rentItemController);
-  rentItemController.$inject = ['$location','$http','$scope','$stateParams', 'authentication', 'meanData', 'filepickerService', '$state'];
+  rentItemController.$inject = ['$location','$http','$scope','$stateParams', 'authentication', 'meanData', 'filepickerService', '$state','$window'];
 
-  function rentItemController ($location, $http, $scope, $stateParams, authentication, meanData, filepickerService, $state) {
+  function rentItemController ($location, $http, $scope, $stateParams, authentication, meanData, filepickerService, $state,$window) {
     $scope.categories = ['Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
     $scope.states = ['Available', 'Unavailble'];
     $scope.priceOptions = ['per hour', 'per day', 'per week'];

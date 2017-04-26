@@ -20,10 +20,6 @@ module.exports = mongoose.model('BorrowItem', {
    name2: String,
    dateAdded: { type: Date, default: Date.now },
    lastUpdated: { type: Date, default: Date.now },
-   address : {
-      longitude : Number,
-      latitude : Number
-   },
    startDate: Date,
    endDate: Date,
    location: {

@@ -2,9 +2,9 @@
   angular
     .module('meanApp')
     .controller('rentItemController', rentItemController);
-  rentItemController.$inject = ['$location','$http','$scope','$stateParams', 'authentication', 'meanData', 'filepickerService', '$state'];
+  rentItemController.$inject = ['$location','$http','$scope','$stateParams', 'authentication', 'meanData', 'filepickerService', '$state','$window'];
 
-  function rentItemController ($location, $http, $scope, $stateParams, authentication, meanData, filepickerService, $state) {
+  function rentItemController ($location, $http, $scope, $stateParams, authentication, meanData, filepickerService, $state,$window) {
     $scope.categories = ['Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
     $scope.states = ['Available', 'Unavailble'];
     $scope.priceOptions = ['per hour', 'per day', 'per week'];
@@ -177,14 +177,19 @@
     }
 
    //TODO Khanh change payment costs
-   $scope.paymentData = {
+ /*  $scope.paymentData = {
       currency: "USD",
       amount  : "5.00" ,
       description: " khanh testing paypal payment"
    };
-
+ */  
+   $scope.itemCost= {};
    $scope.makePayment = function() {
-      $http.post('/create', $scope.rentItem)
+      $scope.itemCost.price = $scope.paymentLength * $scope.rentItem.price;
+      $scope.itemCost.ownerId = $scope.rentItem.ownerId;
+      var confirm = $window.confirm("Confirm Your payment for "+$scope.itemCost.price);
+      if (confirm){
+        $http.post('/create', $scope.itemCost)
          .success(function(data){
             console.log('khanh successfully inside make paypal payment scope '+JSON.stringify(data));   
             $window.location.href = data.link;
@@ -192,6 +197,9 @@
          .error(function(data) {
             console.log('Error fail calling makePaypalPayment: ' + data);
          });
+      }else
+        return
+      
    };
 
   }

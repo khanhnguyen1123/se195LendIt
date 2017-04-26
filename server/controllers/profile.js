@@ -154,7 +154,8 @@ module.exports.addReview = function(req, res) {
          data.save( function(err) {
             if (err)
                res.send(err);
-            res.send("Review Added Successfully")
+            else
+              res.send("Review Added Successfully")
          })
       }
    });

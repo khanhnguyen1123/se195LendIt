@@ -35,7 +35,7 @@
         console.log('Error: ' + error);
       })
       .then (function () {
-        updateState();
+        checkUser();
       });
     //Checks User 
     function checkUser() {
@@ -54,6 +54,7 @@
           else
             $scope.owner = false;
           checkWriteReview();
+          updateState();
         });
     }
     //Updates Item State

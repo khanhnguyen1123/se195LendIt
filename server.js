@@ -174,7 +174,7 @@ app.get('/cancel', paypalPayment.cancel);
 //Message
 app.get('/api/message/get/:id', messageController.getMessages);
 app.get('/api/message/getNew/:id', messageController.getNewMessages);
-app.delete('/api/message/delete/:id', messageController.deleteMessage);
+app.put('/api/message/delete/:id', messageController.deleteMessage);
 app.put('/api/message/send', messageController.sendMessage);
 app.post('/api/message/new', messageController.newMessage);
 //Google Location

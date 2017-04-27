@@ -5,9 +5,9 @@
       <div style="overflow: scroll; height: calc(100vh - 175px)">
          <div ng-repeat="conv in conversations" style="padding: 5px 10px 5px 10px;" ng-click="selectConversation(conv)" id="{{conv._id}}">
             <div style="width: 90%; margin: 5px auto 8px auto; height: 1px; background-color: grey;"></div>
-            <img ng-src="{{conv.otherImage}}" style="width: 60px; border-radius: 50%;"/>
-            <a ui-sref="publicProfile({'random' : conv.otherId})"><p style="display: inline-block; font-size: 1.3em; margin-left: 10px;">{{conv.otherName}}</p></a>
-            <span style="float: right; margin: 20px 10px 0px 0px;" class="glyphicon glyphicon-trash" ng-click="deleteMessage(conv)" />
+            <img ng-src="{{conv.other.userImage}}" style="width: 60px; border-radius: 50%;"/>
+            <a ui-sref="publicProfile({'random' : conv.other.userId})"><p style="display: inline-block; font-size: 1.3em; margin-left: 10px;">{{conv.other.userName}}</p></a>
+            <span style="float: right; margin: 3.5% 10px 0px 0px;" class="glyphicon glyphicon-trash" ng-click="deleteMessage(conv)" />
             <div style="width: 90%; margin: 8px auto 5px auto; height: 1px; background-color: grey;"></div>
          </div>
       </div>

@@ -10,7 +10,10 @@
       $scope.user;
       $scope.currentUser;
       $scope.review = {};
-      $scope.message = {};
+      $scope.message = {
+         'name' : '',
+         'content' : ''
+      };
       $scope.owner = false;
 
       //Send Message Button, Write a Review Button, View Reviews Display Container
@@ -55,6 +58,7 @@
                   if ($scope.user._id != $scope.currentUser._id) {
                      $scope.buttons[0] = true;
                      $scope.buttons[1] = true;
+                     $scope.message.name = $scope.currentUser.name;
                   }
                   //Checks if user already submitted a review
                   checkReviews();
@@ -76,19 +80,28 @@
       //Sends message to user
       $scope.sendMessage = function () {
          let newMessage = {
-            'userId' : $scope.currentUser._id,
-            'userName' : $scope.currentUser.name,
-            'userImage' : $scope.currentUser.profileImage.url,
-            'otherId' : $scope.user._id,
-            'otherName' : $scope.user.name,
-            'otherImage' : $scope.user.profileImage.url,
-            'messages' : [ {
-               'class' : 'convUser',
-               'content' : $scope.message.content,
-               'date' : new Date()
-            }]
+            users: [],
+            messages: [],
+            other: $scope.user._id
          }
-         
+         var user = {
+            'userId': $scope.user._id,
+            'userName': $scope.user.name,
+            'userImage': '',
+         }
+         if ($scope.user.profileImage)
+            user.userImage = $scope.user.profileImage.url;
+         newMessage.users.push(user);
+         user = {
+            'userId': $scope.currentUser._id,
+            'userName': $scope.currentUser.name,
+            'userImage': '',
+         }
+         if ($scope.currentUser.profileImage)
+            user.userImage = $scope.currentUser.profileImage.url;
+         newMessage.users.push(user);
+         newMessage.messages.push($scope.message);
+         console.log(newMessage);
          $http.post('api/message/new', newMessage)
             .success( function(data) {
                $scope.message = {};
@@ -106,27 +119,6 @@
                };
                console.log(error);
             });
-         
-         /*
-         $http.post('/api/message/send', $scope.message)
-            .success(function(data){    
-               $scope.user.messages.push($scope.message);
-               $scope.message = {};
-               $scope.alert = {
-                  'class' : 'alert-success',
-                  'message' : 'Message Sent Successfully',
-                  'show' : true,
-               };
-            })
-            .error(function(error) {
-               $scope.alert = {
-                  'class' : 'alert-danger',
-                  'message' : 'Message Failed To Send',
-                  'show' : true,
-               };
-               console.log(error);
-            });
-            */
       }
       
       //Sends Review

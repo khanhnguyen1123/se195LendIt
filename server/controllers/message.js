@@ -4,22 +4,23 @@ require('../models/message');
 var Message = mongoose.model('Message');
 
 /*
-userId: String,
-userName: String,
-userImage: Schema.Types.Mixed,
-
-otherId: String,
-otherName: String,
-otherImage: Schema.Types.Mixed,
-
+users : [
+   {
+      userId: String,
+      userName: String,
+      userImage: String,
+      userView: {type: Boolean, default: true}
+   }
+],
 messages : [
    {
       name: String,
-      content: [String],
+      content: String,
       date: {type: Date, default: Date.now} 
    }
 ]
 */
+//Gets the Count of New Messages
 module.exports.getNewMessages = function(req, res) {
    User.findById(req.params.id, function(err, data) {
       if (err)
@@ -27,6 +28,7 @@ module.exports.getNewMessages = function(req, res) {
       res.send(""+data.newMessages);
    })
 }
+//Gets all message for a given user id
 module.exports.getMessages = function (req, res) {
    User.findById(req.params.id, function(err, data) {
       if (err)
@@ -37,104 +39,72 @@ module.exports.getMessages = function (req, res) {
             res.send(err2)
       })
    })
-   Message.find( {'userId' : req.params.id}, function(err, data) {
+   let user = {
+      'userId' : req.params.id,
+      'userView': true
+   }
+   Message.find( {'users' : { '$elemMatch' : user}}, function(err, data) {
       if (err)
          res.send(err);
       res.json(data);
    });
    
 }
-
+//Deletes message for a given user id
 module.exports.deleteMessage = function (req, res) {
-   //console.log(req.params.id);
-   Message.remove({_id: req.params.id}, function(err, data) {
+   Message.findById(req.params.id, function(err, data) {
       if (err)
          res.send(err);
-      res.send("Item Delted Successfully");
+      let changed = false;
+      for (let i=0; i<data.users.length; i++) {
+         if (req.body.userId && data.users[i].userId == req.body.userId) {
+            data.users[i].userView = false;
+            changed = true;
+         }
+      }
+      if (changed)
+         data.save( function(err2, data2) {
+            if(err2)
+               res.send(err2)
+            res.json(data2);
+            console.log("After Delete");
+            console.log(data2);
+         })
    })
 }
-
 module.exports.sendMessage = function (req, res) {
-   //console.log(req.body);
    Message.findById(req.body._id, function(err, data) {
       if (err)
          res.send(err);
-      data.messages = req.body.messages;
-      console.log(data.messages);
-      //console.log(data.messages)
+      let newMessage = {
+         'name' : req.body.name,
+         'content' : req.body.content,
+      }
+      data.messages.push(newMessage);
+      for (let i=0; i<data.users.length; i++) {
+         data.users[i].userView = true;
+      }
       data.save( function(err2, data2) {
          if (err2)
-            res.send(err2);
-         //res.send(data2);
+            res.send(err2)
+         res.json(data2);
       })
-      
    })
-   User.findById(req.body.otherId, function(err, data) {
-      if (err)
-         res.send(err)
-      if (data) {
-         data.newMessages +=1;
-         data.save( function(err2, data2) {
-            if (err2)
-               res.send(err2);
-            //res.send(data2);
-         })
-      }
-   })
-   Message.findById(req.body.other, function(err, data) {
+   incrementUserMessageCount(req.body.other);
+}
+
+module.exports.newMessage = function(req, res) {
+   let newMessage = new Message(req.body);
+   newMessage.save( function(err, data) {
       if (err)
          res.send(err);
-      if (data) {
-         let temp = req.body.messages.splice(-1)[0];
-         temp.class = "convOther";
-         data.messages.push(temp);
-         data.save( function( err2, data2) {
-            if (err2)
-               res.send(err2);
-         });
-
-      } else {
-         let temp = {
-            'userId' : req.body.otherId,
-            'userName' : req.body.otherName,
-            'userImage' : req.body.otherImage,
-
-            'otherId' : req.body.userId,
-            'otherName' : req.body.userName,
-            'otherImage' : req.body.userImage,
-
-            'other' : req.body._id,
-
-            'messages' : [{
-               'class' : 'convOther',
-               'content' : req.body.messages.splice(-1)[0].content,
-               'date' : new Date()
-            }]
-         };
-         let newMessage = new Message(temp);
-         newMessage.save( function(err2, data2) {
-            if (err2)
-               res.send(err2);
-            Message.findById(req.body._id, function(err3, data3) {
-               if (err3)
-                  res.send(err3);
-               data3.other = data2._id;
-               data3.save( function(err4, data4) {
-                  if (err4)
-                     res.send(err4)
-                  res.send(data4);
-               })
-            })
-         })
-      }
-
-   })
+      res.json(data);
+   })  
+   incrementUserMessageCount(req.body.other); 
 }
-//Pass req.body.content
-module.exports.newMessage = function(req, res) {
-   
-   //Updates New Message Count for User
-   User.findById(req.body.userId, function(err,data) {
+
+function incrementUserMessageCount (id) {
+   User.findById(id, function(err,data) {
       if (err)
          res.send(err);
       data.newMessages += 1;
@@ -142,36 +112,5 @@ module.exports.newMessage = function(req, res) {
          if (err2)
             res.send(err);
       })
-   });
-
-   let userMessage = new Message(req.body);
-   //Create Message For User
-   userMessage.save( function(err, data) {
-      if (err)
-         res.send(err);
-      //Switches Users
-      let tempId = req.body.userId;
-      let tempName = req.body.userName;
-      let tempImage = req.body.userImage;
-      req.body.userId = req.body.otherId;
-      req.body.userName = req.body.otherName;
-      req.body.userImage = req.body.otherImage;
-      req.body.otherId = tempId;
-      req.body.otherName = tempName;
-      req.body.otherImage = tempImage;
-      req.body.messages[0].class = "convOther";
-      req.body.other = data._id;
-      let otherMessage = new Message(req.body);
-      otherMessage.save( function(err, data2) {
-         if (err)
-            res.send(err)
-         data.other = data2._id;
-         data.save( function(err, data) {
-            if (err)
-               res.send(err);
-            res.json(data);
-         })
-      })
-   });
-   
+   })
 }

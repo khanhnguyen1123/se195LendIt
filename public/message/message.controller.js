@@ -28,21 +28,27 @@
          $http.get('api/message/get/'+$scope.user._id)
             .success( function(data) {
                $scope.conversations = data;
-               console.log(data);
             })
             .error ( function(error) {
                console.log(error);
             })
             .finally (function() {
-               for (conv in $scope.conversations) {
+               for (let i=0; i<$scope.conversations.length; i++) {
+                  let conv = $scope.conversations[i];
                   if (id && conv._id == id)
                      $scope.selectedConv = conv;
+                  for (let p=0; p<conv.users.length; p++) {
+                     if (conv.users[p].userId != $scope.user._id) {
+                        conv.other = conv.users[p];
+                     }
+                  }
                }
 
             });
       }
 
       $scope.selectConversation = function(data) {
+         console.log(data);
          if ($scope.selectedConv) {
             var temp = document.getElementById($scope.selectedConv._id)
             if (temp != null)
@@ -52,11 +58,18 @@
          if (temp != null)
             temp.style.backgroundColor = "#B6D8E3";
          $scope.selectedConv = data;
+         for (let i=0; i< $scope.selectedConv.messages.length; i++) {
+            let message = $scope.selectedConv.messages[i];
+            if (message.name == $scope.user.name)
+               message.class = 'convUser';
+            else
+               message.class = 'convOther';
+         }
       }
 
       $scope.deleteMessage = function(data) {
          console.log(data);
-         $http.delete('api/message/delete/'+data._id)
+         $http.put('api/message/delete/'+data._id, {'userId':$scope.user._id})
             .success( function(data) {
                console.log(data);
             })
@@ -73,21 +86,23 @@
          if ($scope.response.data == '' || !$scope.selectedConv)
             return;
          let newMessage = {
-            class : 'convUser',
+            name: $scope.user.name,
             content : $scope.response.data,
-            date : new Date()
+            other : $scope.selectedConv.other.userId,
+            _id : $scope.selectedConv._id
          }
-         $scope.selectedConv.messages.push(newMessage);
+         let other = $scope.selectedConv.other;
          $scope.response.data = "";
-         $http.put('api/message/send', $scope.selectedConv)
+         $http.put('api/message/send', newMessage)
             .success( function(data) {
-               //console.log(data);
+               $scope.selectedConv = data;
             })
             .error ( function(error) {
                console.log(error);
             })
             .finally( function() {
-               
+               $scope.selectedConv.other = other;
+               $scope.selectConversation($scope.selectedConv);
             });
       }
    }

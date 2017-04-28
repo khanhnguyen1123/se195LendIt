@@ -43,6 +43,12 @@
          <button class="btn btn-info" ng-click="showReviews = !showReviews;">View Reviews</button>
       </div>
    </div>
+   <div>
+      <h1>Transaction History </h1>
+      <div ng-repeat="transaction in user.transactionHistory"> 
+         <p> {{transaction.paytype}} ${{transaction.amount}} for {{transaction.itemName}} on {{transaction.date | date: "short"}}</p>
+      </div>   
+   </div>
    <div ng-show="showReviews" style="margin-top: 20px;">
       <reviews data="{{user.reviews}}"></reviews>
    </div>

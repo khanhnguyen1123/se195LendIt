@@ -10,7 +10,8 @@
       $scope.rentTitle = "No Rent Items Found";
       $scope.borrowTitle = "No Borrow Items Found";
       $scope.requestTitle = "No Requests Found";
-      
+      $scope.rentingTitle = "No Renting items at current"
+
       $scope.rentItems = [];
       $scope.borrowItems = [];
       $scope.requestedItems = [];
@@ -22,6 +23,11 @@
         .success(function(data){
           $scope.vme.user = data;
           console.log('User id: '+ $scope.vme.user._id + ' of type:' + Object.prototype.toString.call($scope.vme.user._id));
+          if(data.currentlyRenting.length > 0){
+            $scope.rentingTitle = "Your Current Renting Items";
+            console.log("insde curretn retning item");
+          }
+          
         })
         .then(function(){
           $http.get('/api/rent/user/'+$scope.vme.user._id)

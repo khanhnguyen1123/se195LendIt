@@ -183,10 +183,30 @@
       description: " khanh testing paypal payment"
    };
  */  
-   $scope.itemCost= {};
+   
    $scope.makePayment = function() {
-      $scope.itemCost.price = $scope.paymentLength * $scope.rentItem.price;
-      $scope.itemCost.ownerId = $scope.rentItem.ownerId;
+      var day =1;
+      if($scope.paymentLabel == 'weeks'){
+        day = 7;
+        console.log("insde weeks testing");
+      }
+      var endDate = new Date();
+      endDate.setDate(endDate.getDate() + (day*$scope.paymentLength));
+      console.log("testing end date: "+endDate);
+
+      $scope.itemCost= {
+        price: $scope.paymentLength * $scope.rentItem.price,
+        renterId : authentication.currentUser()._id,
+        ownerId: $scope.rentItem.ownerId,
+        itemName: $scope.rentItem.name,
+        itemDescription: $scope.rentItem.description,
+        itemImage: $scope.rentItem.pictures[0].url,
+        itemId: $scope.rentItem._id,
+        itemEndDate: endDate
+      };
+    //  $scope.itemCost.price = $scope.paymentLength * $scope.rentItem.price;
+    //  $scope.itemCost.ownerId = $scope.rentItem.ownerId;
+
       var confirm = $window.confirm("Confirm Your payment for "+$scope.itemCost.price);
       if (confirm){
         $http.post('/create', $scope.itemCost)

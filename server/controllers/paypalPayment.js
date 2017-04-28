@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var rentModel = require('../models/rent');
 var paypal = require('paypal-rest-sdk');
 var pay = require('paypal-pay')(
 {
@@ -29,6 +30,9 @@ var config = {
 var paypalPaymentID;
 var itemOwnerPaypalEmail;
 var itemPrice;
+var rentingItem={};
+var renterId;
+var ownerId;
 // initially configuration paypal module
 paypal.configure(config.api);
 // Routes
@@ -36,20 +40,27 @@ paypal.configure(config.api);
 // this method will creat a payment for lending item
 // @parameter: item price, owner id of the item (that use to get owner paypal email)
 exports.create = function (req, res) {
-	console.log("khanh inside create method in the paypal payment js file checking $price: "+req.body.price);
+	//console.log("khanh inside create method in the paypal payment js file checking $price: "+req.body.price);
 	// find owner paypal email
 	User
       .findById(req.body.ownerId)
       .exec(function(err, user) {
         if (err){
-           console.log("failed to find user in create payment method");
+        //   console.log("failed to find user in create payment method");
            
         } else {
-           console.log("successfully find owner paypal email in creat payment method");             
+         //  console.log("successfully find owner paypal email in creat payment method "+ user.name);             
            itemOwnerPaypalEmail = user.paypalAccount;
         }
       });
     itemPrice = req.body.price;  
+    rentingItem.itemId = req.body.itemId;	
+    rentingItem.itemName = req.body.itemName;
+    rentingItem.itemImage = req.body.itemImage;
+    rentingItem.itemDescription = req.body.itemDescription;
+    rentingItem.itemEndDate = req.body.itemEndDate;
+    renterId = req.body.renterId;
+    ownerId = req.body.ownerId;
 	var payment = {
 		"intent": "sale",
 		"payer": {
@@ -97,7 +108,7 @@ exports.execute = function (req, res) {
 	var payerId = req.param('PayerID');
 
 	var details = { "payer_id": payerId };
-	console.log("print out payment id inside execute method:"+paymentId);
+	//console.log("print out payment id inside execute method:"+paymentId);
 	var payment = paypal.payment.execute(paymentId, details, function (error, payment) {
 		if (error) {
 	      console.log(error);
@@ -111,18 +122,102 @@ exports.execute = function (req, res) {
 		        return;
 		    }
 		    if (response){
+		    	// update item state
+		    	updateItemState(rentingItem.itemId,rentingItem.itemEndDate);
+		    	//update renter item
+		    	updateRenterItem(renterId,rentingItem);
+		    	// update transaction history for both renter and lender
+		    	updateTransactionHistory();
 		        console.log(response);
 		        console.log('khanh testing '+ response.paymentInfoList.paymentInfo);
 		    }
 		  }); // end auto payment from lendit account to the item's owner account
 
-	      res.send("Hell yeah complete payment!"+" <a href='/'> "+"click here to go back to home page"+"</a>");
+	    //  res.send("Hell yeah complete payment!"+" <a href='/'> "+"click here to go back to home page"+"</a>");
+	      res.redirect("/#/profile");	
 	    }
 	});
 };
 
 exports.cancel = function (req, res) {
  // res.redirect('/cancel');
- 	res.send("Your payment is canceled"+" <a href='/'> "+"click here to go back to home page"+"</a>");
+ 	//res.send("Your payment is canceled"+" <a href='/'> "+"click here to go back to home page"+"</a>");
+ 	res.redirect("/#/profile");
 };
 
+var updateItemState = function(id,end){
+	var updateFact={
+		endDate: end,
+		state: "Unavailable"
+	};
+	rentModel.update({_id: id}, updateFact, function(err) {
+      if (err)
+         return;
+      //res.send("Item Update Successfully");
+   })
+}// end update item state
+
+var updateRenterItem = function(renterId, Item){
+	User.findById(renterId, function(err, userData){
+                var user = userData;
+                user.currentlyRenting.push(Item);
+                user.save(function(err){
+                    if (err){
+                        //console.log("failed save")
+                       // res.json({status: 500})
+                       return;
+                    } else {
+                        //console.log("save successful");
+                        
+                   //     console.log("update renter item successfully");
+                    }
+                })
+            });
+}// end update renter item
+
+var updateTransactionHistory =function(){
+	// update for payer (or renter)
+	var tran1={
+		paytype: "Pay",
+		amount: itemPrice,
+		itemName: rentingItem.itemName
+	};
+	User.findById(renterId, function(err, userData){
+	//	console.log("successfully found renter "+userData.name);
+                var user = userData;
+                user.transactionHistory.push(tran1);
+                user.save(function(err){
+                    if (err){
+                        //console.log("failed save")
+                       // res.json({status: 500})
+                       return;
+                    } else {
+                        //console.log("save successful");
+                        
+                //        console.log("update renter item successfully");
+                    }
+                })
+            });
+	// update for reciever (or lender)
+	var tran2={
+		paytype: "Get",
+		amount: itemPrice,
+		itemName: rentingItem.itemName
+	};
+	User.findById(ownerId, function(err, userData){
+	//	console.log("successfully found owner "+userData.name);
+                var user = userData;
+                user.transactionHistory.push(tran2);
+                user.save(function(err){
+                    if (err){
+                        //console.log("failed save")
+                       // res.json({status: 500})
+                       return;
+                    } else {
+                        //console.log("save successful");
+                        
+                     //   console.log("update renter item successfully");
+                    }
+                })
+            });
+} // end update transaction history

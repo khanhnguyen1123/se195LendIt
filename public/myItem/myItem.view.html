@@ -57,5 +57,27 @@
       </div>
     </div>
   </div>
+  <!--currently renting-->
+  <div>
+    <div class="row" style="margin:20px 10px 0px 0px;">
+      <h2>{{rentingTitle}}</h2>
+    </div>
+    <div class="row" style="margin:5px 10px 0px 10px;" >
+      <div class="col-md-4" style="width:246px; display:inline-block;" ng-repeat="item in vme.user.currentlyRenting">
+        <div class="thumbnail item" ui-sref="rent_item({random: item.itemId})">
+          <img ng-src="{{item.itemImage}}" alt="Image Not Found" style="width:100%; height:140px;"/>
+          <p style="font-size:1.5em; margin:0px 5px 0px 5px;">
+            <b>{{item.itemName}}</b>
+          </p>
+          <p style="fontsize:1em; margin:0px 5px 10px 5px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+            {{item.itemDescription}}
+          </p>
+          <p style="fontsize:1em; margin:0px 5px 10px 5px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+            End date: {{item.itemEndDate | date : 'short'}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

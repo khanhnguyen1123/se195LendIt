@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var User = mongoose.model('User');
 var rentModel = require('../models/rent');
 
 //Create Item
@@ -24,7 +25,20 @@ module.exports.updateItem = function(req, res) {
          res.send(err);
       res.send("Item Update Successfully");
    })
-}
+   // check to update for renter item [not oworking yet]
+   var item = {
+      itemId: req.body._id,
+      itemDescription: req.body.description
+   };
+
+   console.log("item id "+item.itemId+" description: "+item.itemDescription);
+   User.update(
+           { },
+           { $pull: { 'currentlyRenting': { itemId: req.body._id } } },
+           { multi: true }
+         );
+   
+}// end update item
 //Delete Item
 module.exports.deleteItem = function(req, res) {
    rentModel.remove({_id: req.params.id}, function(err, data) {

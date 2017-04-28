@@ -81,7 +81,7 @@
             <button style="display: inline-block; width: 40%;" class="btn btn-danger btn-block"  ng-click="updateItem()" ng-disabled="rentItem.$invalid">Submit</button>
          </div>
       </div>
-      <div ng-hide="owner">
+      <div ng-hide="owner || rentItem.state !='Available' ">
          <!--TODO Change Model-->
          <div  style="display: inline-block;">
             <input type="number" class="form-control number-input" min="1" step="1" ng-model="paymentLength" required />    

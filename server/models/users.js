@@ -26,6 +26,8 @@ var userSchema = new mongoose.Schema({
   salt: String,
   newMessages: {type: Number,default: 0}, 
   lastViewMessageLenght: {type: Number,default: 0}, 
+  currentlyRenting:[{itemId:String, itemName: String, itemImage:Schema.Types.Mixed, itemDescription:String,itemEndDate:Date}],
+  transactionHistory:[{paytype: String, date: {type: Date, default: Date.now}, amount: String, itemName: String}],
   facebook: {
         fbid:{
             type: String,

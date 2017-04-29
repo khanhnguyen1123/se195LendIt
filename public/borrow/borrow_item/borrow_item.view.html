@@ -15,8 +15,11 @@
       <div id="item" ng-show="item.display">
          <h1 style="font-size:3.5em; margin:0px">{{borrowItem.name}}</h1>
          <div style="margin-left:5px;">
-            <p style="margin:0px;">
+            <p style="margin:3px 0px 8px 0px;">
                By <a ui-sref="publicProfile({random: borrowItem.ownerId})">{{borrowItem.ownerName}}</a>
+               <button ng-hide="owner" type="button" style="padding: 2px 8px 2px 8px; display: inline; margin-left: 10px;" class="btn btn-info" data-toggle="modal" data-target="#sendMessage">
+                  Contact User
+               </button>
             </p>
             <!--http://codepen.io/anon/pen/NqazVa-->
             <stars value="{{borrowItem.aRating}}"></stars>
@@ -30,6 +33,7 @@
          <h4 style="margin-bottom:0px; font-size:1.5em; margin-top:20px;">Description</h4>
          <p style="padding:3px; word-wrap:break-word;">{{borrowItem.description}}
          </p>
+         <div id="map" style="height:225px; width:100%; margin-top: 10px; margin-bottom: 20px;"></div>
       </div>
       <!--Edit Item Form-->
       <div id="editItem" ng-show="item.edit" style="margin-top: 15px;">
@@ -43,6 +47,11 @@
              <select ng-model="borrowItem.category" class="form-control" required>
                  <option ng-repeat="category in categories">{{category}}</option>
              </select>
+         </div>
+         <!--Location-->
+         <div class="form-group">
+            <label>Location</label>
+            <input id="address" placeholder="Item Address" type="text" ng-model="user.from" class="form-control" autocomplete="off" required>
          </div>
          <!--State-->
          <div class="form-group" style="width: auto;">
@@ -96,5 +105,26 @@
    <!--View Reviews-->
    <div ng-show="reviews[1]">
       <reviews data="{{borrowItem.reviews}}"></reviews>
+   </div>
+</div>
+<!--Message toggle form - -->
+<div class="modal fade" id="sendMessage" tabindex="-1" role="dialog" >
+   <div class="modal-dialog" role="document">
+      <form class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Message Form</h4>
+         </div>
+         <div class="modal-body">
+            <!--Change NG Models-->
+            <div class="form-group">
+               <label>Message</label>
+               <textarea id="textarea" ng-model="message.content" class="form-control" style="height: 150px; resize: none;"></textarea>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="sendMessage()">Send</button>
+         </div>
+      </form>
    </div>
 </div>

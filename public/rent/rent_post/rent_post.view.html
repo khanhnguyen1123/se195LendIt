@@ -1,6 +1,10 @@
 <navigation> </navigation>
 <!--Rent Post Container-->
 <div class="main" ng-controller='rentPostController'>
+	<div class="alert alert-dismissible" ng-class="alert.class" ng-show="alert.show" role="alert" id="editAlert">
+      <button class="close" ng-click="alert.show = false;">&times;</span></button>
+      {{alert.message}}
+   </div>
 	<!--Post Images, Hidden Till Pictures Uploaded-->
 	<images id="images" pictures="{{rentPost.pictures}}"></images>
 	<!--Rent Post Form-->
@@ -24,7 +28,7 @@
 		</div>
 
 		<div class="form-group">
-			<div id="map"></div>
+			<div id="map" style="height: 250px;"></div>
 		</div>
 
 		<!--Price-->

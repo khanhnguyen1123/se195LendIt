@@ -131,6 +131,7 @@ app.get('/api/rent/id/:id', rentController.getItemById);
 app.get('/api/rent/user/:id', rentController.getItemsByOwner);
 app.get('/api/rent/getRecent',rentController.getRecentItems);
 //Rent Helper Methods
+app.put('/api/rent/other', rentController.updateOther);
 app.put('/api/rent/review/:id', rentController.addReview);
 app.get('/api/rent/get/count', rentController.countItems);
 app.get('/api/rent/get/count/category/:category', rentController.countItemsByCategory);

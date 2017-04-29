@@ -106,7 +106,7 @@
         controller: 'requestItemController'
       })
       .state('myItem', {
-        url: '/myItem',
+        url: '/myItems',
         templateUrl: 'public/myItem/myItem.view.html',
         controller: 'myItemController'
       })

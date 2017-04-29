@@ -14,8 +14,17 @@
       <div id="item" ng-show="item.display">
          <h1 style="font-size:3.5em; margin:0px">{{rentItem.name}}</h1>
          <div style="margin-left:5px;">
-            <p style="margin:0px;">
+            <p style="margin:3px 0px 8px 0px;">
                By <a ui-sref="publicProfile({random: rentItem.ownerId})">{{rentItem.ownerName}}</a>
+               <button ng-hide="owner" type="button" style="padding: 2px 8px 2px 8px; display: inline; margin-left: 10px;" class="btn btn-info" data-toggle="modal" data-target="#sendMessage">
+                  Contact User
+               </button>
+            </p>
+            <p ng-show="owner" style="margin:3px 0px 8px 0px;">
+               Current Renter: <a ui-sref="publicProfile({random: rentItem.otherId})">{{rentItem.otherName}}</a>
+               <button ng-show="rentItem.otherId != ''" type="button" style="padding: 2px 8px 2px 8px; display: inline; margin-left: 10px;" class="btn btn-info" ng-click="updateOther()">
+                  Mark as Returned
+               </button>
             </p>
             <!--http://codepen.io/anon/pen/NqazVa-->
             <stars value="{{rentItem.aRating}}"></stars>
@@ -32,7 +41,16 @@
          <h4 style="margin-bottom:0px; font-size:1.5em; margin-top:20px;">Description</h4>
          <p style="padding:3px; word-wrap:break-word;">{{rentItem.description}}
          </p>
+         <div ng-hide="owner || rentItem.state !='Available' ">
+            <div  style="display: inline-block;">
+               <input type="number" class="form-control number-input" min="1" step="1" ng-model="paymentLength" required />    
+               <label style="width:auto;">{{paymentLabel}}</label>        
+            </div>
+            <button class="btn btn-info" ng-click="makePayment()">Make Payment</button>
+         </div>
+         <div id="map" style="height:225px; width:100%; margin-top: 15px; margin-bottom: 20px;"></div>
       </div>
+      <!--Edit Form Container-->
       <div id="editItem" ng-show="item.edit" style="margin-top: 15px;">
          <div class="form-group">
             <label>Name</label>
@@ -40,10 +58,15 @@
          </div>
          <!--Category-->
          <div class="form-group">
-             <label>Category</label>
-             <select ng-model="rentItem.category" class="form-control" required>
-                 <option ng-repeat="category in categories">{{category}}</option>
-             </select>
+            <label>Category</label>
+            <select ng-model="rentItem.category" class="form-control" required>
+               <option ng-repeat="category in categories">{{category}}</option>
+            </select>
+         </div>
+         <!--Location-->
+         <div class="form-group">
+            <label>Location</label>
+            <input id="address" placeholder="Item Address" type="text" ng-model="user.from" class="form-control" autocomplete="off" required>
          </div>
          <!--Price-->
          <div class="form-group" style="display: flex; justify-content: space-between; width: 90%;">
@@ -57,12 +80,6 @@
             <div style="display: inline-block;">
                <label style="width:auto;">Quantity</label>
                <input type="number" class="form-control number-input" min="1" step="1" ng-model="rentItem.quantity" required />
-            </div>
-            <div style="display: inline-block;">
-               <label style="width:auto;">State</label>
-               <select ng-model="rentItem.state" class="form-control" style="width:auto; display: inline-block;" required>
-                  <option ng-repeat="state in states">{{state}}</option>
-              </select>
             </div>
          </div>
          <!--Description-->
@@ -81,14 +98,7 @@
             <button style="display: inline-block; width: 40%;" class="btn btn-danger btn-block"  ng-click="updateItem()" ng-disabled="rentItem.$invalid">Submit</button>
          </div>
       </div>
-      <div ng-hide="owner || rentItem.state !='Available' ">
-         <!--TODO Change Model-->
-         <div  style="display: inline-block;">
-            <input type="number" class="form-control number-input" min="1" step="1" ng-model="paymentLength" required />    
-            <label style="width:auto;">{{paymentLabel}}</label>        
-         </div>
-         <button class="btn btn-info" ng-click="makePayment()">Make Payment</button>
-      </div>
+      
    </div>
    <!--Review Buttons-->
    <div style="display: flex; justify-content: space-around; clear: both; margin-bottom: 20px;">
@@ -118,5 +128,26 @@
    <!--View Reviews-->
    <div ng-show="reviews[1]">
       <reviews data="{{rentItem.reviews}}"></reviews>
+   </div>
+</div>
+<!--Message toggle form - -->
+<div class="modal fade" id="sendMessage" tabindex="-1" role="dialog" >
+   <div class="modal-dialog" role="document">
+      <form class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Message Form</h4>
+         </div>
+         <div class="modal-body">
+            <!--Change NG Models-->
+            <div class="form-group">
+               <label>Message</label>
+               <textarea id="textarea" ng-model="message.content" class="form-control" style="height: 150px; resize: none;"></textarea>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="sendMessage()">Send</button>
+         </div>
+      </form>
    </div>
 </div>

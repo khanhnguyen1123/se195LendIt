@@ -17,6 +17,9 @@
       'edit' : false,
       'editButton' : 'Edit Item'
     };
+
+    //TODO Fix Map UI
+    
     let id = $stateParams.random;
 
     $http.get('/api/request/id/'+id)

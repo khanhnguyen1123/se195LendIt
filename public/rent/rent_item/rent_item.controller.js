@@ -22,6 +22,9 @@
       'edit' : false,
       'editButton' : 'Edit Item'
     };
+
+    //TODO Fix Map UI
+    
     $scope.writeReview = false;
     $scope.reviews = [false, false];
     let id = $stateParams.random;

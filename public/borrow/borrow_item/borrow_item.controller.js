@@ -8,6 +8,8 @@
     $scope.categories = ['Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
     $scope.states = ['Available', 'Unavailble'];
     
+    //TODO Fix Map UI
+
     //$scope.borrowItem = {};
     //$scope.user = {};
 

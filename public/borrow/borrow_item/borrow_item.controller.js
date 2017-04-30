@@ -7,7 +7,7 @@
   function borrowItemController ($location, $http, $scope, $stateParams, authentication, meanData, filepickerService, $state) {
     $scope.categories = ['Tools', 'Books', 'Movies, Music & Games', 'Electronics', 'Toys', 'Clothes', 'Sports & Outdoors', 'Private Properties', 'Others'];
     $scope.states = ['Available', 'Unavailble'];
-    
+
     //$scope.borrowItem = {};
     //$scope.user = {};
 
@@ -22,9 +22,21 @@
       'edit' : false,
       'editButton' : 'Edit Item'
     };
+    $scope.message = {
+      'name' : '',
+      'content' : ''
+    };
     $scope.writeReview = false;
     $scope.reviews = [false, false];
     let id = $stateParams.random;
+
+    var inputFrom = document.getElementById('address');
+    var autocompleteFrom = new google.maps.places.Autocomplete(inputFrom);
+    google.maps.event.addListener(autocompleteFrom, 'place_changed', function() {
+    var place = autocompleteFrom.getPlace();
+      $scope.rentItem.location.lat = Math.round(parseFloat(place.geometry.location.lat()) * 1000) / 1000;
+      $scope.rentItem.location.lng = Math.round(parseFloat(place.geometry.location.lng()) * 1000) / 1000;
+    });
 
     //Gets Item
     $http.get('/api/borrow/id/'+id)
@@ -48,13 +60,16 @@
         .error(function (e) {
           console.log(e);
         })
-        .then( function () {
-          if ($scope.borrowItem && $scope.user._id == $scope.borrowItem.ownerId)
+        .finally( function () { 
+          if ($scope.borrowItem && $scope.user._id == $scope.borrowItem.ownerId) {
             $scope.owner = true;
+            $scope.message.name = $scope.user.name;
+          }
           else
             $scope.owner = false;
           checkWriteReview();
           updateState();
+          initMap();
         });
     }
     //Updates Item State
@@ -171,6 +186,65 @@
         }
       }
     }
+
+    //Sends message to user
+    $scope.sendMessage = function () {
+      let newMessage = {
+        users: [],
+        messages: [],
+        other: $scope.borrowItem.ownerId
+      }
+      var user = {
+        'userId': $scope.user._id,
+        'userName': $scope.user.name,
+        'userImage': '',
+      }
+      if ($scope.user.profileImage)
+        user.userImage = $scope.user.profileImage.url;
+      newMessage.users.push(user);
+      user = {
+        'userId': $scope.borrowItem.ownerId,
+        'userName': $scope.borrowItem.ownerName,
+        'userImage': '',
+      }
+      newMessage.users.push(user);
+      newMessage.messages.push($scope.message);
+      $http.post('api/message/new', newMessage)
+        .success( function(data) {
+          $scope.message = {};
+          $scope.alert = {
+            'class' : 'alert-success',
+            'message' : 'Message Sent Successfully',
+            'show' : true,
+          };
+        })
+        .error ( function(error) {
+          $scope.alert = {
+            'class' : 'alert-danger',
+            'message' : 'Message Failed To Send',
+            'show' : true,
+          };
+          console.log(error);
+        });
+    }
+
+    ///Google map view
+    function initMap(){
+      if (typeof $scope.borrowItem.location != 'undefined') {
+        var location =  new google.maps.LatLng($scope.borrowItem.location.lat, $scope.borrowItem.location.lng);
+        var mapOptions = {
+          zoom: 14,
+          center: location,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          scrollwheel: false
+        }
+        $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        marker = new google.maps.Marker({
+          map: $scope.map,
+          position: location
+        });
+      }
+    };
 
   }
 

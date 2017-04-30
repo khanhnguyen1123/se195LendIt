@@ -3,7 +3,18 @@
   <!--Rent-->
   <div>
     <div class="row" style="margin:20px 10px 0px 0px;">
-      <h2>{{rentTitle}}</h2>
+      <h2 style="margin-top: 0px; display:inline-block;">My Items</h2>
+      <div style="display:inline-block; float:right; margin-left:20px; " class="btn-group">
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" aria-label="Left Align">
+          {{filterDisplay}}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu pull-right">
+          <li class="search_list" style="padding: 3px 20px 3px 20px;" ng-click="filterResults('All')">All</li>
+          <li class="search_list" style="padding: 3px 20px 3px 20px;" ng-repeat="filter in filters" ng-click="filterResults(filter)"><input type="checkbox" aria-label="..." ng-checked="filter.selected" ng-click="filterResults()">  {{filter.label}}</li>
+        </ul>
+      </div>
+      <h3 ng-show="rentItems.length < 1 && borrowItems.length < 1 && requestedItems.length < 1 && usedItems.length < 1" >No Items Found</h3>
     </div>
     <div class="row" style="margin:5px 10px 0px 10px;" >
       <div class="col-md-4" style="width:246px; display:inline-block;" ng-repeat="item in rentItems">
@@ -14,17 +25,10 @@
           </p>
           <p style="fontsize:1em; margin:0px 5px 10px 5px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
             {{item.description}}
+            <span class="item-preview-price">{{item.price}} USD {{item.priceOption}}</span>
           </p>
         </div>
       </div>
-    </div>
-  </div>
-  <!--Borrow-->
-  <div>
-    <div class="row" style="margin:20px 10px 0px 0px;">
-      <h2>{{borrowTitle}}</h2>
-    </div>
-    <div class="row" style="margin:5px 10px 0px 10px;" >
       <div class="col-md-4" style="width:246px; display:inline-block;" ng-repeat="item in borrowItems">
         <div class="thumbnail item" ui-sref="borrow_item({random: item._id})">
           <img ng-src="{{item.pictures[0].url}}" alt="Image Not Found" style="width:100%; height:140px;"/>
@@ -33,17 +37,10 @@
           </p>
           <p style="fontsize:1em; margin:0px 5px 10px 5px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
             {{item.description}}
+            <span class="item-preview-price">FREE</span>
           </p>
         </div>
       </div>
-    </div>
-  </div>
-  <!--Requests-->
-  <div>
-    <div class="row" style="margin:20px 10px 0px 0px;">
-      <h2>{{requestTitle}}</h2>
-    </div>
-    <div class="row" style="margin:5px 10px 0px 10px;" >
       <div class="col-md-4" style="width:246px; display:inline-block;" ng-repeat="item in requestedItems">
         <div class="thumbnail item" ui-sref="request_item({random: item._id})">
           <img ng-src="{{item.pictures[0].url}}" alt="Image Not Found" style="width:100%; height:140px;"/>
@@ -52,32 +49,22 @@
           </p>
           <p style="fontsize:1em; margin:0px 5px 10px 5px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
             {{item.description}}
+            <span class="item-preview-price">NEEDED</span>
           </p>
         </div>
       </div>
-    </div>
-  </div>
-  <!--currently renting-->
-  <div>
-    <div class="row" style="margin:20px 10px 0px 0px;">
-      <h2>{{rentingTitle}}</h2>
-    </div>
-    <div class="row" style="margin:5px 10px 0px 10px;" >
-      <div class="col-md-4" style="width:246px; display:inline-block;" ng-repeat="item in vme.user.currentlyRenting">
+      <div class="col-md-4" style="width:246px; display:inline-block;" ng-repeat="item in usedItems">
         <div class="thumbnail item" ui-sref="rent_item({random: item.itemId})">
-          <img ng-src="{{item.itemImage}}" alt="Image Not Found" style="width:100%; height:140px;"/>
+          <img ng-src="{{item.itemImage[0].url}}" alt="Image Not Found" style="width:100%; height:140px;"/>
           <p style="font-size:1.5em; margin:0px 5px 0px 5px;">
             <b>{{item.itemName}}</b>
           </p>
           <p style="fontsize:1em; margin:0px 5px 10px 5px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
             {{item.itemDescription}}
-          </p>
-          <p style="fontsize:1em; margin:0px 5px 10px 5px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
-            End date: {{item.itemEndDate | date : 'short'}}
-          </p>
+            <span class="item-preview-price">Due {{item.itemEndDate | date: 'shortDate'}}</span>
+          </p>          
         </div>
       </div>
     </div>
   </div>
-
 </div>

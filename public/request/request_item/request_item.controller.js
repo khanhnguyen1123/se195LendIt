@@ -17,7 +17,20 @@
       'edit' : false,
       'editButton' : 'Edit Item'
     };
+    $scope.message = {
+      'name' : '',
+      'content' : ''
+    }
+    
     let id = $stateParams.random;
+
+    var inputFrom = document.getElementById('address');
+    var autocompleteFrom = new google.maps.places.Autocomplete(inputFrom);
+    google.maps.event.addListener(autocompleteFrom, 'place_changed', function() {
+    var place = autocompleteFrom.getPlace();
+      $scope.rentItem.location.lat = Math.round(parseFloat(place.geometry.location.lat()) * 1000) / 1000;
+      $scope.rentItem.location.lng = Math.round(parseFloat(place.geometry.location.lng()) * 1000) / 1000;
+    });
 
     $http.get('/api/request/id/'+id)
       .success(function(data) {
@@ -28,6 +41,7 @@
       })
       .then (function () {
         checkUser();
+        initMap();
       });
 
     function checkUser() {
@@ -41,8 +55,10 @@
           console.log(e);
         })
         .then( function () {
-          if ($scope.requestItem && $scope.user._id == $scope.requestItem.ownerId)
+          if ($scope.requestItem && $scope.user._id == $scope.requestItem.ownerId) {
             $scope.owner = true;
+            $scope.message.name = $scope.user.name;
+          }
           else
             $scope.owner = false;
         });
@@ -109,5 +125,64 @@
         }
       }
     }
+
+    //Sends message to user
+    $scope.sendMessage = function () {
+      let newMessage = {
+        users: [],
+        messages: [],
+        other: $scope.requestItem.ownerId
+      }
+      var user = {
+        'userId': $scope.user._id,
+        'userName': $scope.user.name,
+        'userImage': '',
+      }
+      if ($scope.user.profileImage)
+        user.userImage = $scope.user.profileImage.url;
+      newMessage.users.push(user);
+      user = {
+        'userId': $scope.requestItem.ownerId,
+        'userName': $scope.requestItem.ownerName,
+        'userImage': '',
+      }
+      newMessage.users.push(user);
+      newMessage.messages.push($scope.message);
+      $http.post('api/message/new', newMessage)
+        .success( function(data) {
+          $scope.message = {};
+          $scope.alert = {
+            'class' : 'alert-success',
+            'message' : 'Message Sent Successfully',
+            'show' : true,
+          };
+        })
+        .error ( function(error) {
+          $scope.alert = {
+            'class' : 'alert-danger',
+            'message' : 'Message Failed To Send',
+            'show' : true,
+          };
+          console.log(error);
+        });
+    }
+
+    ///Google map view
+    function initMap(){
+      if (typeof $scope.requestItem.location != 'undefined') {
+        var location =  new google.maps.LatLng($scope.requestItem.location.lat, $scope.requestItem.location.lng);
+        var mapOptions = {
+          zoom: 14,
+          center: location,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          scrollwheel: false
+        }
+        $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        marker = new google.maps.Marker({
+          map: $scope.map,
+          position: location
+        });
+      }
+    };
   }
 })();

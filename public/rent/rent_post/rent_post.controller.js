@@ -17,6 +17,11 @@
       $scope.rentPost.location = {};
       $scope.pr = this;
       $scope.pr.user = {};
+      $scope.alert = {
+         'class' : '',
+         'message' : '',
+         'show' : false,
+       };
       document.getElementById("images").style.display = "none";
       var geocoder = new google.maps.Geocoder();
       var marker = null;
@@ -27,6 +32,7 @@
          meanData.getProfile()
          .success(function(data) {
             $scope.pr.user = data;
+            //console.log($scope.pr.user);
          })
          .error(function (e) {
             console.log(e);
@@ -40,7 +46,7 @@
          var place = autocompleteFrom.getPlace();
          $scope.rentPost.location.lat = Math.round(parseFloat(place.geometry.location.lat()) * 1000) / 1000;
          $scope.rentPost.location.lng = Math.round(parseFloat(place.geometry.location.lng()) * 1000) / 1000;
-         console.log($scope.rentPost.location.lng + " " + $scope.rentPost.location.lng);
+         //console.log($scope.rentPost.location.lng + " " + $scope.rentPost.location.lng);
          if(marker != null){
             marker.setMap(null);
          }
@@ -52,6 +58,16 @@
          $scope.rentPost.ownerId = $scope.pr.user._id;
          $scope.rentPost.ownerName = $scope.pr.user.name;
          $scope.rentPost.state = "Available";
+
+         if (!$scope.pr.user.paypalAccount) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            $scope.alert = {
+               'class' : 'alert-danger',
+               'message' : 'PayPal account not detected',
+               'show' : true,
+             };
+             return;
+         }
          
          $http.post('/api/rent/create', $scope.rentPost)
             .success(function(data){
@@ -84,29 +100,25 @@
 
       ///Google map view
       function initMap(){
-
          var mapOptions = {
             zoom: 11,
             center: new google.maps.LatLng(37.33, -121.88),
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             scrollwheel: false
          }
-
          $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
       }
 
       function refreshMap(lat, lng){
-
          var location =  new google.maps.LatLng(lat, lng);
          $scope.map.setCenter(location);
          $scope.map.setZoom(15);
-         console.log(lat + " " + lng);
-
+         //console.log(lat + " " + lng);
          marker = new google.maps.Marker({
             map: $scope.map,
             position: location
          });
-         console.log(JSON.stringify(marker.position));
+         //console.log(JSON.stringify(marker.position));
 
          google.maps.event.addListener(marker, 'click', function(){
                infoWindow.open($scope.map, marker);

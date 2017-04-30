@@ -22,11 +22,24 @@
       'edit' : false,
       'editButton' : 'Edit Item'
     };
+    $scope.message = {
+      'name' : '',
+      'content' : ''
+    };
+    var inputFrom = document.getElementById('address');
+    var autocompleteFrom = new google.maps.places.Autocomplete(inputFrom);
+    google.maps.event.addListener(autocompleteFrom, 'place_changed', function() {
+    var place = autocompleteFrom.getPlace();
+      $scope.rentItem.location.lat = Math.round(parseFloat(place.geometry.location.lat()) * 1000) / 1000;
+      $scope.rentItem.location.lng = Math.round(parseFloat(place.geometry.location.lng()) * 1000) / 1000;
+    });
     $scope.writeReview = false;
     $scope.reviews = [false, false];
     let id = $stateParams.random;
-    
-    $http.get('/api/rent/id/'+id)
+    getItem();
+
+    function getItem() {
+      $http.get('/api/rent/id/'+id)
       .success(function(data) {
         $scope.rentItem = data;
         $scope.paymentLabel = data.priceOption.split(" ")[1]+"s";
@@ -34,10 +47,11 @@
       .error(function(error) {
         console.log('Error: ' + error);
       })
-      .then (function () {
+      .finally (function () {
         checkUser();
+        initMap();
       });
-
+    }
 
     function checkUser() {
       updateState();
@@ -51,8 +65,10 @@
           console.log(e);
         })
         .then( function () {
-          if ($scope.rentItem && $scope.user._id == $scope.rentItem.ownerId)
+          if ($scope.rentItem && $scope.user._id == $scope.rentItem.ownerId) {
             $scope.owner = true;
+            $scope.message.name = $scope.user.name;
+          }
           else
             $scope.owner = false;
           checkWriteReview();
@@ -175,16 +191,33 @@
         }
       }
     }
-
-   //TODO Khanh change payment costs
- /*  $scope.paymentData = {
-      currency: "USD",
-      amount  : "5.00" ,
-      description: " khanh testing paypal payment"
-   };
- */  
-   
-   $scope.makePayment = function() {
+    $scope.updateOther = function() {
+      let updateData = {
+        "otherId" : $scope.rentItem.otherId,
+        "itemId" : $scope.rentItem._id
+      };
+      $http.put('/api/rent/other', updateData)
+         .success( function(data) {
+            console.log(data);
+            $scope.alert = {
+              'class' : 'alert-success',
+              'message' : 'Renter Update Successfully',
+              'show' : true,
+            };
+         })
+         .error ( function(err) {
+            $scope.alert = {
+              'class' : 'alert-danger',
+              'message' : 'Renter Update Failed',
+              'show' : true,
+            };
+         })
+         .finally( function() {
+            getItem();
+         })
+    }
+    
+    $scope.makePayment = function() {
       var day =1;
       if($scope.paymentLabel == 'weeks'){
         day = 7;
@@ -192,7 +225,6 @@
       }
       var endDate = new Date();
       endDate.setDate(endDate.getDate() + (day*$scope.paymentLength));
-      console.log("testing end date: "+endDate);
 
       $scope.itemCost= {
         price: $scope.paymentLength * $scope.rentItem.price,
@@ -204,24 +236,79 @@
         itemId: $scope.rentItem._id,
         itemEndDate: endDate
       };
-    //  $scope.itemCost.price = $scope.paymentLength * $scope.rentItem.price;
-    //  $scope.itemCost.ownerId = $scope.rentItem.ownerId;
+    
 
       var confirm = $window.confirm("Confirm Your payment for "+$scope.itemCost.price);
-      if (confirm){
+      if (confirm) {
         $http.post('/create', $scope.itemCost)
-         .success(function(data){
+          .success(function(data){
             console.log('khanh successfully inside make paypal payment scope '+JSON.stringify(data));   
             $window.location.href = data.link;
-         })
-         .error(function(data) {
+          })
+          .error(function(data) {
             console.log('Error fail calling makePaypalPayment: ' + data);
-         });
-      }else
-        return
-      
-   };
+          });
+      } 
+    }
+
+    //Sends message to user
+    $scope.sendMessage = function () {
+      let newMessage = {
+        users: [],
+        messages: [],
+        other: $scope.rentItem.ownerId
+      }
+      var user = {
+        'userId': $scope.user._id,
+        'userName': $scope.user.name,
+        'userImage': '',
+      }
+      if ($scope.user.profileImage)
+        user.userImage = $scope.user.profileImage.url;
+      newMessage.users.push(user);
+      user = {
+        'userId': $scope.rentItem.ownerId,
+        'userName': $scope.rentItem.ownerName,
+        'userImage': '',
+      }
+      newMessage.users.push(user);
+      newMessage.messages.push($scope.message);
+      $http.post('api/message/new', newMessage)
+        .success( function(data) {
+          $scope.message = {};
+          $scope.alert = {
+            'class' : 'alert-success',
+            'message' : 'Message Sent Successfully',
+            'show' : true,
+          };
+        })
+        .error ( function(error) {
+          $scope.alert = {
+            'class' : 'alert-danger',
+            'message' : 'Message Failed To Send',
+            'show' : true,
+          };
+          console.log(error);
+        });
+    }
+
+    ///Google map view
+    function initMap(){
+      if (typeof $scope.rentItem.location != 'undefined') {
+        var location =  new google.maps.LatLng($scope.rentItem.location.lat, $scope.rentItem.location.lng);
+        var mapOptions = {
+          zoom: 14,
+          center: location,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          scrollwheel: false
+        }
+        $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        marker = new google.maps.Marker({
+          map: $scope.map,
+          position: location
+        });
+      }
+    };
 
   }
-
 })();

@@ -23,23 +23,33 @@ module.exports.updateItem = function(req, res) {
    rentModel.update({_id: req.body._id}, req.body, function(err) {
       if (err)
          res.send(err);
-
-      res.send("Item Update Successfully");
+      res.status(202).send("Item Update Successfully");
    })
-   // check to update for renter item [not oworking yet]
-   var item = {
-      itemId: req.body._id,
-      itemDescription: req.body.description
-   };
+}
 
-   console.log("item id "+item.itemId+" description: "+item.itemDescription);
-   User.update(
-           { },
-           { $pull : { currentlyRenting : { itemId : req.body._id } } },
-           { multi : true }
-         );
-   
-}// end update item
+//Update Item and Other
+module.exports.updateOther = function(req, res) {
+   User.findById({'_id': req.body.otherId}, function(err, data) {
+      if (err)
+         res.send(err)
+      let usedItems = data.currentlyRenting;
+      for (let i=0; i< usedItems.length; i++) {
+         if (usedItems[i].itemId == req.body.itemId) {
+            usedItems.splice(i,1);
+         }
+      }
+      User.update({'_id': req.body.otherId}, {'currentlyRenting' : usedItems}, function(err, data) {
+         if (err)
+            res.send(err);
+      })
+   })
+   rentModel.update({'_id': req.body.itemId},{'otherId':'','otherName':'','state':'Available'}, function(err, data) {
+      if (err)
+         res.send(err);
+      res.status(202).send("Item and User Updated");
+   })
+}
+
 //Delete Item
 module.exports.deleteItem = function(req, res) {
    rentModel.remove({_id: req.params.id}, function(err, data) {
@@ -76,7 +86,7 @@ module.exports.getItems = function(req, res) {
       res.json(data);
    });
 }
-//Get top 10 recent Items
+//Get top 5 recent Items
 module.exports.getRecentItems = function(req, res) {
    let query = rentModel.find({}).sort({ "dateAdded" : -1}).limit(5);
    query.exec(function(err, data){

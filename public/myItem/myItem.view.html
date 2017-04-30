@@ -23,10 +23,13 @@
           <p style="font-size:1.5em; margin:0px 5px 0px 5px;">
             <b>{{item.name}}</b>
           </p>
-          <p style="fontsize:1em; margin:0px 5px 10px 5px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+          <p class="item-preview-description">
             {{item.description}}
+          </p>
+          <p class="item-preview-description" style="margin:0px;">
             <span class="item-preview-price">{{item.price}} USD {{item.priceOption}}</span>
           </p>
+
         </div>
       </div>
       <div class="col-md-4" style="width:246px; display:inline-block;" ng-repeat="item in borrowItems">
@@ -35,8 +38,10 @@
           <p style="font-size:1.5em; margin:0px 5px 0px 5px;">
             <b>{{item.name}}</b>
           </p>
-          <p style="fontsize:1em; margin:0px 5px 10px 5px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+          <p class="item-preview-description">
             {{item.description}}
+          </p>
+          <p class="item-preview-description" style="margin:0px;">
             <span class="item-preview-price">FREE</span>
           </p>
         </div>
@@ -47,8 +52,10 @@
           <p style="font-size:1.5em; margin:0px 5px 0px 5px;">
             <b>{{item.name}}</b>
           </p>
-          <p style="fontsize:1em; margin:0px 5px 10px 5px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+          <p class="item-preview-description">
             {{item.description}}
+          </p>
+          <p class="item-preview-description" style="margin:0px;">
             <span class="item-preview-price">NEEDED</span>
           </p>
         </div>
@@ -59,10 +66,12 @@
           <p style="font-size:1.5em; margin:0px 5px 0px 5px;">
             <b>{{item.itemName}}</b>
           </p>
-          <p style="fontsize:1em; margin:0px 5px 10px 5px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
-            {{item.itemDescription}}
+          <p class="item-preview-description">
+            {{item.description}}
+          </p>
+          <p class="item-preview-description" style="margin:0px;">
             <span class="item-preview-price">Due {{item.itemEndDate | date: 'shortDate'}}</span>
-          </p>          
+          </p>
         </div>
       </div>
     </div>

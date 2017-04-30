@@ -23,6 +23,7 @@ module.exports.updateItem = function(req, res) {
    rentModel.update({_id: req.body._id}, req.body, function(err) {
       if (err)
          res.send(err);
+
       res.send("Item Update Successfully");
    })
    // check to update for renter item [not oworking yet]
@@ -34,8 +35,8 @@ module.exports.updateItem = function(req, res) {
    console.log("item id "+item.itemId+" description: "+item.itemDescription);
    User.update(
            { },
-           { $pull: { 'currentlyRenting': { itemId: req.body._id } } },
-           { multi: true }
+           { $pull : { currentlyRenting : { itemId : req.body._id } } },
+           { multi : true }
          );
    
 }// end update item

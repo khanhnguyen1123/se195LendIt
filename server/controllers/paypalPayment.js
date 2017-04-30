@@ -147,6 +147,7 @@ exports.cancel = function (req, res) {
 
 var updateItemState = function(id,end){
 	var updateFact={
+		otherId: renterId,
 		endDate: end,
 		state: "Unavailable"
 	};

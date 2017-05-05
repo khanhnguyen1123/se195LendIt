@@ -19,6 +19,11 @@
            <label for="password">Password</label>
            <input type="password" class="form-control" id="password" placeholder="Password" ng-model="vm.credentials.password">
          </div>
+         <div class="form-group" style="text-align:left;">
+           <label for="password">Confirm Password</label> <label ng-if="checkPassword == true" style="color: red"> Passwords don't match</label> <label ng-if="checkPassword == false" style="color: blue"> Passwords match</label>
+           <input type="password" class="form-control" id="password" placeholder="Re-type Password" ng-model="vm.credentials.retypepassword">
+         </div>
+         
          <button type="submit" class="btn btn-primary">Register!</button>
       </form>
    </div>

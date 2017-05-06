@@ -10,7 +10,7 @@
       $scope.rentTitle = "Rent Items";
       $scope.borrowTitle = "Borrow Items";
       $scope.requestTitle = "Requests Items";
-      $scope.currentTitle = "Current Items"
+      $scope.currentTitle = "Currently Renting";
 
       $scope.rentItems = [];
       $scope.borrowItems = [];

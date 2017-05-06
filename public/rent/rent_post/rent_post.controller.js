@@ -21,7 +21,7 @@
          'class' : '',
          'message' : '',
          'show' : false,
-       };
+      };
       document.getElementById("images").style.display = "none";
       var geocoder = new google.maps.Geocoder();
       var marker = null;

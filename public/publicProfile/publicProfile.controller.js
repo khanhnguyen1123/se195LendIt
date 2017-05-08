@@ -100,6 +100,7 @@
          if ($scope.currentUser.profileImage)
             user.userImage = $scope.currentUser.profileImage.url;
          newMessage.users.push(user);
+         $scope.message.name = $scope.currentUser.name;
          newMessage.messages.push($scope.message);
          console.log(newMessage);
          $http.post('api/message/new', newMessage)

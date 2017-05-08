@@ -1,6 +1,10 @@
 <navigation></navigation>
 <!--Login View Container-->
 <div class="main">
+   <div class="alert alert-dismissible" ng-class="alert.class" ng-show="alert.show" role="alert" id="editAlert">
+      <button class="close" ng-click="alert.show = false;">&times;</span></button>
+      {{alert.message}}
+   </div>
    <div style="width:400px; margin:auto; text-align:right;">
       <h1 style="text-align:center; margin-bottom:20px;">Welcome back!<br/>Please Sign In</h1>
       <!--Login Form-->

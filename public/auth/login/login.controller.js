@@ -12,12 +12,21 @@
       email : "",
       password : ""
     };
+    $scope.alert = {
+      'class' : '',
+      'message' : '',
+      'show' : false,
+    };
 
     $scope.vm.onSubmit = function () {
       authentication
         .login($scope.vm.credentials)
         .error(function(err){          
-          alert(err);
+          $scope.alert = {
+            'class' : 'alert-danger',
+            'message' : 'Incorrent login information',
+            'show' : true,
+          };
         })
         .then(function(){
           $location.path('profile');

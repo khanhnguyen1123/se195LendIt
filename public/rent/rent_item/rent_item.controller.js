@@ -272,6 +272,7 @@
         'userImage': '',
       }
       newMessage.users.push(user);
+      $scope.message.name = $scope.user.name;
       newMessage.messages.push($scope.message);
       $http.post('api/message/new', newMessage)
         .success( function(data) {

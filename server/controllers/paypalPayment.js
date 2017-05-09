@@ -67,8 +67,8 @@ exports.create = function (req, res) {
 			"payment_method": "paypal"
 		},
 		"redirect_urls":{
-			"return_url": "http://localhost:5000/execute",
-			"cancel_url": "http://localhost:5000/cancel"
+			"return_url": "https://lendit195.herokuapp.com/execute",
+			"cancel_url": "https://lendit195.herokuapp.com/cancel"
 		},
 		"transactions": [{
 			"amount": {

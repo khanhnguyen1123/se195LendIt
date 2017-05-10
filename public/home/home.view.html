@@ -1,0 +1,86 @@
+<navigation></navigation>
+<!--Home View Container-->
+<div ng-if="!loggedIn" style="width:100%; padding-top:50px; height:100%;">
+	<!--Sign In Container-->
+	<div style="float:right; background-image:url('http://www.nexus6wallpapers.com/wp-content/uploads/Simple/Gradient%20background%2016%20Nexus%206%20Wallpapers.jpg'); background-attachment:fixed; background-repeat:no-repeat; background-size:cover; width:300px; height:100%; text-align:center; border-left:4px solid #2F829E">
+		<br/>
+		<h1>Sign In</h1>
+		<!--Sign In Form-->
+		<form ng-submit="signIn()">
+			<div class="form-group" style="padding:10px 30px 10px 30px;">
+				<input type="email" class="form-control" id="email" placeholder="Enter Email" ng-model="form.email">
+			</div>
+			<div class="form-group" style="padding:10px 30px 10px 30px;">
+				<input type="password" class="form-control" id="password" placeholder="Enter Password" ng-model="form.password">
+			</div>
+			<button type="submit" class="btn btn-primary">Sign In</button>
+		</form>
+		<h4 style="margin-top:35px;">New to LendIt</h4>
+		<h4><a ui-sref="register" style="color:">Register Here</a></h4>
+	</div>
+	<!--Main Pic Background-->
+	<div style="height:100%; width:100%; min-width:700px; margin-right:300px; background-image:url('http://i.imgur.com/tBvHNsi.jpg'); background-attachment:fixed; background-repeat:no-repeat; background-size:cover;">
+		<!--Welcome Text-->
+		<h1 id="welcome_text" style="color:white; position:absolute; top:35%; bottom:65%; width:100%; padding-right:300px; text-align:center;">
+			<span style="font-size:1.4em;">LendIt</span>
+			<br/>
+			<span style="font-size:.9em;">A Platform to Rent and Borrow</span>
+		</h1>
+	</div>
+</div>
+<div ng-if="loggedIn" class="main" style="width:100%; padding-top:10px; height:100%;">
+	<div style="height:50%; width:100%; background-image:url('http://i.imgur.com/tBvHNsi.jpg'); background-attachment:fixed; background-repeat:no-repeat; background-size:cover;">
+		<!--Welcome Text-->
+		<h1 id="welcome_text" style="color:white; position:absolute; top:10%; width:100%; text-align:center;">
+			<span style="font-size:1.4em; text-shadow: 3px 0 0 #000">LendIt</span>
+			<br/>
+			<span style="font-size:.9em; text-shadow: 3px 0 0 #000">A place to rent and borrow</span>
+		</h1>
+	</div>
+
+	<table width=100%>
+		<tr>
+			<td width=33.3%>
+				<h3 style="text-align:center;">New Renting Items</h3>
+			</td>
+			<td width=33.3%>
+				<h3 style="text-align:center;">New Borrow Items</h3>
+			</td>
+			<td width=33.3%>
+				<h3 style="text-align:center;">New Request Items</h3>		
+			</td>
+		</tr>
+	</table>
+	<table width=100%>
+		<tr>
+			<td width=33.3% style="vertical-align: top">
+				<div ng-repeat="item in displayedRentItems" style="margin: auto; width: 50%;" >
+					<div class="thumbnail item" ui-sref="rent_item({random: item._id})">
+				        <img ng-src="{{item.pictures[0].url}}" alt="Image Not Found" style="width:100px; height:100px;"/>
+				        <p class="item-preview-title">{{item.name}}</p>
+				        <p class="item-preview-description">
+				          	<span class="item-preview-price">{{item.price}} USD {{item.priceOption}}</span>
+				        </p>
+				   	</div>
+				</div>
+			</td>
+			<td width=33.3% style="vertical-align: top">
+				<div ng-repeat="item in displayedBorrowItems" style="margin: auto; width: 50%;" >
+					<div class="thumbnail item" ui-sref="borrow_item({random: item._id})">
+				        <img ng-src="{{item.pictures[0].url}}" alt="Image Not Found" style="width:100px; height:100px;"/>
+				        <p class="item-preview-title">{{item.name}}</p>
+				        <p class="item-preview-description">FREE</p>
+				   	</div>
+				</div>
+			</td>
+			<td width=33.3% style="vertical-align: top">
+				<div ng-repeat="item in displayedRequestItems" style="margin: auto; width: 50%;" >
+					<div class="thumbnail item" ui-sref="request_item({random: item._id})">
+				        <img ng-src="{{item.pictures[0].url}}" alt="Image Not Found" style="width:100px; height:100px;"/>
+				        <p class="item-preview-title">{{item.name}}</p>
+				   	</div>
+				</div>				
+			</td>
+		</tr>
+	</table>
+</div>

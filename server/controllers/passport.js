@@ -50,7 +50,7 @@ passport.use(new FacebookStrategy({
            
             clientSecret: 'ae5ab34e3bea8355efb136431d6667b8',
             
-            callbackURL: "http://localhost:5000/auth/facebook/callback",
+            callbackURL: "https://lendit195.herokuapp.com/auth/facebook/callback",
 
             profileFields: ['id', 'emails', 'name'] //This
         },function(accessToken, refreshToken, profile, done) {

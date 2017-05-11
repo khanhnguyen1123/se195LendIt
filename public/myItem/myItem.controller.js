@@ -70,7 +70,7 @@
       function getUsed() {
          console.log($scope.user.currentlyRenting);
          if ($scope.user && $scope.user.currentlyRenting != 'undefined') {
-            $scope.usedItems = $scope.user.currentlyRenting;
+            $scope.currentItems = $scope.user.currentlyRenting;
          }
       }
       

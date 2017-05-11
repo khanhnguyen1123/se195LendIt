@@ -1,4 +1,4 @@
-I(function() { 
+(function() { 
 	angular
 	  .module('meanApp')
 	  .controller('myItemController', myItemController);

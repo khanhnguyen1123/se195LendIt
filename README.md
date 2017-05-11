@@ -7,7 +7,7 @@ LendIt is a Webapp that provides local people platform offering landing and rent
     Working things
   - Successfully setup MEAN stack environment
   - Connecting MongoDb database using Mongoose module
-  - Complete initial testing deployment to Heroku. Click the link to see the Webapp on Heroku  https://se195lendit.herokuapp.com/
+  - Complete initial testing deployment to Heroku. Click the link to see the Webapp on Heroku  https://lendit-sjsu.herokuapp.com/
 
 
     Not functioning things

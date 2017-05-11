@@ -1,9 +1,10 @@
 (function() { 
-   angular
-     .module('meanApp')
-     .controller('myItemController', myItemController);
-   myItemController.$inject = ['$location','meanData','$http','$scope'];
-   
+	angular
+	  .module('meanApp')
+	  .controller('myItemController', myItemController);
+	myItemController.$inject = ['$location','meanData','$http','$scope'];
+	
+
    function myItemController ($location,meanData,$http,$scope) {
       $scope.user;
 

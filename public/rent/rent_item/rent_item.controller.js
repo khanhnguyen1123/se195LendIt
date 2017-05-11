@@ -219,9 +219,15 @@
     };
 
     function returnToggle() {
-      if($scope.rentItem.otherId == 'undefined') $scope.returnButton = false;
-      else if($scope.rentItem.otherId == '') $scope.returnButton = false;
-      else $scope.returnButton = true;
+      if($scope.rentItem.otherId == undefined) {
+        $scope.returnButton = false;
+      }
+      else if($scope.rentItem.otherId == '') {
+        $scope.returnButton = false;
+      }
+      else {
+        $scope.returnButton = true;
+      }
     };
     
     $scope.makePayment = function() {

@@ -1,0 +1,86 @@
+<navigation> </navigation>
+<!--request Item Container-->
+<div class="main">
+   <div class="alert alert-dismissible" ng-class="alert.class" ng-show="alert.show" role="alert" id="editAlert">
+      <button class="close" ng-click="alert.show = false;">&times;</span></button>
+      {{alert.message}}
+   </div>
+
+   <!--Images Directive for Item Pictures-->
+   <images id="images" pictures="{{requestItem.pictures}}"></images>
+   <!--Item Details Container-->
+   <div class="panel panel-default item-display">
+      <p ng-show="owner" style="cursor:pointer; float: right; color: #999; margin: 4px;" ng-click="toggleEdit()">{{item.editButton}}</p>
+      <!--Item Information-->
+      <div id="item" ng-show="item.display">
+         <h1 style="font-size:3.5em; margin:0px">{{requestItem.name}}</h1>
+         <div style="margin-left:5px;">
+            <p style="margin:3px 0px 8px 0px;">
+               By <a ui-sref="publicProfile({random: borrowItem.ownerId})">{{requestItem.ownerName}}</a>
+               <button ng-hide="owner" type="button" style="padding: 2px 8px 2px 8px; display: inline; margin-left: 10px;" class="btn btn-info" data-toggle="modal" data-target="#sendMessage">
+                  Contact User
+               </button>
+            </p>
+         </div>
+         <h4 style="margin-bottom:0px; font-size:1.5em; margin-top:20px;">Description</h4>
+         <p style="padding:3px; word-wrap:break-word;">{{requestItem.description}}
+         </p>
+         <div id="map" style="height:225px; width:100%; margin-top: 10px; margin-bottom: 20px;"></div>
+      </div>
+      <!--Edit Item Form-->
+      <div id="editItem" ng-show="item.edit" style="margin-top: 15px;">
+         <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" placeholder="Item Name" ng-model="requestItem.name" required>
+         </div>
+         <!--Category-->
+         <div class="form-group">
+             <label>Category</label>
+             <select ng-model="requestItem.category" class="form-control" required>
+                 <option ng-repeat="category in categories">{{category}}</option>
+             </select>
+         </div>
+         <!--Location-->
+         <div class="form-group">
+            <label>Location</label>
+            <input id="address" placeholder="Item Address" type="text" ng-model="user.from" class="form-control" autocomplete="off" required>
+         </div>
+         <!--Description-->
+         <div class="form-group">
+            <label >Item Description</label>
+            <textarea id="textarea" ng-model="requestItem.description" class="form-control" style="height: 100px; resize: none;"></textarea>
+         </div>
+         <button type="button" class="btn btn-default" ng-click="upload()">
+             Upload Picture
+         </button>
+         <div class="form-group" style="margin-top: 15px; display: flex; justify-content: space-around;">
+            <button style="display: inline-block; width: 40%;" class="btn btn-danger btn-block" ng-click="deleteItem()">
+               <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                 Delete
+            </button>
+            <button style="display: inline-block; width: 40%;" class="btn btn-danger btn-block"  ng-click="updateItem()" ng-disabled="requestItem.$invalid">Submit</button>
+         </div>
+      </div>
+   </div>
+</div>
+<!--Message toggle form - -->
+<div class="modal fade" id="sendMessage" tabindex="-1" role="dialog" >
+   <div class="modal-dialog" role="document">
+      <form class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Message Form</h4>
+         </div>
+         <div class="modal-body">
+            <!--Change NG Models-->
+            <div class="form-group">
+               <label>Message</label>
+               <textarea id="textarea" ng-model="message.content" class="form-control" style="height: 150px; resize: none;"></textarea>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="sendMessage()">Send</button>
+         </div>
+      </form>
+   </div>
+</div>

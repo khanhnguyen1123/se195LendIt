@@ -1,0 +1,153 @@
+<navigation> </navigation>
+<!--Rent Item Container-->
+<div class="main">
+
+   <div class="alert alert-dismissible" ng-class="alert.class" ng-show="alert.show" role="alert" id="editAlert">
+      <button class="close" ng-click="alert.show = false;">&times;</span></button>
+      {{alert.message}}
+   </div>
+   <!--Images Directive for Item Pictures-->
+   <images id="images" pictures="{{rentItem.pictures}}"></images>
+   <!--Item Details Container-->
+   <div class="panel panel-default item-display">
+      <p ng-show="owner" style="cursor:pointer; float: right; color: #999; margin: 4px;" ng-click="toggleEdit()">{{item.editButton}}</p>
+      <div id="item" ng-show="item.display">
+         <h1 style="font-size:3.5em; margin:0px">{{rentItem.name}}</h1>
+         <div style="margin-left:5px;">
+            <p style="margin:3px 0px 8px 0px;">
+               By <a ui-sref="publicProfile({random: rentItem.ownerId})">{{rentItem.ownerName}}</a>
+               <button ng-hide="owner" type="button" style="padding: 2px 8px 2px 8px; display: inline; margin-left: 10px;" class="btn btn-info" data-toggle="modal" data-target="#sendMessage">
+                  Contact User
+               </button>
+            </p>
+            <p ng-show="owner" style="margin:3px 0px 8px 0px;">
+               Current Renter: <a ui-sref="publicProfile({random: rentItem.otherId})">{{rentItem.otherName}}</a>
+               <button ng-show="returnButton" type="button" style="padding: 2px 8px 2px 8px; display: inline; margin-left: 10px;" class="btn btn-info" ng-click="updateOther()">
+                  Mark as Returned
+               </button>
+            </p>
+            <!--http://codepen.io/anon/pen/NqazVa-->
+            <stars value="{{rentItem.aRating}}"></stars>
+            <p style="display:inline-block; margin:0px;">{{rentItem.aRating}}</p>
+            <div style="margin:0px 30px 0px 30px; display:inline-block;"></div>
+            <p style="display:inline-block; margin:0px;">{{rentItem.reviews.length}} Reviews</p>
+         </div>
+         <h4 style="font-size:1.2em;">
+            Currently: <span id="item-state">{{rentItem.state}}</span>
+         </h4>
+         <h4 style="margin-bottom:0px; font-size:1.5em; margin-top:20px;">
+            Price: <span style="color: #8b0000">{{rentItem.price}} USD {{rentItem.priceOption}}</span>
+         </h4>
+         <h4 style="margin-bottom:0px; font-size:1.5em; margin-top:20px;">Description</h4>
+         <p style="padding:3px; word-wrap:break-word;">{{rentItem.description}}
+         </p>
+         <div ng-hide="owner || rentItem.state !='Available' ">
+            <div  style="display: inline-block;">
+               <input type="number" class="form-control number-input" min="1" step="1" ng-model="paymentLength" required />    
+               <label style="width:auto;">{{paymentLabel}}</label>        
+            </div>
+            <button class="btn btn-info" ng-click="makePayment()">Make Payment</button>
+         </div>
+         <div id="map" style="height:225px; width:100%; margin-top: 15px; margin-bottom: 20px;"></div>
+      </div>
+      <!--Edit Form Container-->
+      <div id="editItem" ng-show="item.edit" style="margin-top: 15px;">
+         <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" placeholder="Item Name" ng-model="rentItem.name" required>
+         </div>
+         <!--Category-->
+         <div class="form-group">
+            <label>Category</label>
+            <select ng-model="rentItem.category" class="form-control" required>
+               <option ng-repeat="category in categories">{{category}}</option>
+            </select>
+         </div>
+         <!--Location-->
+         <div class="form-group">
+            <label>Location</label>
+            <input id="address" placeholder="Item Address" type="text" ng-model="user.from" class="form-control" autocomplete="off" required>
+         </div>
+         <!--Price-->
+         <div class="form-group" style="display: flex; justify-content: space-between; width: 90%;">
+            <div style="display: inline-block;">
+               <label style="width:auto;">Price(USD)</label>
+               <input type="number" class="form-control number-input" min="1" step="1" ng-model="rentItem.price" required />
+               <select ng-model="rentItem.priceOption" class="form-control" style="width:auto; display: inline-block;" required>
+                  <option ng-repeat="options in priceOptions">{{options}}</option>
+               </select>
+            </div>
+            <div style="display: inline-block;">
+               <label style="width:auto;">Quantity</label>
+               <input type="number" class="form-control number-input" min="1" step="1" ng-model="rentItem.quantity" required />
+            </div>
+         </div>
+         <!--Description-->
+         <div class="form-group">
+            <label >Item Description</label>
+            <textarea id="textarea" ng-model="rentItem.description" class="form-control" style="height: 100px; resize: none;"></textarea>
+         </div>
+         <button type="button" class="btn btn-default" ng-click="upload()">
+            Upload Picture
+         </button>
+         <div class="form-group" style="margin-top: 15px; display: flex; justify-content: space-around;">
+            <button style="display: inline-block; width: 40%;" class="btn btn-danger btn-block" ng-click="deleteItem()">
+               <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                 Delete
+             </button>
+            <button style="display: inline-block; width: 40%;" class="btn btn-danger btn-block"  ng-click="updateItem()" ng-disabled="rentItem.$invalid">Submit</button>
+         </div>
+      </div>
+      
+   </div>
+   <!--Review Buttons-->
+   <div style="display: flex; justify-content: space-around; clear: both; margin-bottom: 20px;">
+      <h1 ng-show="test">Test</h1>
+      <button ng-show="writeReview" class="btn btn-info" ng-click="toggleReviews(0)">Write A Review</button>
+      <button class="btn btn-info" ng-click="toggleReviews(1)">View Reviews</button>
+   </div>
+   <!--Write Review-->
+   <div id="write" class="panel panel-default" ng-show="reviews[0]" style="padding: 5px 20px 15px 20px;">
+   <h3>Write A Review</h3>
+   <form name="rForm">
+      <div class="form-group">
+         <label>Rating {{reviewForm.rating}}</label>
+         <rater ng-model="reviewForm.rating"></rater>
+      </div>
+      <div class="form-group">
+         <label>Title</label>
+         <input type="text" class="form-control" placeholder="Title" ng-model="reviewForm.title" required>
+      </div>
+      <div class="form-group">
+         <textarea id="textarea" ng-model="reviewForm.content" class="form-control" style="height: 100px; resize: vertical;" required></textarea>
+      </div>
+      <button class="btn btn-info" ng-disabled="rForm.$invalid"ng-click="submitReview()" style="float:right;">Submit</button>
+   </form>
+   <div style="clear: both;"></div>
+   </div>
+   <!--View Reviews-->
+   <div ng-show="reviews[1]">
+      <reviews data="{{rentItem.reviews}}"></reviews>
+   </div>
+</div>
+<!--Message toggle form - -->
+<div class="modal fade" id="sendMessage" tabindex="-1" role="dialog" >
+   <div class="modal-dialog" role="document">
+      <form class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Message Form</h4>
+         </div>
+         <div class="modal-body">
+            <!--Change NG Models-->
+            <div class="form-group">
+               <label>Message</label>
+               <textarea id="textarea" ng-model="message.content" class="form-control" style="height: 150px; resize: none;"></textarea>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="sendMessage()">Send</button>
+         </div>
+      </form>
+   </div>
+</div>

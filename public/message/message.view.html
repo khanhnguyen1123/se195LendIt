@@ -1,0 +1,30 @@
+<navigation> </navigation>
+<div class="main">
+   <div style="border: 1px solid black; width: 300px; height: calc(100vh - 110px); display: inline-block;">
+      <h2 style="text-align: center">Conversations</h2>
+      <div style="overflow: scroll; height: calc(100vh - 175px)">
+         <div ng-repeat="conv in conversations" style="padding: 5px 10px 5px 10px;" ng-click="selectConversation(conv)" id="{{conv._id}}">
+            <div style="width: 90%; margin: 5px auto 8px auto; height: 1px; background-color: grey;"></div>
+            <img ng-src="{{conv.other.userImage}}" style="width: 60px; border-radius: 50%;"/>
+            <a ui-sref="publicProfile({'random' : conv.other.userId})"><p style="display: inline-block; font-size: 1.3em; margin-left: 10px;">{{conv.other.userName}}</p></a>
+            <span style="float: right; margin: 3.5% 10px 0px 0px;" class="glyphicon glyphicon-trash" ng-click="deleteMessage(conv)" />
+            <div style="width: 90%; margin: 8px auto 5px auto; height: 1px; background-color: grey;"></div>
+         </div>
+      </div>
+   </div>
+   <div style="border: 1px solid black; width: calc(100% - 350px); display: inline-block; margin-right: 15px; float: right;" ng-if="selectedConv">
+      <div style="height: calc(100vh - 172px); overflow: scroll; ">
+         <div ng-repeat="message in selectedConv.messages" style="padding: 10px; ">
+            <div ng-class="message.class">
+               <span style="overflow-wrap: break-word;">{{message.content}}</span>
+               <br />
+               <span>{{message.date | date : 'short'}}</span>
+            </div>
+         </div>
+      </div>
+      <form>
+         <input style="border-radius: 0px;" type="text" class="form-control" placeholder="Send a message" ng-model="response.data">
+         <button class="btn btn-primary" style="width: 100%; padding: 3px; border-radius: 0px;" ng-click="sendMessage()" ng-disabled="!response.data">Send</button>
+      </form>
+   </div>
+</div>

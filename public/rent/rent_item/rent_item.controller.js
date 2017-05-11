@@ -49,6 +49,7 @@
       })
       .finally (function () {
         checkUser();
+        returnToggle();
         initMap();
       });
     }
@@ -215,7 +216,13 @@
          .finally( function() {
             getItem();
          })
-    }
+    };
+
+    function returnToggle() {
+      if($scope.rentItem.otherId == 'undefined') $scope.returnButton = false;
+      else if($scope.rentItem.otherId == '') $scope.returnButton = false;
+      else $scope.returnButton = true;
+    };
     
     $scope.makePayment = function() {
       var day =1;

@@ -42,12 +42,12 @@ module.exports.updateOther = function(req, res) {
          if (err)
             res.send(err);
       })
-   })
+   });
    rentModel.update({'_id': req.body.itemId},{'otherId':'','otherName':'','state':'Available'}, function(err, data) {
       if (err)
          res.send(err);
       res.status(202).send("Item and User Updated");
-   })
+   });
 }
 
 //Delete Item

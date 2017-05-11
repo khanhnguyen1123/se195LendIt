@@ -22,7 +22,7 @@
             </p>
             <p ng-show="owner" style="margin:3px 0px 8px 0px;">
                Current Renter: <a ui-sref="publicProfile({random: rentItem.otherId})">{{rentItem.otherName}}</a>
-               <button ng-show="rentItem.otherId != ''" type="button" style="padding: 2px 8px 2px 8px; display: inline; margin-left: 10px;" class="btn btn-info" ng-click="updateOther()">
+               <button ng-show="returnButton" type="button" style="padding: 2px 8px 2px 8px; display: inline; margin-left: 10px;" class="btn btn-info" ng-click="updateOther()">
                   Mark as Returned
                </button>
             </p>
